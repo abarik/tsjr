@@ -1,0 +1,32 @@
+# Előszó {#sec-eloszo .unnumbered}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+A statisztika alapfogalmai nagyon jól szemléltethetők az egyváltozós statisztikai eljárásokkal. Ezek az eljárások tipikusan egy (vagy két) változó vizsgálatával járulnak hozzá az empirikus vizsgálatok során felmerülő statisztikai jellegű kérdések megválaszolásához.
+
+A kutatómunka során azonban szükség lehet egyszerre több változó bevonására az elemzésbe, ezeket az eljárásokat többváltozós statisztikai eljárásoknak nevezzük. Ilyen eljárás például:
+
+* Lineáris regresszió ([-@sec-linearis-regresszio])
+* Főkomponens elemzés ([-@sec-fokomponens-elemzes])
+* Megbízhatóság elemzés ([-@sec-megbizhatosag-elemzes])
+* Feltáró faktorelemzés ([-@sec-feltaro-faktorelemzes])
+* Megerősítő faktorelemzés ([-@sec-megerosito-faktorelemzes])
+* Többszempontos varianciaelemzés ([-@sec-tobbszempontos-varianciaelemzes])
+* Klaszterelemzés ([-@sec-klaszterelemzes])
+* Diszkriminancia elemzés ([-@sec-diszkriminancia-elemzes])
+* Többváltozós varianciaelemzés ([-@sec-tobbvaltozos-varianciaelemzes])
+* Logisztikus regresszióelemzés ([-@sec-logisztikus-regresszio])
+* Többdimenziós skálázás ([-@sec-tobbdimenzios-skalazas])
+
+
+
+A jegyzet elkészítéséhez elsősorban a kurzus tankönyvét [@MunnichNagyAbari2006] használtuk fel, de támaszkodtunk egyéb forrásokra is [@Csallner2015; @KetskemetyIzso2005; @MalhotraSimon2008; @Moksony2006; @SajtosMitev2007; @SzekelyiBarna2002; @TakacsBev22017; @Varga2019].
+
+
+\mainmatter
+
+

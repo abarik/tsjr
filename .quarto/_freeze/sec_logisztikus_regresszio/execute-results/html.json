@@ -1,0 +1,14 @@
+{
+  "hash": "3a7d031a27bb4bf5ab36abbedfa73768",
+  "result": {
+    "markdown": "# Logisztikus regresszió {#sec-logisztikus-regresszio}\n\n\n\n\n\nA logisztikus regresszió céljait tekintve megegyezik a diszkriminancia elemzéssel, de sokkal robusztusabb, azaz kevesebb alkalmazási feltétellel rendelkezik. Használható a logisztikus regresszió akkor is, ha a független változók között kategorikus változók is előfordulnak, illetve a normalitásra és homoszkedaszticitásra vonatkozó feltétel megsértésre sem érzékeny a módszer.\n\nJÖN.\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

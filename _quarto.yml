@@ -1,0 +1,73 @@
+project:
+  type: book
+  output-dir: docs
+
+editor: source
+lang: hu
+language: hungarian.yml
+
+bibliography: tobbvaltozos_jr.bib
+biblio-style: apalike
+csl: apahun
+pdf-engine: lualatex
+
+book:
+  title: "Többváltozós statisztika jamovi-ban és R-ben"
+  author: "Abari Kálmán"
+  cover-image: images/cover.jpg
+  date: "2023. 03. 22."
+  search: true
+  repo-url: https://github.com/abarik/aeer
+  site-url: https://abarik.github.io/aeer/
+  downloads: [pdf, epub]
+  sharing: [twitter, facebook]
+  page-navigation: true
+  sidebar:
+    collapse-level: 3
+    pinned: true
+  chapters:
+    - index.qmd
+    - sec_linearis_regresszio.qmd
+    - sec_fokomponens_elemzes.qmd
+    - sec_megbizhatosag_elemzes.qmd
+    - sec_feltaro_faktorelemzes.qmd
+    - sec_megerosito_faktorelemzes.qmd
+    - sec_tobbszempontos_variancielemzes.qmd
+    - sec_klaszter.qmd
+    - sec_diszkrimninancia.qmd
+    - sec_tobbvaltozos_variancia.qmd
+    - sec_logisztikus_regresszio.qmd
+    - sec_tobbdimenzios_skalazas.qmd
+  appendices:
+    - appendix_linkek.qmd
+    - appendix_adatbazisok.qmd
+    - references.qmd
+
+format:
+  epub: 
+    epub-cover-image: images/cover.jpg
+  html:
+    theme: cosmo
+    # theme:
+    #   light: flatly
+    #   dark: darkly
+    callout-appearance: simple
+    code-copy: true
+  pdf:
+    documentclass: krantz
+    include-in-header: latex/preamble.tex
+    include-before-body: latex/before_body.tex
+    include-after-body: latex/after_body.tex
+    keep-tex: true
+    callout-appearance: simple
+    lof: true
+    lot: true
+    # documentclass: scrreprt
+  docx: 
+    reference-doc: elemzes_template.docx
+  
+
+
+
+
+

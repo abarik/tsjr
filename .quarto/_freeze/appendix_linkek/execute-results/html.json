@@ -1,0 +1,14 @@
+{
+  "hash": "4986b8d12b408f48d1f04fb37a2495f0",
+  "result": {
+    "markdown": "# Elérhető videók {#sec-elerheto-videok}\n\n\n\n\n\n* Alapozo jamovi és R videók\n    \n    * [Jamovi a gyakorlatban](https://www.youtube.com/watch?v=sZummF3Sd90&list=PLnmeQHnHYqv5_FoVOvX9tqE90EqoOW01o)\n    * [R a gyakorlatban](https://www.youtube.com/watch?v=UBeiIKzE8VA&list=PLnmeQHnHYqv6ENGrdTXiE9YJrvHuxH2C9)\n\n* Jamovi tutorial videók az összes tanult eljáráshoz\n\n    * [datalab.cc](https://www.youtube.com/@datalabcc/videos)\n    * [Alexander Swan](https://www.youtube.com/@AlexanderSwan/videos)\n\n* Lineáris regresszió \n\n\n    * [The linear regression model](https://www.youtube.com/watch?v=m88h75F3Rl8)\n    * [Linear Regression, Clearly Explained](https://www.youtube.com/watch?v=nk2CQITm_eo)\n    * [R-squared, Clearly Explained](https://www.youtube.com/watch?v=2AQKmw14mHM)\n    * [Simple linear regression in Jamovi](https://www.youtube.com/watch?v=rUMWjRE8L1U)\n    \n* Főkomponens elemzés\n\n\n    * [Principal Component Analysis (PCA)](https://www.youtube.com/watch?v=g-Hb26agBFg)\n\n* Klaszterelemzés\n\n\n    * [Flat and Hierarchical Clustering | The Dendrogram Explained](https://www.youtube.com/watch?v=ijUMKMC4f9I)\n    * [K Means Clustering: Pros and Cons of K Means Clustering](https://www.youtube.com/watch?v=YIGtalP1mv0)\n    * [Hierarchical Cluster analysis in Jamovi](https://www.youtube.com/watch?v=TnFfAQpq0o4)\n    * [K Means Cluster analysis in Jamovi](https://www.youtube.com/watch?v=wW7TNlam77A)\n    \n* Többszempontos varianciaelemzés\n\n\n    * [One Way ANOVA Post hoc test in Jamovi](https://www.youtube.com/watch?v=pECfK5IfB_o)\n    * [One Way Repeated Measure ANOVA Repeated Measure ANOVA Within Subject ANOVA in Jamovi](https://www.youtube.com/watch?v=O6BiwVRj3BQ)\n    * [Two Way ANOVA Post hoc test in Jamovi](https://www.youtube.com/watch?v=l6ClJFgxNXs)\n    * [Three Way ANOVA Post hoc test in Jamovi](https://www.youtube.com/watch?v=WW8ALE6x3uQ)\n    ",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

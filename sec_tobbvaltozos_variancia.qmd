@@ -1,0 +1,255 @@
+# Többváltozós varianciaelemzés {#sec-tobbvaltozos-varianciaelemzes}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+## Elméleti háttér
+
+A MANOVA a többváltozós varianciaelemzés angol megfelelőjéből képzett betűszó (Multivariate ANOVA vagy Multivariate Analysis of Variance). A szokásos ANOVA kiterjesztésének tekinthető, ahol nem egy, hanem kettő vagy több függő változóval dolgozhatunk, de a cél ugyanaz: a független változó több csoportja közötti különbségek elemzése.
+
+Felmerülhet bennünk, hogy ha több függő változónk van, akkor mindegyikre végezzünk el külön egy-egy hagyományos ANOVA-t, azonban ez az elsőfajú hiba emelkedéséhez vezet. A MANOVA olyan megoldást kínál, amivel több függő változó kombinált információi alapján képes kimutatni a csoportkülönbségeket.
+
+Mivel a MANOVA egynél több függő változót használ, a null- és az ellenhipotézisek kissé megváltoznak:
+
+* $H_0$: A csoportok várható érték vektorai minden csoportban azonosak.
+* $H_1$: A csoportok várható érték vektorainak legalább egyike eltér egy másiktól.
+
+## Példa: Vezetési programok
+
+Egy vállalat menedzsmentje szeretné megvizsgálni különböző vezetési programok hatását, ezért három különböző vezetési programot vezetett be három különböző stratégiai üzleti egységben (SÜE). Az első SÜE-ben bevezetett program az egyenlőséget és az individualizmust hangsúlyozta. A második SÜE-ben az egyenlőséget és a csoportmunkát helyzeték középpontba. A harmadik SÜE-ben a bevezetett program egy nagyon hierarchikus vezetési elvet alkalmazott. Később mindhárom SÜE dolgozóinak körében felmérést végeztek, és a kérdések között szerepelt a szervezettel való elkötelezettség mértéke (`szelkot`), a szervezettel való elégedettség nagysága (`elegedett`), illetve a rendszer egalitárius vagy tekintélyelvű (autokrata) jellege (`rendszer`). Vizsgáljuk meg, hogy a SÜE három csoportja azonosnak tekinthető-e a vizsgált 3 kérdésre (`szelkot`, `elegedett` és `rendszer`) adott válaszok tekintetében. 
+
+```{r}
+vezetes <- rio::import(file = "adat/manova_vezetesi_program.xlsx")
+vezetes$SUE <- factor(vezetes$SUE)
+str(vezetes)
+psych::headTail(vezetes)
+```
+
+Mivel a MANOVA a három stratégiai üzleti egységben (SÜE) a kérdőívek pontszámainak (vagyis a függő változók) átlagainak különbségire kérdez rá, így készítsünk dobozdiagramot mindhárom csoportban
+
+```{r}
+library(ggplot2)
+p1 <- ggplot(vezetes, aes(x=SUE, y=szelkot, fill=SUE)) + geom_boxplot() + theme(legend.position = "top")
+p2 <- ggplot(vezetes, aes(x=SUE, y=elegedett, fill=SUE)) + geom_boxplot() + theme(legend.position = "top")
+p3 <- ggplot(vezetes, aes(x=SUE, y=rendszer, fill=SUE)) + geom_boxplot() + theme(legend.position = "top")
+gridExtra::grid.arrange(p1, p2, p3, nrow=1)
+```
+
+Úgy tűnik, hogy a mindhárom csoport eléggé különbözik egymástól.
+
+Végezzük el az egyszempontos többváltozós variancia elemzést. A `manova()` függvény a `formula=` argumentumában a kettő vagy több numerikus függő változót és legalább egy független változót vár. A függő változókat most a `cbind()` függvénnyel fűztük egymás mellé, a független változónk pedig a 3 szintű kategorikus `SUE`.
+
+```{r}
+man_1 <- manova(formula = cbind(szelkot, elegedett, rendszer)~SUE, data=vezetes)
+summary(man_1)
+```
+
+Alapértelmezés szerint a MANOVA az R-ben a Pillai-féle tesztstatisztikáit használja. A p-érték gyakorlatilag nulla, ami azt jelenti, hogy nyugodtan elvethetjük a nullhipotézist: legalább egy csoportátlagvektor eltér a többitől.
+
+Használhat más teszteket is, mint például a Wilk-lambda, a Roy-féle vagy a Hotelling-Lawley statisztikákat, de a Pillai-féle a legrobusztosabb.
+
+
+```{r}
+summary(man_1, test = "Wilks")
+summary(man_1, test = "Hotelling-Lawley")
+summary(man_1, test = "Roy")
+```
+
+A hatásnagyság kiszámítására MANOVA esetében a parciális Eta négyzet $(\eta_p^2)$ mutatót használhatjuk. Azt méri, hogy a független változó milyen hatással van a függő változókra. Ha az érték 0,14 vagy nagyobb, akkor azt mondhatjuk, hogy a hatás mérete nagy. Ez most 0,45, ami azt jelenti, hogy a hatás mérete nagy.
+
+```{r}
+effectsize::eta_squared(man_1, partial = T)
+effectsize::interpret_eta_squared(0.45, partial=T)
+```
+
+Mivel a MANOVA szignifikáns lett, további kérdés, hogy melyik csoport átlagvektora különbözik a többitől? Post-hoc tesztet kell végeznünk, amely esetünkben a lineáris diszkriminancia elemzés és az egyváltozós ANOVA lesz.
+
+## Post-hoc teszt: LDA
+
+A lineáris diszkriminancia elemzés (LDA) célja, hogy változók olyan lineáris kombinációját találja meg, amely a legjobban elválaszt két vagy több csoportot. Ezáltal képesek leszünk egy olyan pontdiagramot megjeleníteni, amely az X és Y tengely két lineáris diszkriminánst jeleníti meg, a pontokat pedig a független változónak (`SUE`) megfelelően fogjuk színezni.
+
+A lineáris diszkriminancia elemzést R-ben a `{MASS}` csomag `lda()` függvényével végzünk.
+
+```{r}
+library(MASS)
+lda_1 <- lda(SUE~szelkot+elegedett+rendszer, data=vezetes)
+lda_1
+# klaR::greedy.wilks(vasarlas~ertek+attitud+fizetes+kor,data=bio, niveau = 0.15) 
+```
+
+A fenti együtthatókból megtudhatjuk hogyan használják fel a függő változókat az LDA döntési szabályának kialakítására. Az LD1 a következőképpen számítható ki: 
+
+A `vezetes` adatmátrix numerikus változóira magunk is kiszámolhatjuk az LD1 és LDA2 értékét a `predict()` függvénnyel:
+
+```{r}
+lda_1_pred <- predict(lda_1, method="plug-in")
+psych::headTail(lda_1_pred$x)
+```
+
+A post-hoc teszt utolsó lépése a fenti a pontdiagram megjelenítése. Ideális esetben egy vagy több csoport kiemelkedik:
+
+```{r}
+d <- data.frame(lda_1_pred$x, SUE=vezetes$SUE)
+psych::headTail(d)
+```
+
+```{r}
+ggplot(d, aes(x = LD1, y=LD2, colour=SUE)) + geom_point(size=4)
+```
+
+
+A képen látható, hogy a harmadik SÜE csoport eltér mindkét másik csoporttól, míg a az első két csoport eltérése egymástól nem mondható markánsnak. Könnyen elképzelhető, hogy a SÜE harmadik csoportja volt a legnagyobb hatással a nullhipotézis elutasítására.
+
+## Post-hoc test: egyváltozós vizsgálatok
+
+A statisztikailag szignifikáns egyszempontos MANOVA után az egyváltozós egyszempontos ANOVA-val is vizsgálódhatunk, amely minden függő változót külön-külön vizsgál. A cél az, hogy azonosítsuk azokat a konkrét függő változókat, amelyek hozzájárultak a jelentős globális hatáshoz. A klasszikus ANOVA mellett a Welch-féle változat és a Kruskal--Wallis-próba is használható, a feltételek egyre nagyobb csorbulása esetén. Most a nemparaméteres Kruskal--Wallis-próbát használjuk.
+
+```{r}
+kruskal.test(szelkot ~ SUE, data = vezetes)$p.value
+kruskal.test(elegedett ~ SUE, data = vezetes)$p.value
+kruskal.test(rendszer ~ SUE, data = vezetes)$p.value
+```
+
+
+Látjuk, hogy az `elegedett` és a `rendszer` függő változókban nem egyeznek a várható értékek a SÜE egyes csoportjaiban. Megjegyezzük, hogy mivel 3 függő változónk van, a Bonferroni-féle többszörös tesztelési korrekciót alkalmaznunk kell, vagyis a statisztikai szignifikancia szintet csökkenteni kell. Ez úgy történik, hogy a klasszikus alfa szintet (0,05) elosztjuk a tesztek (vagy függő változók, itt 3) számával. Ez p < 0,017-es szignifikancia elfogadási kritériumhoz vezet. A fenti próbák szignifikáns voltán ez most nem változtat.
+
+A statisztikailag szignifikáns egyváltozós ANOVA-t (esetünkben Kruskal--Wallis-próbát) többszörös páronkénti összehasonlítás követi annak meghatározására, hogy mely csoportok különböznek egymástól. Most a Kruskal--Wallis-próba szokásos utóvizsgálatát a Dunn-próbát fogjuk használni.
+
+```{r}
+library(DescTools)
+DunnTest(formula = szelkot ~ SUE, data = vezetes, method = "holm")
+DunnTest(formula = elegedett ~ SUE, data = vezetes, method = "holm")
+DunnTest(formula = rendszer ~ SUE, data = vezetes, method = "holm")
+```
+
+A fenti utóvizsgálatok világossá teszik, hogy a harmadik SÜE csoport a `rendszer` változó esetén mindkét másik csoporttól, az `elegedett` változó esetén pedig a második csoporttól szignifikánsan eltér. Legjelentősebb mértékben tehűt a harmadik csoport különül el a másik két csoporttól, tehát ez okozza a MANOVA nullhipotézisének elvetését.
+
+
+## Elemzés jamovi-ban
+
+
+A fenti elemzés jamovi-ban is elvégezhető az `ANOVA / MANCOVA` menüpontok kiválasztásával.
+
+![MANOVA jamovi-ban](images/manova_kep_01.jpg)
+
+
+## Alkalmazási feltételek vizsgálata
+
+A MANOVA statisztikai próbának számos szigorú alkalmazási feltétele van. Néhány az ANOVA-ból jön, például a megfigyelések függetlensége vagy a variancia homogenitása, azonban vannak újdonságok is.
+
+
+* **Megfelelő mintanagyság.** Ökölszabály: a mintaelemszám mindegyik független változó csoportban nagyobb az függő változók számánál.
+
+```{r}
+summarytools::freq(vezetes$SUE, cumul = FALSE)
+```
+
+
+Látható, hogy a függő változók számát (3) minden csoport elemszáma (10) meghaladja.
+
+* **A megfigyelések függetlensége.** Minden személynek csak egy csoportba kell tartoznia. Az egyes csoportok megfigyelései között nincs kapcsolat. Az ismételt mérések nem megengedettek. A minta kiválasztásának teljesen véletlenszerűnek kell lennie.
+
+* **Az egyváltozós vagy többváltozós kiugró értékek hiánya.**
+
+Az egydimenziós kiugró értékek dobozdiagramokkal is ellenőrizhetők, ezt korábban elvégeztük, láttuk csak egyetlen részcsoportban van kiugró értékek (a `szelkot` változó változó esetén a SÜE harmadik csoportjában). Használhatjuk a kényelmes `rstatix::identify_outliers()` függvényt is.
+
+```{r}
+library(tidyverse)
+vezetes %>% 
+  group_by(SUE) %>% 
+  rstatix::identify_outliers(szelkot)
+vezetes %>% 
+  group_by(SUE) %>% 
+  rstatix::identify_outliers(elegedett)
+vezetes %>% 
+  group_by(SUE) %>% 
+  rstatix::identify_outliers(rendszer)
+```
+
+
+A többváltozós kiugró értékek olyan adatpontok, amelyek szokatlan értékkombinációt tartalmaznak a kimeneti (vagy függő) változókon. A Mahalanobis távolságot általában a többváltozós kiugró értékek észlelésére használják. A távolság megmondja, milyen messze van egy megfigyelés a felhő középpontjától, figyelembe véve a felhő alakját (kovariancia) is. A `rstatix::mahalanobis_distance()` függvény könnyen használható a Mahalanobis-távolság kiszámítására és a többváltozós kiugró értékek megjelölésére. A Mahalanobis-távolságot csoportonként kell kiszámítani:
+
+```{r}
+vezetes %>% 
+  group_by(SUE) %>% 
+  rstatix::mahalanobis_distance() %>% 
+  filter(is.outlier == TRUE) %>%
+  as.data.frame()
+```
+
+Látható, hogy nincs többváltozós kiugró érték az adatbázisban.
+
+* **Többváltozós normalitás.** 
+
+A többváltozós normalitás Shapiro-Wilk tesztjének végrehajtása:
+
+```{r}
+rstatix::mshapiro_test(vezetes[c("szelkot", "elegedett", "rendszer")])
+```
+
+Látható, hogy ez az alkalmazási feltétel nem teljesül.
+
+Az egyváltozós normalitásokat is érdemes lehet tesztelni:
+
+```{r}
+# egyváltozós Shapiro–Wilk próba több csoportra
+library(onewaytests)
+nor.test(formula = szelkot ~ SUE, data = vezetes, method = "SW")
+nor.test(formula = elegedett ~ SUE, data = vezetes, method = "SW")
+nor.test(formula = rendszer ~ SUE, data = vezetes, method = "SW")
+```
+
+* **A multikollinearitás hiánya.** A függő (eredmény) változók nem korrelálhatnak túlságosan egymással. Egyetlen korreláció sem lehet r = 0,90 feletti. 
+
+Ideális esetben az eredményváltozók közötti korreláció mérsékelt, nem túl magas. A 0,9 feletti korreláció a multikollinearitást jelzi, ami a MANOVA esetében problematikus. Másrészt, ha a korreláció túl alacsony, fontolóra kell vennie külön egyszempontos ANOVA futtatását minden függő változóra.
+
+Számítsuk ki a páronkénti Pearson-korrelációs együtthatókat a függő változók között. 
+
+```{r}
+cor(vezetes[c("szelkot", "elegedett", "rendszer")])
+```
+
+Látható, hogy a korrelációs együtthatók nem támogatják a multikollinearitás tényét. 
+
+* **Linearitás az összes függő változó között minden csoportban.**
+
+Mivel a függő változók közötti páronkénti kapcsolatnak lineárisnak kell lennie minden csoport esetében, ezért érdemes ezt a feltételt vizuálisan ellenőrizni. A `{GGally}` csomag `ggpairs()` függvényét használhatjuk.
+
+```{r}
+library(GGally)
+res <- vezetes %>%
+  select(SUE, szelkot, elegedett, rendszer) %>%
+  group_by(SUE) %>%
+  rstatix::doo(~ggpairs(.) + theme_bw(), result = "plots")
+res$plots
+```
+
+A fenti ábrák megkérdőjelezik a páronkénti lineáris kapcsolatok létezését.
+
+* **A varianciák homogenitása.** A Levene-próba használható a csoportok közötti varianciák egyenlőségének tesztelésére. A Levene-próba nem szignifikáns értékei a varianciák homogenitását támogatják. 
+
+Az egyszempontos MANOVA mindegyik függő változó esetében azt feltételezi, hogy a csoportok között egyenlők a varianciák. 
+
+
+```{r}
+DescTools::LeveneTest(szelkot~SUE, data=vezetes)
+DescTools::LeveneTest(elegedett~SUE, data=vezetes)
+DescTools::LeveneTest(rendszer~SUE, data=vezetes)
+```
+
+
+Látható, hogy a szóráshomogenitás a `rendszer` változó kivételével teljesül.
+
+* **Variancia-kovariancia mátrixok homogenitása.** A BoxM-próba használható a csoportok közötti kovariancia egyenlőségének ellenőrzésére. Ez egyenértékű a variancia többváltozós homogenitásával. Ez a teszt rendkívül érzékenynek tekinthető. Ezért ennek a tesztnek a szignifikanciáját alfa = 0,001 értéknél határozzuk meg. A `{biotools}` csomag megvalósított `boxM()` függvényét használhatjuk.
+
+```{r}
+biotools::boxM(data = vezetes[c("szelkot", "elegedett", "rendszer")], grouping = vezetes$SUE)
+```
+
+A teszt statisztikailag nem szignifikáns (azaz p > 0,001), tehát az adatok nem sértették meg a variancia-kovariancia mátrixok homogenitásának feltételezését.
+
+Kiegyensúlyozott a csoportelemszámok esetén nem probléma a variancia-kovariancia mátrixok homogenitásának megsértése miatt, de kiegyensúlyozatlan kialakításnál már problémás lehet. 
+

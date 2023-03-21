@@ -1,0 +1,14 @@
+{
+  "hash": "5280304a69e55131d9539cd0b32f5bcb",
+  "result": {
+    "markdown": "# Lineáris regresszió {#sec-linearis-regresszio}\n\n\n\n\n\n\nJÖN.\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "hash": "dea569d9367fa98840db75c4473d0672",
+  "result": {
+    "markdown": "# Előszó {#sec-eloszo .unnumbered}\n\n\n\n\n\nA statisztika alapfogalmai nagyon jól szemléltethetők az egyváltozós statisztikai eljárásokkal. Ezek az eljárások tipikusan egy (vagy két) változó vizsgálatával járulnak hozzá az empirikus vizsgálatok során felmerülő statisztikai jellegű kérdések megválaszolásához.\n\nA kutatómunka során azonban szükség lehet egyszerre több változó bevonására az elemzésbe, ezeket az eljárásokat többváltozós statisztikai eljárásoknak nevezzük. Ilyen eljárás például:\n\n* Lineáris regresszió ([-@sec-linearis-regresszio])\n* Főkomponens elemzés ([-@sec-fokomponens-elemzes])\n* Megbízhatóság elemzés ([-@sec-megbizhatosag-elemzes])\n* Feltáró faktorelemzés ([-@sec-feltaro-faktorelemzes])\n* Megerősítő faktorelemzés ([-@sec-megerosito-faktorelemzes])\n* Többszempontos varianciaelemzés ([-@sec-tobbszempontos-varianciaelemzes])\n* Klaszterelemzés ([-@sec-klaszterelemzes])\n* Diszkriminancia elemzés ([-@sec-diszkriminancia-elemzes])\n* Többváltozós varianciaelemzés ([-@sec-tobbvaltozos-varianciaelemzes])\n* Logisztikus regresszióelemzés ([-@sec-logisztikus-regresszio])\n* Többdimenziós skálázás ([-@sec-tobbdimenzios-skalazas])\n\n\n\nA jegyzet elkészítéséhez elsősorban a kurzus tankönyvét [@MunnichNagyAbari2006] használtuk fel, de támaszkodtunk egyéb forrásokra is [@Csallner2015; @KetskemetyIzso2005; @MalhotraSimon2008; @Moksony2006; @SajtosMitev2007; @SzekelyiBarna2002; @TakacsBev22017; @Varga2019].\n\n\n\\mainmatter\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

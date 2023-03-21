@@ -1,0 +1,522 @@
+# Diszkriminancia elemzés {#sec-diszkriminancia-elemzes}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+A diszkriminancia analízisben azt a problémát járjuk körül, hogyan lehet az emberek egyes csoportjait valamilyen vizsgált jellemzők alapján szétválasztani, az egyes csoportokat azonosítani, valamint a csoporttagságokat az előbb említett vizsgált jellemzők alapján előrejelezni. 
+
+Képzeljünk el, hogy szalagmunkásokkal végeznek alkalmasság-vizsgálatot. A szalagmunka általában sok figyelmet igényel, ugyanakkor meglehetősen monoton munka, éppen ezért jó figyelmi képességek és monotónia tűrés szükséges hozzá. A lenti `szalagmunka` adatmátrix 10 személy adatát tartalmazza.
+
+```{r}
+szalagmunka <- rio::import(file = "adat/diszkriminancia_alkalmassag.xlsx")
+szalagmunka$bevalt <- factor(szalagmunka$bevalt, labels=c("nem", "igen"))
+szalagmunka
+```
+
+A fenti adatok egy részét a szalagmunkára való jelentkezéskor gyűjtötték: 
+
+* `figyelem`: figyelmi képességükre és
+* `monotonia_tures`: monotónia-tűrésükre vonatkozó információk.
+
+Mindkét változót 7 fokú skálán értékeltek (ahol a magasabb érték jobb képességeket jelent), valamint azt az információt is láthatjuk, hogy később beváltak-e vagy sem (`bevalt`).
+
+Azt kellene megmutatnunk, hogy a figyelem és a monotónia-tűrés pontszámai alapján valóban lehet következtetést levonni a személy beválását illetően. Ha ezt sikerül egy objektív statisztikai módszerrel is igazolnunk, akkor az ezt követően szalagmunkára jelentkezőket figyelem és monotónia tűréssel vizsgálva tesztelhetjük, és egész jól ki lehet válogatni az alkalmasabb jelölteket. 
+
+Ha pontdiagramon ábrázoljuk az adatokat, és színezéssel jelöljük a beválást, akkor a két csoport szemmel láthatóan szétválik egymástól, ám sem a függőleges, sem a vízszintes tengely mentén nem lehet elkülöníteni a csoportokat.
+
+```{r}
+library(ggplot2)
+ggplot(szalagmunka, aes(x=figyelem, y=monotonia_tures, colour=bevalt)) + geom_point(size=4)
+```
+
+**A diszkriminancia elemzés sajátossága, hogy a csoportokat a magyarázó változók együttes figyelembevételével tudja szétválasztani.** Ennek megfelelően ha önmagában tekintjük az egyik (például `figyelem`) vagy másik (`monotonia_tures`) magyarázó változókat, akkor nem tudunk szignifikáns különbséget kimutatni a `bevalt` változó két csoportjában $(p = 0,108; p=0,159)$.
+
+```{r}
+t.test(figyelem ~ bevalt, data = szalagmunka)$p.value
+t.test(monotonia_tures ~ bevalt, data = szalagmunka)$p.value
+```
+
+Nézzük meg, hogy többváltozós variancia-analízissel (MANOVA) szét tudjuk-e választani a csoportokat, amikor a két magyarázó változót egyszerre vesszük figyelembe. Továbbra is arra keressük a választ, hogy beválás tekintetében valóban létezik-e a munkások két csoportja.
+
+```{r}
+man_1 <- manova(cbind(figyelem, monotonia_tures) ~ bevalt, data=szalagmunka)
+summary(man_1, test="Wilks")
+```
+
+A fenti output alapján megnyugodhatunk, a bevált és a nem bevált munkások csoportja valóban különbözik egymástól $(p=0,010)$.
+
+A diszkriminancia elemzéstől azonban ettől többet fogunk várni, például predikciót is végezhetünk a kapott modellben.
+
+Ha diszkriminancia elemzést szeretnénk végrehajtani, akkor a `{MASS}` csomag `lda()` függvényét használhatjuk.
+
+```{r}
+lda_1 <- MASS::lda(bevalt ~ figyelem + monotonia_tures, data=szalagmunka)
+lda_1
+```
+
+A fenti outputban látható, hogy akik nem váltak be, a monotónia-tűrés tesztben gyengébb teljesítményt nyújtottak, a figyelem tesztben pedig egy jobbat, míg akik beváltak, a monotónia-tűrés tesztben igen jó teljesítményt értek el, a figyelem tesztben pedig valamivel gyengébbet. A kanonikus diszkriminancia együtthatókat is láthatjuk, melyek alapján felírhatjuk a kanonikus diszkriminancia-függvényt a következő módon:
+
+```markdown
+Z = -0,998 * figyelem + 0,837 * monotonia_tures
+```
+
+Az eddig vizsgált 10 személyről tudjuk, hogy bevált-e vagy sem, vagyis ismertük a tényleges csoporttagságát. Ám a diszkriminancia elemzés fontos célja, hogy előre jelezzük a csoporttagságokat, vagyis a figyelem és monotónia-tűrés ismeretében megmondjuk egy személyről, hogy nagy valószínűséggel beválik-e vagy sem. 
+
+Tegyük fel, hogy az első személy a figyelem teszten 2, míg a monotónia-tűrés teszten 4 pontot kapott, míg a második személy pontszámai ebben a sorrendben 6 és 1.
+
+
+```{r}
+newdata <- data.frame(figyelem = c(2, 6), monotonia_tures = c(4, 1))
+newdata
+lda_1_pred <- predict(lda_1, newdata = newdata)
+lda_1_pred
+```
+
+
+A fenti output `class` és `posterior` része alapján láthatjuk, hogy az első személyt nagy valószínűséggel alkalmasnak, míg a másodikat alkalmatlannak ítélhetjük a szalagmunkára.
+
+Utolsó lépésként összevetjük a tényleges és a becsült csoporttagságot, és megállapítjuk, az adatok mekkora részét tudjuk helyesen besorolni az alkotott modell alapján. Ezzel magát a modellt értékeljük. 
+
+```{r}
+lda_2_pred <- predict(lda_1, method="plug-in")
+tab_1 <- table(lda_2_pred$class, szalagmunka$bevalt)
+tab_1
+```
+
+
+Mivel az összes adat a főátlóban van, így megállapíthatjuk, hogy a modell alapján az összes adatot helyesen kategorizáltuk. A helyes besorolás arányát százalékosan is kiszámíthatjuk, ez az arány 100%.
+
+
+```{r}
+100 * sum(diag(tab_1)) / sum(tab_1)
+```
+
+
+
+## Példa: Kikből lesznek a balesetezők?
+
+Ebben a példában azt vizsgáljuk, mely tényezők járulnak hozzá a balesetekhez.
+
+```{r}
+baleset <- rio::import(file = "adat/diszkriminancia_baleset.xlsx")
+baleset$baleset <- factor(baleset$baleset, labels=c("nem volt baleste", "volt baleste"))
+str(baleset)
+psych::headTail(baleset)
+```
+
+
+Az adatbázisban a `baleset` változó azt rögzíti, hogy volt-e már balesete a személynek vagy sem. Ez lesz tehát a csoportosító változó. A többi változó, melyek segítségével próbáljuk a csoportok közötti különbséget jellemezni, olyan dolgot mérnek, mint a megosztott figyelem (`megosztott` változó), a figyelem pontossága (`pontossag`), kockázatvállalási hajlandóság (`kockazat`) és az észlelés gyorsasága (`eszleles`).
+
+A diszkriminancia-analízisben az első lépés annak megállapítása, vajon valóban szét lehet-e választani a balesetezők és a nem balesetezők csoportját az adott változók alapján. Ehhez a Wilks-lambda tesztet használjuk a többváltozós variancia-analízis keretein belül.
+
+```{r}
+man_1 <- manova(cbind(megosztott,pontossag,kockazat,eszleles) ~ baleset, data=baleset)
+summary(man_1, test="Wilks")
+```
+
+A fenti output tesztstatisztikájának szignifikanciaszintje azt mutatja, hogy a csoportok közötti különbségek szignifikánsak, vagyis valóban van különbség a balesetet szenvedett és a balesetmentes autóvezetők között.
+
+Futtassuk le a diszkriminancia-analízis.
+
+```{r}
+lda_1 <- MASS::lda(baleset~megosztott+pontossag+kockazat+eszleles, data=baleset)
+lda_1
+```
+
+
+A fenti output alapján az előzetes valószínűsége annak, hogy valakinek még nem volt balesete 0,472, míg annak a valószínűsége, hogy már volt balesete a személynek 0,528. Ezután vizsgálhatjuk a csoportátlagokat. A balesetmentes vezetők esetében magasabb a megosztott figyelem, a figyelem pontosságának és az észlelés változójának az átlaga, míg a kockázatvállalásé alacsonyabb. Ugyanakkor a másik csoport esetében a kockázatvállalás változójának az átlaga magasabb, míg a másik három képesség változójának átlaga alacsonyabb. Vagyis a balesetmentes vezetők gyorsabban képesek észlelni és jobban meg tudják osztani a figyelmüket, figyelmük pontosabb. A balesetet szenvedett vezetők esetében ezek a képességek gyengébbek, míg jobban szeretnek kockázatot vállalni.
+
+Végül a kanonikus diszkriminancia együtthatók segítségével felírhatjuk a kanonikus diszkriminancia-függvényt a következő módon:
+
+
+```markdown
+Z = 0,3627 * kockázat - 0,367 * észlelés - 0,2567 * megosztott-0,0771 * pontosság
+```
+
+Utolsó lépésként pedig megnézhetjük, mennyire hatékony a diszkriminancia-analízis vagyis összevethetjük az eredeti csoporttagságokat a modell alapján alkotott besorolásokkal.
+
+
+```{r}
+lda_1_pred <- predict(lda_1, method="plug-in")
+tab_1 <- table(lda_1_pred$class, baleset$baleset)
+tab_1
+100 * sum(diag(tab_1)) / sum(tab_1)
+```
+
+A fenti sorok elkészík a predikciót, majd egy táblázatban reprezentálják az eredeti és a becsült csoportba tartozásokat. A legtöbb adat a főátlóban helyezkedik el, ami igen magas helyes besorolási arányra utal. A helyes besorolások aránya 91,7%.
+
+A példában a gépjárműbalesetek emberi okait vizsgáltuk. Az eredmények alapján a balesetmentes vezetők gyorsabban képesek észlelni és jobban meg tudják osztani a figyelmüket, figyelmük pontosabb is. Ellenben a balesetet szenvedett vezetők esetében ezek a képességek gyengébbek, míg jobban szeretnek kockázatot vállalni.
+
+## Példa: A szülés utáni depresszió vizsgálata
+
+Ebben a példában a szülés utáni depresszió pszichés és szociális hátterét vizsgáljuk meg a diszkriminancia-analízis segítségével.
+
+```{r}
+depresszio <- rio::import(file = "adat/diszkriminancia_depresszio.xlsx")
+depresszio$ppdepresszio <- factor(depresszio$ppdepresszio, labels=c("nincs depresszió", "van depresszió"))
+str(depresszio)
+psych::headTail(depresszio)
+```
+
+Az adatbázisban a `ppdepresszio` változó mutatja a depresszió jelenlétét, vagy hiányát. A magyarázó változók között a következő változók szerepelnek: a szeretet skála (`szeretet` változó), amely azt méri, hogy a személyek mennyire érzik, hogy a szüleik szeretik őket; `tulvedes`-sel jelölt túlvédés iránti tendencia azt mutatja, hogy mennyire hajlamosak arra a személyek, hogy túlságosan is burokban tartsák, túlvédjék gyerekeiket, illetve szeretteiket; ezeken kívül két szociológiai adat is a rendelkezésünkre áll, nevezetesen az életkor (`kor` változó) és az elvégzett iskolai osztályok száma (`iskola`).
+
+A diszkriminancia-analízisben az első lépésében megvizsgáljuk, vajon valóban szét lehet-e választani a depressziósok és a nem depressziósok csoportját az adott változók alapján. Ehhez a Wilks-lambda tesztet használjuk a többváltozós variancia-analízis keretein belül.
+
+```{r}
+man_1 <- manova(cbind(szeretet,tulvedes,kor,iskola)~ppdepresszio, data=depresszio)
+summary(man_1, test="Wilks")
+```
+
+A fenti output tesztstatisztikájának szignifikanciaszintje azt mutatja, hogy a csoportok közötti különbségek szignifikánsak, vagyis valóban van különbség a depressziós és a nem depressziós nők között az adott változókat vizsgálva.    
+
+Végezzük el a diszkriminancia elemzést!
+
+```{r}
+library(MASS)
+lda_1 <- lda(ppdepresszio ~ szeretet+tulvedes+kor+iskola, data=depresszio)
+lda_1
+```
+
+Az fenti output alapján az előzetes valószínűségek egyenlőek. A csoportátlagok közötti különbségek azt mutatják, hogy a nem depressziósok átlaga szeretet tekintetében magasabb (5,8), mint a depressziósoké (3,3), az iskolai végzettségük is magasabb (14,9), mint a depressziósoké (8,3). Ellenben a túlvédésnél a depressziósok értek el magasabb átlagot, ők az idősebbek is (24). Vagyis azok, akik postpartum depresszióban szenvednek, úgy érzik, a szüleik kevésbé szeretik őket, túlvédőbbek a gyerekeikkel szemben, idősebbek, és az iskolai végzettségük is alacsonyabb. A kanonikus diszkriminancia egyenlet alakja:
+
+
+```markdown
+Z =0,1842 * túlvédés + 0,0347 * kor - 0,2666 * iskola - 0,219 * szeretet
+```
+
+
+Utolsó momentumként az analízis értékelésére van még szükség.
+
+
+```{r}
+lda_1_pred <- predict(lda_1, method="plug-in")
+tab_1 <- table(lda_1_pred$class, depresszio$ppdepresszio)
+tab_1
+100 * sum(diag(tab_1)) / sum(tab_1)
+```
+
+
+Láthatjuk, hogy a valódi és a modell alapján becsült csoporttagságok mátrixában a legtöbb adat a főátlóban helyezkedik el. Ez arra utal, hogy a becsült csoporttagságok nagyjából lefedik az eredetit,  az arány 95%.
+
+Vagyis azok, akik postpartum depresszióban szenvednek, úgy érzik, a szüleik kevésbé szeretik őket, túlvédőbbek a gyerekeikkel szemben, idősebbek, és az iskolai végzettségük is alacsonyabb.
+
+## Példa: Pszichoszomatikus megbetegedésekre hajlamosító tényezők
+
+Ebben a példában a pszichoszomatikus megbetegedéseket vizsgáljuk a diszkriminancia-analízis segítségével.
+
+
+```{r}
+pszichoszomatikus <- rio::import(file = "adat/diszkriminancia_pszichoszomatika.xlsx")
+pszichoszomatikus$pszichoszomatika <- factor(pszichoszomatikus$pszichoszomatika, labels=c("pszichoszomatikus megbetegedése van", "egészséges"))
+str(pszichoszomatikus)
+psych::headTail(pszichoszomatikus)
+```
+
+Az adatbázisban most a `pszichoszomatika` változó jelzi, hogy valamilyen pszichoszomatikus megbetegedése van vagy nincs a személynek. A változók közt szerepel a személyt ért stressz mértéke (`stressz`), a szorongási szintje (`szorongás`) és a megküzdési stratégiáinak hatékonysága (`coping`).
+
+
+A diszkriminancia-analízisben az első lépésében megvizsgáljuk, vajon valóban szét lehet-e választani a pszichoszomatikusok és a nem pszichoszomatikusok csoportját az adott változók alapján. Ehhez a Wilks-lambda tesztet használjuk a többváltozós variancia-analízis keretein belül.
+
+```{r}
+man_1 <- manova(cbind(stressz,szorongas,coping)~pszichoszomatika, data=pszichoszomatikus)
+summary(man_1, test="Wilks")
+```
+
+A fenti output tesztstatisztikájának szignifikanciaszintje azt mutatja, hogy a csoportok közötti különbségek szignifikánsak, vagyis valóban van különbség a két csoport között az adott változókat vizsgálva.
+
+Végezzük el a diszkriminancia elemzést.
+
+```{r}
+library(MASS)
+lda_1 <- lda(pszichoszomatika~stressz+coping+szorongas, data=pszichoszomatikus)
+lda_1
+```
+
+
+A fenti outputból láthatjuk, hogy a csoporttagságok előzetes valószínűsége a pszichoszomatikusok esetében kicsit kisebb (0,472). A két csoport összevetésénél azt láthatjuk, hogy a stressz és a szorongás változó átlaga a pszichoszomatikusok esetében, míg a coping változó átlaga az egészségesen esetében magasabb. Vagyis az egészséges személyeket kevesebb stressz éri, és azzal hatékonyabban is tudnak megküzdeni, mint a pszichoszomatikusok, illetve kevesebbet is szoronganak.
+
+A kanonikus diszkriminancia egyenlet pedig a következő módon alakul:
+
+```markdown
+Z = 0.4664 * coping - 0,3131 * stressz - 0,0626 * szorongas
+```
+
+Utolsó lépésként az analízis értékelésére van még szükség. 
+
+
+```{r}
+lda_1_pred <- predict(lda_1, method="plug-in")
+tab_1 <- table(lda_1_pred$class, pszichoszomatikus$pszichoszomatika)
+tab_1
+100 * sum(diag(tab_1)) / sum(tab_1)
+```
+
+
+Az eredményen láthatjuk, hogy a valódi és a modell alapján becsült csoporttagságok mátrixában a legtöbb adat a főátlóban helyezkedik el. Ez arra utal, hogy a becsült csoporttagságok nagyjából lefedik az eredetit. Ez az arány 91,7%.
+
+
+Ebben a példában a pszichoszomatikus megbetegedések lelki okait vizsgáltuk. Az diszkriminancia-analízis eredménye szerint az egészséges személyeket kevesebb stressz éri, és azzal hatékonyabban is tudnak megküzdeni, mint a pszichoszomatikusok, valamint kevesebbet is szoronganak.
+
+
+## Példa: Kik vásárolnak gyakran bio termékeket?
+
+Utolsó példánk a marketingkutatás területére kalauzol minket. Azt próbáljuk megvizsgálni, hogy főként kik vásárolnak bio termékeket. 
+
+```{r}
+bio <- rio::import(file = "adat/diszkriminancia_bio.xlsx")
+bio$vasarlas <- factor(bio$vasarlas, labels=c("soha nem vesz", "időnként vesz", "gyakran vesz"))
+table(bio$vasarlas)
+str(bio)
+psych::headTail(bio)
+```
+
+Az adatbázisban a `vasarlas` változó mutatja a biotermékek vásárlásának gyakoriságát, amely három értéket vehet fel: a személy szinte soha nem vesz ilyen termékeket, időnként vesz, illetve gyakran vesz. A vásárlás gyakoriságát a következő változókkal próbáljuk előre jelezni: milyen értékeket tulajdonít ezeknek a termékeknek (`ertek` változó, minél nagyobb pontszámot kap a skálán, annál jobban értékeli a személy a bio termékeket); az `attitud` skála a termékek iránti attitűdöt méri, a magasabb értékek itt is kedvezőbb atttitűdöt jeleznek; ezen túl szerepel még a személy életkora (`kor` változó) és a fizetése is (`fizetes`).
+
+A diszkriminancia-analízisben az első lépésében megvizsgáljuk, vajon valóban szét lehet-e választani a bio termékeket vásárlók három csoportját az adott változók alapján. Ehhez a Wilks-lambda tesztet használjuk a többváltozós variancia-analízis keretein belül.
+
+
+```{r}
+man_1 <- manova(cbind(ertek,attitud,fizetes,kor)~vasarlas, data=bio)
+summary(man_1, test="Wilks")
+summary.aov(man_1)
+```
+
+A fenti elemzés tesztstatisztikájának szignifikanciaszintje azt mutatja, hogy a csoportok közötti különbségek szignifikánsak, vagyis valóban van különbség a három csoport között az adott változókat vizsgálva.
+
+Végezzük el a diszkriminancia elemzést.
+
+
+```{r}
+library(MASS)
+lda_1 <- lda(vasarlas~ertek+attitud+fizetes+kor, data=bio)
+lda_1
+# klaR::greedy.wilks(vasarlas~ertek+attitud+fizetes+kor,data=bio, niveau = 0.15) 
+```
+
+
+A fenti output alapján az elemzés elején a három vásárlási gyakoriság valószínűsége egyenlő (0,333).  Ha a csoportátlagokat vizsgáljuk akkor láthatjuk, hogy mind az értékek, mind az attitűd változójának tekintetében a soha sem vásárolók átlaga a legalacsonyabb (3 mindkét változó esetében), az időnként bio termékeket vásárlók csoport átlaga középen helyezkedik el mind a két változó esetében (5 és 6), és a gyakran vásárlók átlaga a legmagasabb (8 és 9). Életkor tekintetében egy kissé másképpen alakulnak a csoportok. A legidősebbek szinte sohasem vásárolnak bio termékeket, a legfiatalabbak pedig igen gyakran vásárolnak. Fizetés tekintetében nem figyelhető meg jól magyarázható összefüggés: a legalacsonyabb fizetésűek gyakran, míg a közepes fizetésűek szinte soha sem vásárolnak bio termékeket.
+
+A két kanonikus diszkriminancia-egyenlet a következőképpen alakul:
+
+
+```markdown
+Z1 = 0,278 * ertek + 0,578 * attitud - 0,019 * kor - 0,004 *fizetes
+Z2 = -0,175 * ertek + 0,066 * attitud + 0,004 * kor - 0,032 *fizetes
+```
+Utolsó lépésként az analízis értékelésére van még szükség. 
+
+```{r}
+lda_1_pred <- predict(lda_1, method="plug-in")
+tab_1 <- table(lda_1_pred$class, bio$vasarlas)
+tab_1
+100 * sum(diag(tab_1)) / sum(tab_1)
+```
+
+
+A fenti eredményben láthatjuk, hogy a valódi és a modell alapján becsült csoporttagságok mátrixában a legtöbb adat a főátlóban helyezkedik el. Ez arra utal, hogy a becsült csoporttagságok nagyjából lefedik az eredetit. Ez az arány 83%.
+
+Az utolsó probléma körében a bio termékek vásárlásának gyakoriságát vizsgáltuk. A kapott eredményeink alapján azok, akik gyakran vásárolnak ilyen termékeket, pozitívabbak értékelik és pozitívabb attitűdökkel rendelkeznek a bio termékek irányában, fiatalabbak, fizetésük viszont alacsonyabb.
+
+## Példa: Vezetési programok
+
+Egy vállalat menedzsmentje szeretné megvizsgálni különböző vezetési programok hatását, ezért három különböző vezetési programot vezetett be három különböző stratégiai üzleti egységben (SÜE). Az első SÜE-ben bevezetett program az egyenlőséget és az individualizmust hangsúlyozta. A második SÜE-ben az egyenlőséget és a csoportmunkát helyzeték középpontba. A harmadik SÜE-ben a bevezetett program egy nagyon hierarchikus vezetési elvet alkalmazott. Később mindhárom SÜE dolgozóinak körében felmérést végeztek, és a kérdések között szerepelt a szervezettel való elkötelezettség mértéke (`szelkot`), a szervezettel való elégedettség nagysága (`elegedett`), illetve a rendszer egalitárius vagy tekintélyelvű (autokrata) jellege (`rendszer`).
+
+```{r}
+vezetes <- rio::import(file = "adat/diszkriminancia_vezetesi_program.xlsx")
+vezetes$SUE <- factor(vezetes$SUE)
+str(vezetes)
+psych::headTail(vezetes)
+```
+
+Végezzük el a többváltozós variancia elemzést.
+
+```{r}
+man_1 <- manova(cbind(szelkot, elegedett, rendszer)~SUE, data=vezetes)
+summary(man_1, test="Wilks")
+summary.aov(man_1, test="Wilks")
+
+lm_1 <- lm(szelkot~SUE, data=vezetes)
+car::Anova(lm_1, test.statistic=c("Wilks"))
+1-summary(lm_1)$r.squared # Wilks lambda
+
+lm_1 <- lm(elegedett~SUE, data=vezetes)
+car::Anova(lm_1, test.statistic=c("Wilks"))
+1-summary(lm_1)$r.squared # Wilks lambda
+
+lm_1 <- lm(rendszer~SUE, data=vezetes)
+car::Anova(lm_1, test.statistic=c("Wilks"))
+1-summary(lm_1)$r.squared # Wilks lambda
+```
+
+
+```{r}
+biotools::boxM(data = vezetes[c("szelkot", "elegedett", "rendszer")], grouping = vezetes$SUE)
+```
+
+
+```{r}
+library(MASS)
+lda_1 <- lda(SUE~szelkot+elegedett+rendszer, data=vezetes)
+lda_1
+# klaR::greedy.wilks(vasarlas~ertek+attitud+fizetes+kor,data=bio, niveau = 0.15) 
+```
+
+```{r}
+lda_1_pred <- predict(lda_1, method="plug-in")
+tab_1 <- table(lda_1_pred$class, vezetes$SUE)
+tab_1
+100 * sum(diag(tab_1)) / sum(tab_1)
+```
+
+
+## Megjegyzések
+
+Diszkriminancia analízis esetén az adatokat nem szükséges standardizálni, ennek oka, hogy az analízis eredményét nem befolyásolja jelentős mértékben az egyes változók mértékegysége. 
+
+A függő változónk tehát kategorikus, a függetlenek pedig numerikusak. Arra vagyunk kíváncsiak, hogy a függő változó által meghatározott csoportok mely független változókban különböznek egymástól, melyek különböztetik meg egy egymástól a függő változó kategóriáit.
+
+Ha a kategorikus függő változónk csupán kétértékű, akkor kétváltozós diszkriminancia elemzésről beszélünk, több szint esetén többváltozós diszkiriminancia elemzésről.
+
+
+## Az alkalmazási feltételek
+
+A fűggő változó kategorikus két vagy több szinttel. A független változók intervallum vagy arány skálájú változók, de használhatunk dichotóm változókat és a legalább 5 fokú likert skálán mért értékeket is. A függő változó csoportjaiban nagyjából azanosnak kell lennie a csoportnagyságnak, minden csoportnak legalább két adatsort tartalmaznia kell. A mintanagyságra is figyelnünk kell, a független változók számának kisebb kell lenni, mint a legkisebb csoport esetszáma, a teljes mintanagyság legalább 10-szer nagyobb a független változók számánál. A diszkriminancia elemzés feltételezi a független változók közötti lineáris kapcsolatot. 
+
+Az egyváltozós normalitás vizsgálatára a kiugró értékek vizsgálata javasolt, illetve megfelelő mérési skála (például nem dichotóm változó esetén) a Shapiro--Wilk-próbát is használhatjuk. 
+A többváltozós normalitás vizsgálatához  
+
+
+
+
+A csoportok szétválasztásának egyik megközelítése a Mahalanobis-féle távolságot használja. Az eljárás lényege, hogy az $m$ csoportot tartalmazó minta átlagvektorával becsüljük a csoportok valódi átlagvektorát. Az egyes személyek csoportközéptől való átlagát számoljuk ki a Mahalanobis-féle távolsággal, és minden személyt abba a csoportba sorolunk be ez alapján, amelyhez közelebb esik. Ez lehet az a csoport, amelybe a személy valóban beletartozik, de lehet másik is. A helyes besorolások aránya világosan megmutatja, hogy mennyire jól lehet a csoportokat szétválasztani a használt változók alapján.
+
+
+```{r}
+# remotes::install_github("hyunsooseol/snowCluster")
+```
+
+
+```{r}
+#| eval: false
+
+library(snowCluster)
+vallalat <- rio::import(file = "adat/diszkriminancia_vezetesi_program.sav")
+snowCluster::disc(
+    data = vallalat,
+    dep = SUE,
+    covs = vars(szelköt, elégedett, rendszer),
+    gm = TRUE,
+    coef = TRUE,
+    prop = TRUE,
+    tes = TRUE,
+    plot = TRUE,
+    plot1 = TRUE,
+    plot2 = TRUE)
+
+
+str(vallalat)
+vallalat$SUE <- factor(vallalat$SUE)
+
+lda_1 <- MASS::lda(SUE ~ szelköt + elégedett + rendszer, data = vallalat)
+lda_1
+
+man_1 <- stats::manova(cbind(szelköt, elégedett, rendszer)~SUE, data=vallalat)
+man_1
+summary(man_1, test="Wilks")
+summary.aov(man_1)
+
+F <- 1.1057 # F próbastatisztika érték
+p <- 1 # függő változók száma
+n <- 30 # mintaelemszám
+k <- 3  # a független változó csoportjainak a száma
+  
+Wilks_1 <-  1 / (1 + (F * p) / (n - k - 1 - p))
+Wilks_1
+
+ 1 - (F / (F + 27))
+
+ahol F az F-érték, df1 pedig az első szab
+anova(lm(szelköt~SUE, data=vallalat), test="Wilks")
+
+
+man_1 <- manova(cbind(szelköt, elégedett, rendszer)~SUE, data=vallalat)
+summary(man_1, test="Wilks")
+summary(man_1)
+
+
+install.packages("klaR")
+gw_1 <- klaR::greedy.wilks(SUE ~ szelköt + elégedett + rendszer, data = vallalat, output=T)
+unclass(gw_1)
+plot(gw_1)
+
+jmv::mancova(
+    data = vallalat,
+    deps = vars(szelköt, elégedett, rendszer),
+    factors = SUE,
+    multivar = "wilks",
+    boxM = TRUE,
+    shapiro = TRUE)
+
+??'Wilk'
+rrcov::Wilks.test(SUE ~ szelköt + elégedett + rendszer, data = vallalat)
+rrcov::Wilks.test(x = vallalat[2:4], grouping=vallalat$SUE)
+
+library(klaR)
+data(iris)
+library(MASS)
+iris.d <- iris[,1:4]  # the data    
+iris.c <- iris[,5]    # the classes 
+sc_obj <- stepclass(iris.d, iris.c, "lda", start.vars = "Sepal.Width")
+sc_obj
+plot(sc_obj)
+
+## or using formulas:
+sc_obj <- stepclass(Species ~ ., data = iris, method = "qda", 
+    start.vars = "Sepal.Width", criterion = "AS")  # same as above 
+sc_obj
+
+```
+
+
+```{r}
+#| eval: false
+
+data <- rio::import(file = "adat/diszkriminancia_alkalmassag.xlsx")
+data <- rio::import(file = "adat/diszkriminancia_baleset.xlsx")
+snowCluster::disc(
+    data = data,
+    dep = baleset,
+    covs = vars(megosztott, pontossag, kockazat, eszleles),
+    gm = TRUE,
+    coef = TRUE,
+    prop = TRUE,
+    tra = TRUE,
+    plot = TRUE,
+    plot1 = TRUE,
+    plot2 = TRUE)
+
+
+iris
+
+
+
+ 
+
+snowCluster::disc(
+    data = iris,
+    dep = Species,
+    covs = vars(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width),
+    gm = TRUE,
+    coef = TRUE,
+    prop = TRUE,
+    tra = TRUE,
+    plot = TRUE,
+    plot1 = TRUE,
+    plot2 = TRUE)
+
+ 
+```
+

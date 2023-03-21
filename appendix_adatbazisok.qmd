@@ -1,0 +1,214 @@
+# Adatbázisok {#sec-adatbazisok}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+
+Jelen jegyzetben "könyv" alatt a következőt értjük:
+
+* Münnich Ákos, Nagy Ágnes, Abari Kálmán. *Többváltozós statisztika pszichológus hallgatók számára.* Bölcsész Konzorcium, Debrecen, 2006. (http://psycho.unideb.hu/statisztika) ISBN 963 9704 04 0
+
+
+
+## Megbízhatóság elemzés
+
+-   `megbizhatosag_tantargyak.xlsx` - fiktív adatbázis 9 tanuló iskolai jegyeivel (@MunnichNagyAbari2006, 2.2. táblázat)
+
+    - Az adatbázis szerkezete:
+        
+        - `matek` - matematika érdemjegy (numerikus: 1-5)
+        - `fizika` - fizika érdemjegy (numerikus: 1-5)
+        - `informatika` - informatika érdemjegy (numerikus: 1-5)
+        - `kemia` - kémia érdemjegy (numerikus: 1-5)
+        
+    -   Kapcsolódó állományok:
+        - `megbizhatosag_tantargyak.omv` - megbízhatóság elemzés jamovi-ban 
+
+
+
+## Többváltozós varianciaelemzés
+
+-   `manova_vezetesi_program.xlsx` - A szervezeti elkötelezettség, a szervezeti kultúra és az elégedettség eltér a vállalat 3 különböző vezetési irányelvét valló egységében? Az adatbázis @SajtosMitev2007 [332] könyvéből származik.\
+Egy vállalat menedzsmentje szeretné megvizsgálni különböző vezetési programok hatását, ezért három különböző vezetési programot vezetett be három különböző stratégiai üzleti egységben (SÜE). Az első SÜE-ben bevezetett program az egyenlőséget és az individualizmust hangsúlyozta. A második SÜE-ben az egyenlőséget és a csoportmunkát helyzeték középpontba. A harmadik SÜE-ben a bevezetett program egy nagyon hierarchikus vezetési elvet alkalmazott. Később mindhárom SÜE dolgozóinak körében felmérést végeztek, és a kérdések között szerepelt a szervezettel való elkötelezettség mértéke (`szelkot`), a szervezettel való elégedettség nagysága (`elegedett`), illetve a rendszer egalitárius vagy tekintélyelvű (autokrata) jellege (`rendszer`). 
+
+    - Az adatbázis szerkezete:
+        
+        - `SUE` - a három különböző vezetési irányelvet követő stratégiai üzleti egység (nominális: 1-3)
+        - `szelkot` - szervezet elkötelezettség mértéke (likert: 1-5)
+        - `elegedett` - szervezettel való elégedettség (likert: 1-5)
+        - `rendszer` - szervezet tekintélyelvű jellege (likert: 1-5)
+  
+
+    -   Kapcsolódó állományok:
+        - `manova_vezetesi_program.omv` - Többváltozós varianciaelemzés jamovi-ban 
+
+
+## Diszkriminancia elemzés
+
+
+-   `diszkriminancia_alkalmassag.xlsx` - szalagmunkások adatai (@MunnichNagyAbari2006, 4.1. táblázat)
+
+    - Az adatbázis szerkezete:
+    
+        -  `bevalt` - a munkás beválásával kapcsolatos információ: bevált? (nominális: "igen", "nem")
+        -  `figyelem` - a munkás figyelmi képessége (likert: 1-7, a magasabb érték jobb képességeket jelent)
+        -  `monotonia_tures` - a munkás monotónia tűrése (likert: 1-7, a magasabb érték jobb képességeket jelent)
+        
+
+
+-   `diszkriminancia_baleset.xlsx` - mely tényezők járulnak hozzá a balesetekhez (@MunnichNagyAbari2006, 4.11. R-forráskód)
+
+    - Az adatbázis szerkezete:
+    
+        -  `baleset` - volt már balesete a személynek vagy sem (nominális "nem volt balesete", "volt baleste")
+        -  `megosztott` -  megosztott figyelem (intervallum/arány)
+        -  `pontossag` - a figyelem pontossága (intervallum/arány)
+        -  `kockazat` - kockázatvállalási hajlandóság (intervallum/arány)
+        -  `eszleles` - észlelés gyorsasága (intervallum/arány)
+
+-   `diszkriminancia_depresszio.xlsx` - a postpartum depresszió pszichés és szociális háttere  (@MunnichNagyAbari2006, 4.16. R-forráskód)
+
+    - Az adatbázis szerkezete:
+        
+        -  `ppdepresszio` - szülés utáni depresszió jelenléte (nominális: "nincs depresszió", "van depresszió")
+        -  `szeretet` - a személyek mennyire érzik, hogy a szüleik szeretik őket (intervallum/arány)
+        -  `tulvedes` - mennyire hajlamosak arra a személyek, hogy túlságosan is burokban tartsák, túlvédjék gyerekeiket (intervallum/arány)
+        -  `kor` - életkor (intervallum/arány)
+        -  `iskola` - az elvégzett iskolai osztályok száma (intervallum/arány)
+
+
+-   `diszkriminancia_pszichoszomatika.xlsx` - a pszichoszomatikus megbetegedéseket vizsgálata (@MunnichNagyAbari2006, 4.21. R-forráskód)
+
+    - Az adatbázis szerkezete:
+        -  `pszichoszomatika` - van valamilyen pszichoszomatikus megbetegedése a személynek? (nominális: "szichoszomatikus megbetegedése van", " egészséges")
+        -  `stressz` - a személyt ért stressz mértéke (intervallum/arány)
+        -  `szorongas` - a szorongási szintje (intervallum/arány)
+        -  `coping` - a megküzdési stratégiáinak hatékonysága (intervallum/arány)
+
+
+-   `diszkriminancia_bio.xlsx` -  kik vásárolnak bio termékeket (@MunnichNagyAbari2006, 4.26. R-forráskód)
+
+    - Az adatbázis szerkezete:
+        
+        -  `vasarlas` - a biotermékek vásárlásának gyakorisága (ordinális: "soha nem vesz", "időnként vesz", "gyakran vesz")
+        -  `ertek` - minél nagyobb pontszámot kap a skálán, annál jobban értékeli a személy a bio termékeket (intervallum/arány)
+        -  `attitud` - a magasabb értékek kedvezőbb atttitűdöt jelez a biotermékek iránt (intervallum/arány)
+        -  `fizetes` - a személy fizetésének nagysága (intervallum/arány)
+        -  `kor` - a személy életkora(intervallum/arány)
+        
+        
+-   `diszkriminancia_vezetesi_program.xlsx` - A szervezeti elkötelezettség, a szervezeti kultúra és az elégedettség alapján szétválasztható a vállalat 3 különböző vezetési irányelvét valló egysége? Az adatbázis @SajtosMitev2007 [332] könyvéből származik.\
+Egy vállalat menedzsmentje szeretné megvizsgálni különböző vezetési programok hatását, ezért három különböző vezetési programot vezetett be három különböző stratégiai üzleti egységben (SÜE). Az első SÜE-ben bevezetett program az egyenlőséget és az individualizmust hangsúlyozta. A második SÜE-ben az egyenlőséget és a csoportmunkát helyzeték középpontba. A harmadik SÜE-ben a bevezetett program egy nagyon hierarchikus vezetési elvet alkalmazott. Később mindhárom SÜE dolgozóinak körében felmérést végeztek, és a kérdések között szerepelt a szervezettel való elkötelezettség mértéke (`szelkot`), a szervezettel való elégedettség nagysága (`elegedett`), illetve a rendszer egalitárius vagy tekintélyelvű (autokrata) jellege (`rendszer`). 
+
+    - Az adatbázis szerkezete:
+        - `SUE` - a három különböző vezetési irányelvet követő stratégiai üzleti egység (nominális: 1-3)
+        - `szelkot` - szervezet elkötelezettség mértéke (likert: 1-5)
+        - `elegedett` - szervezettel való elégedettség (likert: 1-5)
+        - `rendszer` - szervezet tekintélyelvű jellege (likert: 1-5)
+    
+    
+    -   Kapcsolódó állományok:
+        - `diszkriminancia_vezetesi_program.omv` - diszkriminancia elemzés jamovi-ban 
+    
+
+
+## Lineáris regresszió
+
+-   `lin_reg_fizetes_elegedettseg_01.omv` - konstans oszlopokkal nem tudunk számolni (@MunnichNagyAbari2006 1.1/A táblázat)
+-   `lin_reg_fizetes_elegedettseg_02.omv`- az adatpontok szinte tökéletesen az egyenesre illeszkednek (@MunnichNagyAbari2006 1.1/B táblázat)
+-   `lin_reg_kapcsolatok_01.omv` - nem szisztematikus kapcsolat két változó között (@MunnichNagyAbari2006 1.5. R-forráskód)
+-   `lin_reg_kapcsolatok_02.omv` - szisztematikus (függvényszerű) kapcsolat két változó között (@MunnichNagyAbari2006 1.6. R-forráskód)
+-   `lin_reg_kapcsolatok_03.omv` - szisztematikus (függvényszerű) kapcsolat két változó között (@MunnichNagyAbari2006 1.7. R-forráskód)
+-   `lin_reg_kapcsolatok_04.omv` - szisztematikus (függvényszerű) kapcsolat két változó között (@MunnichNagyAbari2006 1.8. R-forráskód)
+-   `lin_reg_kapcsolatok_05.omv` - szisztematikus (függvényszerű) kapcsolat két változó között (@MunnichNagyAbari2006 1.9. R-forráskód)
+-   `lin_reg_elegedttseg.omv` - a fizetés és a munkahellyel való elégedettség pontdiagramja, egyszerű lineáris regresszió (@MunnichNagyAbari2006 1.10 R-forráskód)
+-   `lin_reg_fizetes_eletkor_eledettseg_01.omv` - többszörös lineáris regresszió, 2 numerikus magyarázó változó (@MunnichNagyAbari2006 1.2. táblázat)
+-   `lin_reg_intelligencia_testmagassag_eletkor_01.omv` - többszörös lineáris regresszió, 2 numerikus magyarázó változó, parciális korreláció magyarázata
+    -   minél magasabb valaki, annál intelligensebb
+    -   ha bevonjuk az életkor változót, akkor eltűnik az intelligencia és a testmagasság közötti kapcsolat
+-   `lin_tizproba.omv` - többszörös lineáris regresszió, a legjobb modell keresése, sok numerikus magyarázó változó
+-   `lin_college_success_02.omv` - többszörös lineáris regresszió, sok numerikus magyarázó változó, GPA a függő változó, mi magyarázza az egyetemi teljesítményt
+-   `lin_reg_elegedttseg_02.omv` - A férfiak vagy a nők elégedettebbek a munkahelyükkel? (@MunnichNagyAbari2006 1.6.3 probléma), egyetlen kategorikus magyarázó változó 2 értékkel (nem: férfi, nő)
+    -   kapcsolat a kétmintás t-próbával
+-   `lin_reg_magassag_hajhossz_nem_01.omv` - többszörös lineáris regresszió, parciális korreláció 1 numerikus és 1 kategorikus változóval (@MunnichNagyAbari2006 1.2. táblázat)
+    -   a testmagasság és a hajhossz között kapcsolat van
+    -   ha a személyek nemét is figyelembe vesszük, egyáltalán nincs kapcsolat a testmagasság és a hajhosszúság között
+-   `lin_auction.omv` - többszörös lineáris regresszió, Simpson paradoxon, párhuzamos regresszió, majd interakció bevonása.
+
+
+## Főkomponens elemzés
+
+```{r}
+#| include: false
+#| eval: false
+
+d <- rio::import(file = "adat/fokomp_elemzes_tantargyak.xlsx")
+# rio::export(x = d, file = "adat/fokomp_elemzes_tantargyak.sav")
+
+cor(d)
+cov(d)
+eigen(cor(d))
+eigen(cov(d))
+
+d.scale <- scale(d)
+cor(d.scale)
+cov(d.scale)
+eigen(cor(d.scale))
+eigen(cov(d.scale)) # az R normalizált sajátvektorértékeket jelenít meg, azaz az egyes sajátvektorokhoz tartozó értékek négyzetösszege 1
+
+
+# hagyományos R ::::::::::::::::
+d.scale <- data.frame(d.scale)
+pr_1 <- prcomp(~matek+fizika+informatika+kemia, data=d.scale)
+summary(pr_1)
+pr_1
+
+
+# :::::::::::::::::::::::
+library(FactoMineR)
+library(factoextra)
+res.pca <- PCA(X = d, scale.unit = T, ncp=1, graph = T)
+res.pca$eig
+fviz_eig(res.pca, addlabels = TRUE, ylim = c(0, 110))
+res.pca$var
+# fviz_pca_var(res.pca)
+var <- get_pca_var(res.pca)
+library("corrplot")
+corrplot(var$cos2, is.corr=FALSE)
+```
+
+
+
+
+-   `fokomp_elemzes_tantargyak.omv` - 1 főkomponens létrehozása (@MunnichNagyAbari2006 2.2. táblázat)
+-   `fokomp_real_targyak.omv` - példa kidolgozása, 1 főkomponens(@MunnichNagyAbari2006 2.5.1 Probléma)
+-   `fokomp_kerdoivtervezet.omv` - példa kidolgozása (@MunnichNagyAbari2006 2.5.2 Probléma)
+-   `fokomp_munkahelyi_tolarencia.omv` - példa kidolgozása (@MunnichNagyAbari2006 2.5.3 Probléma)
+-   `fokomp_munkahelyi_elegedettseg.omv` - példa kidolgozása (@MunnichNagyAbari2006 2.5.4 Probléma)
+
+## Faktorelemzés
+
+-   `faktor_szorongas.omv` - példa (@MunnichNagyAbari2006 3.1. R-forráskód)
+-   `faktor_real_human_targyak.omv` - példa (@MunnichNagyAbari2006 3.9. R-forráskód)
+-   `faktor_bigfive.omv` - példa (@MunnichNagyAbari2006 3.21. R-forráskód)
+-   `faktor_kockazat.omv` - példa (@MunnichNagyAbari2006 3.7.4 Probléma)
+-   `faktor_fogkrem.omv` - példa (@MalhotraSimon2008 617. oldal)
+
+
+```{r}
+#| include: false
+#| eval: false
+
+
+d <- rio::import(file = "adat/faktor_fogkrem.xlsx")
+rio::export(x = d, file = "adat/faktor_fogkrem.sav")
+
+d <- rio::import(file = "adat/faktoradat.sav")
+rio::export(x = d, file = "adat/faktor_fogkrem.sav")
+
+
+```
+

@@ -1,0 +1,14 @@
+{
+  "hash": "089f92d3618f7b0ffd76b5a2839f3178",
+  "result": {
+    "markdown": "# Többdimenziós skálázás {#sec-tobbdimenzios-skalazas}\n\n\n\n\n\n\nJÖN.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

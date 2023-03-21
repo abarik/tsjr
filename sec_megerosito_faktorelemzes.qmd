@@ -1,0 +1,10 @@
+# Megerősítő faktorelemzés {#sec-megerosito-faktorelemzes}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+
+JÖN.

@@ -1,0 +1,14 @@
+{
+  "hash": "babcf17a267c15dbe62c45a96470af92",
+  "result": {
+    "markdown": "# Többszempontos varianciaelemzés {#sec-tobbszempontos-varianciaelemzes}\n\n\n\n\n\n\nJÖN.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

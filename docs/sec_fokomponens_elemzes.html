@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Többváltozós statisztika jamovi-ban és R-ben - 2&nbsp; Főkomponens elemzés</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./sec_megbizhatosag_elemzes.html" rel="next">
+<link href="./sec_linearis_regresszio.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "egyező dokumentumok",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "OK"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Főkomponens elemzés</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Többváltozós statisztika jamovi-ban és R-ben</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/abarik/aeer" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Download" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-download"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="./Többváltozós-statisztika-jamovi-ban-és-R-ben.pdf">
+            <i class="bi bi-bi-file-pdf pe-1"></i>
+          Download PDF
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="./Többváltozós-statisztika-jamovi-ban-és-R-ben.epub">
+            <i class="bi bi-bi-journal pe-1"></i>
+          Download ePub
+          </a>
+        </li>
+    </ul>
+    <a href="" title="Share" id="sidebar-tool-dropdown-1" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-1">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Előszó</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_linearis_regresszio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lineáris regresszió</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_fokomponens_elemzes.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Főkomponens elemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_megbizhatosag_elemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Megbízhatóság elemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_feltaro_faktorelemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Feltáró faktorelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_megerosito_faktorelemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Megerősítő faktorelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbszempontos_variancielemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Többszempontos varianciaelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_klaszter.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Klaszterelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_diszkrimninancia.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diszkriminancia elemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbvaltozos_variancia.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Többváltozós varianciaelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_logisztikus_regresszio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logisztikus regresszió</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbdimenzios_skalazas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Többdimenziós skálázás</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Függelék</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_linkek.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Elérhető videók</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_adatbazisok.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Adatbázisok</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tartalomjegyzék</h2>
+   
+  <ul>
+  <li><a href="#a-főkomponens-elemzés-menete" id="toc-a-főkomponens-elemzés-menete" class="nav-link active" data-scroll-target="#a-főkomponens-elemzés-menete"><span class="toc-section-number">2.1</span>  A főkomponens elemzés menete</a></li>
+  <li><a href="#a-főkomponens-elemzés-alkalmazási-feltételei" id="toc-a-főkomponens-elemzés-alkalmazási-feltételei" class="nav-link" data-scroll-target="#a-főkomponens-elemzés-alkalmazási-feltételei"><span class="toc-section-number">2.2</span>  A főkomponens elemzés alkalmazási feltételei</a></li>
+  <li><a href="#a-főkomponensek-forgatása-rotáció" id="toc-a-főkomponensek-forgatása-rotáció" class="nav-link" data-scroll-target="#a-főkomponensek-forgatása-rotáció"><span class="toc-section-number">2.3</span>  A főkomponensek forgatása (rotáció)</a></li>
+  <li><a href="#példa" id="toc-példa" class="nav-link" data-scroll-target="#példa"><span class="toc-section-number">2.4</span>  1. Példa</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-fokomponens-elemzes" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Főkomponens elemzés</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>A főkomponens elemzés a legegyszerűbb többváltozós statisztikai eljárások egyike. Olyan eljárás, amely az egy jelenségre vonatkozó méréseket úgy „összegzi”, hogy közben az óhatatlanul fellépő információ veszteséget a lehető legkisebb mértékűre csökkenti. {} A módszer alapgondolata az, hogy vegyünk <span class="math inline">\(p\)</span> változót: <span class="math inline">\(X_1,X_2,\dots,X_p\)</span>, majd keressük meg ezek kombinációit, hogy ezáltal <span class="math inline">\(Z_1,Z_2,..,Z_p\)</span>-vel jelölt indexeket kaphassunk, melyek egymással nem korrelálnak, továbbá <span class="math inline">\(var(Z_1 )\geq var(Z_2 )\geq \dots \geq var(Z_p)\)</span>, ahol <span class="math inline">\(var(Z_i)\)</span> a <span class="math inline">\(Z_i\)</span> komponens varianciáját jelöli.</p>
+<p>A korreláció hiánya a <span class="math inline">\(Z_i\)</span>-kben hasznos tulajdonság, ugyanis azt jelenti, hogy az indexek az adatok különböző „dimenzióit” mérik.</p>
+<p>A <span class="math inline">\(Z_i\)</span>-t főkomponensnek nevezzük. Amikor főkomponens-analízist végzünk, mindig abban bízunk, hogy a legtöbb index varianciája elhanyagolhatóan kicsi. Ezáltal az adatok varianciája adekvátan leírható néhány olyan <span class="math inline">\(Z_i\)</span> változóval, melyek varianciája nem elhanyagolható.</p>
+<p>A főkomponens analízis működéséhez szükséges, hogy az eredeti <span class="math inline">\(X_1,X_2,\dots,X_p\)</span> változók korreláljanak egymással (akár pozitív, akár negatív irányban), ekkor elképzelhető az az eset, hogy 20-30 eredeti változót adekvátan reprezentálhat 2-3 főkomponens. Ha pedig ez teljesül, akkor a fontosabb főkomponensek (melyek varianciája elég nagy) lesznek csupán érdekesek, hiszen ezek fogják az adatok „dimenzióit” mérni. Természetesen nagyon fontos azt is tudnunk, hogy rengeteg eredeti változónk van, és legtöbbjük ugyanazt, vagy legalábbis hasonló dolgokat mér.</p>
+<section id="a-főkomponens-elemzés-menete" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="a-főkomponens-elemzés-menete"><span class="header-section-number">2.1</span> A főkomponens elemzés menete</h2>
+<p>Az eredeti <span class="math inline">\(X_1,X_2,\dots,X_p\)</span> változókból a <span class="math inline">\(Z_i=a_i1 X_1+ a_i2 X_2+\dots + a_ip X_p\)</span> lineáris kombinációk segítségével kapjuk meg a főkomponenseket, azzal feltétellel, hogy <span class="math inline">\(a_{i1}^2+a_{i2}^2+\dots+a_{ip}^2=1\)</span>, és az egymás után létrejövő <span class="math inline">\(Z_1,Z_2,…,Z_p\)</span> főkomponensek nem korrelálnak egymással.</p>
+<p>Gyakran az <span class="math inline">\(X_1,X_2,\dots,X_p\)</span> változó standardizált értékeiből indulunk ki, hogy a változók arányosan fejtsék ki hatásukat a főkomponensekre. A jamovi is így végzi az elemzést. Ekkor a változok átlaga nulla, szórása és variancia pedig 1 lesz.</p>
+<p>A részletek ismertetése nélkül a keresett <span class="math inline">\(a_{i1},a_{i2},\dots,a_{ip}\)</span> együtthatók megtalálása egy sajátérték-sajátvektor keresési feladat az eredeti <span class="math inline">\(X_1,X_2,\dots,X_p\)</span> változók korrelációs mátrixában. A megtalált <span class="math inline">\(p\)</span> darab sajátérték $_1_2_p&gt;0 $sorrendjét feltételezve, <span class="math inline">\(\lambda_i\)</span> az <span class="math inline">\(i.\)</span> főkomponens varianciáját adja <span class="math inline">\((\lambda_i=var(Z_i))\)</span>, és a megtalált <span class="math inline">\(p\)</span> darab sajátvektorból az <span class="math inline">\(i.\)</span> egyes elemei lesznek a <span class="math inline">\(Z_i=a_{i1} X_1+ a_{i2} X_2+\dots+ a_{ip} X_p\)</span> főkomponens <span class="math inline">\(a_{i1},a_{i2},\dots,a_{ip}\)</span> együtthatói.</p>
+<p>Fontos összefüggés, hogy a főkomponensek (<span class="math inline">\(Z_i\)</span>-k) varianciájának az összege egyenlő az eredeti standardizált változók (<span class="math inline">\(X_i\)</span>-k) varianciájának összegével, azaz <span class="math inline">\(\lambda_1+\lambda_2+\dots+\lambda_p=1+1+\dots+1=p.\)</span></p>
+</section>
+<section id="a-főkomponens-elemzés-alkalmazási-feltételei" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="a-főkomponens-elemzés-alkalmazási-feltételei"><span class="header-section-number">2.2</span> A főkomponens elemzés alkalmazási feltételei</h2>
+<ul>
+<li>A főkomponens elemzés során általában 4-5-ször (egyes szerzőknél 10-szer) nagyobb a mintaelemszám a vizsgált változók számánál.</li>
+<li>A faktoranalízis feltétele, hogy egymással korreláló változókból induljunk ki. A Bartlett-féle szferikus próba nullhipotézise, hogy a változók korrelálatlanok (vagyis a korrelációs mátrixnak a főátlón kívüli elemei csak véletlenül térnek el a nullától). A szignifikáns p-érték a kedvező a főkomponens elemzés számára. (Megjegyezzük, hogy a túlságosan magas egyirányú korrelációk sem jók, ugyanis ez azt okozhatja, hogy a főkomponens elemzésnek nem lesz megoldása, ugyanis minden változó egy faktorba kerül.)</li>
+<li>Az MSA (Measure of Sampling Adequecy) az egyes változók esetében mutatja meg, hogy mennyire van szoros kapcsolatban a többi változóval. Érdemes a 0,5 alatti MSA értékkel rendelkező változókat kizárni az elemzésből. Értéke 0 és 1 közötti lehet.</li>
+<li>A Kaiser-Meyer-Olkin- (KMO) kritérium az MSA értékek átlaga. Míg az MSA érték az egyes változókra vonatkozik, a KMO az összes változóra egyidejűleg. A KMO mutatószám jelentését a következőképpen ítélhetjük meg:
+<ul>
+<li>KMO ≥ 0,9 kiváló</li>
+<li>KMO ≥ 0,8 nagyon jó</li>
+<li>KMO ≥ 0,7 megfelelő</li>
+<li>KMO ≥ 0,6 közepes</li>
+<li>KMO ≥ 0,5 gyenge</li>
+<li>KMO &lt; 0,5 elfogadhatatlan.</li>
+</ul></li>
+</ul>
+</section>
+<section id="a-főkomponensek-forgatása-rotáció" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="a-főkomponensek-forgatása-rotáció"><span class="header-section-number">2.3</span> A főkomponensek forgatása (rotáció)</h2>
+<p>A faktorkiválasztás (extrakció) során az elemzés elsődleges célja, hogy maximalizálja a főkomponensek varianciáját, amely eredményeként megkapjuk a rotálatlan faktorsúly-mátrixot. A faktorsúly az eredeti változó és az adott faktor közötti korrelációt mutatja, amelynek értéke a korrelációs együtthatókhoz hasonlóan -1 és 1 között változhat.</p>
+<p>A faktorkiválasztás során azonban előfordulhat, hogy olyan változók fognak korrelálni egy adott faktorral, amelyeknek semmi közük egymáshoz, ezáltal lehetetlenné téve az értelmezést. Ezen a problémán segít a forgatás, vagy más néven rotáció. A faktor-rotáció azt jelenti, hogy a faktorok tengelyeit elforgatjuk úgy, hogy egyszerűbb és értelmezhetőbb faktormegoldáshoz vezessen.</p>
+<p>A rotáció (forgatás) során nem változnak sem a kommunalitás, sem pedig az összes magyarázott variancia, csak a faktorok sajátértékei/magyarázott varianciái módosulnak.</p>
+<p>A rotáláson belül két típust különböztetünk meg: a derékszögű (ortogonális) (Varimax, Equimax, Quartimax) és a hegyesszögű (nem ortogonális) (Direct Oblimin, Promax) forgatási módszereket.</p>
+<p>A derékszögű esetében a tengelyek merőlegesen állnak egymásra, ezáltal a faktorok nem korrelálnak egymással, míg a hegyesszögű esetében ezek tetszőleges szöget zárnak be egymással, vagyis a faktorok korrelálni fognak egymással.</p>
+</section>
+<section id="példa" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="példa"><span class="header-section-number">2.4</span> 1. Példa</h2>
+<p>A példa <span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 2.3.1. alfejezet alapján készült és a Kapcsolódó jamovi állomány: <code>fokomp_elemzes_tantargyak.omv</code>.</p>
+<p><strong>1. Határozzuk meg a korrelációs mátrixot (jamovi-ban: <code>Regression / Correlation matrix</code>)</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fokomponens_kep_01.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Korrelációs mátrix meghatározása</figcaption><p></p>
+</figure>
+</div>
+<p>A korrelációs mátrix adatai arra utalnak, hogy szoros kapcsolat van a változók között. A korrelációs értékek nullánál nagyobbak, ami azonos irányú tendenciákra utal. E két mátrix is alátámasztja a feltételezésünket, hogy a változók szorosan együtt változnak.</p>
+<p><strong>2. Ellenőrizzük le az adatok alkalmasságát (jamovi-ban: <code>Factor / Principal Component Analysis</code>)</strong></p>
+<p>A változóink eleget tesznek a Bartlett-féle szferikus próbának, a korrelációs mátrix nem egységmátrix <span class="math inline">\((p&lt;0,001)\)</span>, az MSA értékek is nagyobban <span class="math inline">\(0,5\)</span>-nél és a KMO érték is megfelelő.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fokomponens_kep_02.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Alkalmazási feltételek ellenőrzése</figcaption><p></p>
+</figure>
+</div>
+<p><strong>3. Határozzuk meg a komponensek számát</strong></p>
+<p>Elvileg annyi főkomponenst lehet kiszámolni, ahány változónk van, a célunk azonban a komponensek számának minimalizálása.</p>
+<p>Több eljárás létezik a főkomponensek számának meghatározására:</p>
+<ul>
+<li>Horn-féle párhuzamos analízis (jamovi-ban: <code>Based on parallel analysis</code>): modern eljárás, amely szimuláció segítségével állapítja meg a főkomponensek számát <span class="citation" data-cites="Horn1965">(<a href="references.html#ref-Horn1965" role="doc-biblioref">Horn, 1965</a>)</span>.</li>
+<li>A priori meghatározás (jamovi-ban: <code>Fixed number</code>): korábbi ismerete alapján megadjuk a főkomponensek számát.</li>
+<li>Sajátértéken alapuló megoldás (jamovi-ban: <code>Based on eigenvalue</code>): tipikusan csak az 1-nél nagyobb sajátértékű faktorokat tartjuk bent a modellben. Az 1-nél kisebb varianciájú faktorok ugyanis nem jobbak mint az eredeti standardizált változók</li>
+<li>Sajátértékábrán (scree-plot, kőtörmelék ábra) alapuló meghatározás (jamovi-ban: <code>Scree plot</code>): a sajátérték ábra a sajátértékek ábrázolása a főkomponensek sorrendjében. Az ábra formája alapján lehet következtetni a főkomponensek számára: ahol a görbe meredekségében van egy határozott törés, meredekebb rész után laposabb jön. Ahol tehát a görbe laposodása elkezdődik, az a figyelembe vett főkomponensek megfelelő száma.</li>
+<li>Magyarázott varianciahányadon alapuló meghatározás (jamovi-ban: <code>Component summary</code>): ekkor az előállított főkomponensek számát úgy határozzuk meg, hogy a főkomponensek által magyarázott variancia kumulált százalékos értéke elérjen egy megfelelő szintet. A megfelelő szint (60%-95%-ig) a probléma jellegétől függ.</li>
+</ul>
+<p>A Horn-féle párhuzamos elemzés 1 főkomponenst javasol.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fokomponens_kep_03.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Főkomponensek számának meghatározása</figcaption><p></p>
+</figure>
+</div>
+<p><strong>4. Válasszunk forgatást (jamovi-ban: <code>Rotation</code>)</strong></p>
+<p>A jamovi alapértelmezés szerint a Varimax forgatást ajánlja, amely derékszögű koordinátatengelyeket eredményez és a legtöbb esetben ez a megfelelő választás. Lehetőségünk van ezen módosítani. Az összes lehetőség:</p>
+<ul>
+<li>None – rotálatlan elemzés</li>
+<li>Varimax</li>
+<li>Qartimax</li>
+<li>Promax</li>
+<li>Oblimin</li>
+<li>Simplimax</li>
+</ul>
+<p>Mivel egyetlen főkomponensünk van, így nem változtatunk az alapértelmezett Varimax beállításon.</p>
+<p><strong>5. A főkomponens elemzés eredménye</strong></p>
+<p><em>Komponens mátrix (jamoviban: <code>Component loadings</code>)</em></p>
+<p>A főkomponens elemzés eredménye a komponens mátrix (faktormátrix), amelynek soraiban az eredeti változók, oszlopaiban a kinyert főkomponensek vannak. A cellákban a komponens súlyok (faktorsúlyok) szerepelnek, amelyek a főkomponens és a változó közötti korrelációt jelentik. Ezek egyben a főkomponensek azon együtthatói, amelyekkel a standardizált változó a főkomponensekkel kifejezhető.</p>
+<p>A magas abszolút értékű faktorsúly azt jelzi, hogy komponens és a változó szorosan összefügg.</p>
+<p>A változókat tartalmazó sorok rendezhetők a faktorsúlyok csökkenő sorrendjében (jamovi-ban: <code>Sort loading by size</code>)</p>
+<p>Az adott értéknél kisebb faktorsúlyok elrejthetők a táblázatban (jamoviban: <code>Hide loadings below</code>)</p>
+<p>A <code>Uniqueness</code> oszlopban az egyes változók „egyediségét” is láthatjuk. Az egyediség a variancia azon aránya, amely „egyedi” a változóra nézve, és nem magyarázható a komponensekkel. Vegyük figyelembe, hogy minél nagyobb az „egyediség”, annál kisebb a változó relevanciája/hozzájárulása a modellben.</p>
+<p><em>A kezdő sajátértékek (jamovi-ban: <code>Initial eigenvalues</code>)</em></p>
+<p>A kezdő sajátértékek táblázat a sajátértékeket adja meg. A komponensek sajátértékei csökkenő nagyságúak, ahogy az 1. komponenstől a 4. komponensig haladunk. A komponens sajátértéke kifejezi a komponens által magyarázott teljes varianciát. A 4 komponens összvarianciája pontosan 4. A további két oszlopban ez alapján számoljuk a százalékos és a kummulált százalékos varianciát.</p>
+<p><em>A komponensek összegzése (jamovi-ban: <code>Component summary</code>)</em></p>
+<p>A komponensek összegzése táblázat tartalmazza a megtartott komponenseket, a magyarázott varianciát, illetve utóbbit százalékosan is kifejezve. Vegyük észre, hogy ez a sor teljesen megegyezik a kezdő sajátértékek táblázat első sorával. Az <code>SS Loadings</code> felirat magyarázata, hogy magyarázott variancia a komponenshez tartozó faktorsúlyok négyzetösszege (sum of square).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fokomponens_kep_04.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Komponensek összegzése</figcaption><p></p>
+</figure>
+</div>
+<p><strong>6. Főkomponens értékek kiszámítása</strong></p>
+<p>A főkomponens elemzés célja az eredeti változók csökkentése. A főkomponens(ek) az eredeti változók lineáris kombinációjával kifejezhetők. Ez(ek) a főkomponens értékek (jamovi-ban: <code>Component score</code>) az adatbázisban is rögzíthetők, és további elemzések kiindulópontjai lehetnek.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fokomponens_kep_05.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Főkomponens értékek kiszámítása</figcaption><p></p>
+</figure>
+</div>
+<p>Sikerült tehát az érdemjegyeket egyetlen mérőszámmal kifejezni, a fenti főkomponens érték az, amely a lehető legjobban magában foglalja az egyes tantárgyakból szerzett jegyeket és ezáltal a reál tantárgyak iránti fogékonyság mérőszáma lehet. A legjobban a kilencedik személy teljesít a reál tárgyakból, legrosszabbul pedig a hatodik. Ezek az értékek standardizáltak, vagyis 0 átlagúak és 1 szórásúak.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fokomponens_kep_06.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Főkomponens értékek leíró statisztikája</figcaption><p></p>
+</figure>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-Horn1965" class="csl-entry" role="doc-biblioentry">
+Horn, J. L. (1965). A rationale and test for the number of factors in factor analysis. <em>Psychometrika</em>, <em>30</em>, 179–185. <a href="https://doi.org/10.1007/BF02289447">https://doi.org/10.1007/BF02289447</a>
+</div>
+<div id="ref-MunnichNagyAbari2006" class="csl-entry" role="doc-biblioentry">
+Münnich, Á., Nagy, Á. és Abari, K. (2006). <em>Többváltozós statisztika pszichológus hallgatók számára</em>. Bölcsész Konzorcium. <a href="http://psycho.unideb.hu/statisztika">http://psycho.unideb.hu/statisztika</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Sikeres másolás!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Sikeres másolás!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./sec_linearis_regresszio.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lineáris regresszió</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./sec_megbizhatosag_elemzes.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Megbízhatóság elemzés</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

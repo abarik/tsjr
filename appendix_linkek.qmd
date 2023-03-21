@@ -1,0 +1,47 @@
+# Elérhető videók {#sec-elerheto-videok}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+* Alapozo jamovi és R videók
+    
+    * [Jamovi a gyakorlatban](https://www.youtube.com/watch?v=sZummF3Sd90&list=PLnmeQHnHYqv5_FoVOvX9tqE90EqoOW01o)
+    * [R a gyakorlatban](https://www.youtube.com/watch?v=UBeiIKzE8VA&list=PLnmeQHnHYqv6ENGrdTXiE9YJrvHuxH2C9)
+
+* Jamovi tutorial videók az összes tanult eljáráshoz
+
+    * [datalab.cc](https://www.youtube.com/@datalabcc/videos)
+    * [Alexander Swan](https://www.youtube.com/@AlexanderSwan/videos)
+
+* Lineáris regresszió 
+
+
+    * [The linear regression model](https://www.youtube.com/watch?v=m88h75F3Rl8)
+    * [Linear Regression, Clearly Explained](https://www.youtube.com/watch?v=nk2CQITm_eo)
+    * [R-squared, Clearly Explained](https://www.youtube.com/watch?v=2AQKmw14mHM)
+    * [Simple linear regression in Jamovi](https://www.youtube.com/watch?v=rUMWjRE8L1U)
+    
+* Főkomponens elemzés
+
+
+    * [Principal Component Analysis (PCA)](https://www.youtube.com/watch?v=g-Hb26agBFg)
+
+* Klaszterelemzés
+
+
+    * [Flat and Hierarchical Clustering | The Dendrogram Explained](https://www.youtube.com/watch?v=ijUMKMC4f9I)
+    * [K Means Clustering: Pros and Cons of K Means Clustering](https://www.youtube.com/watch?v=YIGtalP1mv0)
+    * [Hierarchical Cluster analysis in Jamovi](https://www.youtube.com/watch?v=TnFfAQpq0o4)
+    * [K Means Cluster analysis in Jamovi](https://www.youtube.com/watch?v=wW7TNlam77A)
+    
+* Többszempontos varianciaelemzés
+
+
+    * [One Way ANOVA Post hoc test in Jamovi](https://www.youtube.com/watch?v=pECfK5IfB_o)
+    * [One Way Repeated Measure ANOVA Repeated Measure ANOVA Within Subject ANOVA in Jamovi](https://www.youtube.com/watch?v=O6BiwVRj3BQ)
+    * [Two Way ANOVA Post hoc test in Jamovi](https://www.youtube.com/watch?v=l6ClJFgxNXs)
+    * [Three Way ANOVA Post hoc test in Jamovi](https://www.youtube.com/watch?v=WW8ALE6x3uQ)
+    

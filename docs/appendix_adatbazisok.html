@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Többváltozós statisztika jamovi-ban és R-ben - Appendix B — Adatbázisok</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./appendix_linkek.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "egyező dokumentumok",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "OK"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Appendix B — Adatbázisok</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Többváltozós statisztika jamovi-ban és R-ben</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/abarik/aeer" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Download" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-download"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="./Többváltozós-statisztika-jamovi-ban-és-R-ben.pdf">
+            <i class="bi bi-bi-file-pdf pe-1"></i>
+          Download PDF
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="./Többváltozós-statisztika-jamovi-ban-és-R-ben.epub">
+            <i class="bi bi-bi-journal pe-1"></i>
+          Download ePub
+          </a>
+        </li>
+    </ul>
+    <a href="" title="Share" id="sidebar-tool-dropdown-1" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-1">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Előszó</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_linearis_regresszio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lineáris regresszió</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_fokomponens_elemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Főkomponens elemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_megbizhatosag_elemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Megbízhatóság elemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_feltaro_faktorelemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Feltáró faktorelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_megerosito_faktorelemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Megerősítő faktorelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbszempontos_variancielemzes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Többszempontos varianciaelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_klaszter.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Klaszterelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_diszkrimninancia.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diszkriminancia elemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbvaltozos_variancia.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Többváltozós varianciaelemzés</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_logisztikus_regresszio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logisztikus regresszió</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbdimenzios_skalazas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Többdimenziós skálázás</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Függelék</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_linkek.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Elérhető videók</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_adatbazisok.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Adatbázisok</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tartalomjegyzék</h2>
+   
+  <ul>
+  <li><a href="#megbízhatóság-elemzés" id="toc-megbízhatóság-elemzés" class="nav-link active" data-scroll-target="#megbízhatóság-elemzés"><span class="toc-section-number">B.1</span>  Megbízhatóság elemzés</a></li>
+  <li><a href="#többváltozós-varianciaelemzés" id="toc-többváltozós-varianciaelemzés" class="nav-link" data-scroll-target="#többváltozós-varianciaelemzés"><span class="toc-section-number">B.2</span>  Többváltozós varianciaelemzés</a></li>
+  <li><a href="#diszkriminancia-elemzés" id="toc-diszkriminancia-elemzés" class="nav-link" data-scroll-target="#diszkriminancia-elemzés"><span class="toc-section-number">B.3</span>  Diszkriminancia elemzés</a></li>
+  <li><a href="#lineáris-regresszió" id="toc-lineáris-regresszió" class="nav-link" data-scroll-target="#lineáris-regresszió"><span class="toc-section-number">B.4</span>  Lineáris regresszió</a></li>
+  <li><a href="#főkomponens-elemzés" id="toc-főkomponens-elemzés" class="nav-link" data-scroll-target="#főkomponens-elemzés"><span class="toc-section-number">B.5</span>  Főkomponens elemzés</a></li>
+  <li><a href="#faktorelemzés" id="toc-faktorelemzés" class="nav-link" data-scroll-target="#faktorelemzés"><span class="toc-section-number">B.6</span>  Faktorelemzés</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-adatbazisok" class="quarto-section-identifier d-none d-lg-block">Appendix B — Adatbázisok</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Jelen jegyzetben “könyv” alatt a következőt értjük:</p>
+<ul>
+<li>Münnich Ákos, Nagy Ágnes, Abari Kálmán. <em>Többváltozós statisztika pszichológus hallgatók számára.</em> Bölcsész Konzorcium, Debrecen, 2006. (http://psycho.unideb.hu/statisztika) ISBN 963 9704 04 0</li>
+</ul>
+<section id="megbízhatóság-elemzés" class="level2" data-number="B.1">
+<h2 data-number="B.1" class="anchored" data-anchor-id="megbízhatóság-elemzés"><span class="header-section-number">B.1</span> Megbízhatóság elemzés</h2>
+<ul>
+<li><p><code>megbizhatosag_tantargyak.xlsx</code> - fiktív adatbázis 9 tanuló iskolai jegyeivel (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span>, 2.2. táblázat)</p>
+<ul>
+<li><p>Az adatbázis szerkezete:</p>
+<ul>
+<li><code>matek</code> - matematika érdemjegy (numerikus: 1-5)</li>
+<li><code>fizika</code> - fizika érdemjegy (numerikus: 1-5)</li>
+<li><code>informatika</code> - informatika érdemjegy (numerikus: 1-5)</li>
+<li><code>kemia</code> - kémia érdemjegy (numerikus: 1-5)</li>
+</ul></li>
+<li><p>Kapcsolódó állományok:</p>
+<ul>
+<li><code>megbizhatosag_tantargyak.omv</code> - megbízhatóság elemzés jamovi-ban</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="többváltozós-varianciaelemzés" class="level2" data-number="B.2">
+<h2 data-number="B.2" class="anchored" data-anchor-id="többváltozós-varianciaelemzés"><span class="header-section-number">B.2</span> Többváltozós varianciaelemzés</h2>
+<ul>
+<li><p><code>manova_vezetesi_program.xlsx</code> - A szervezeti elkötelezettség, a szervezeti kultúra és az elégedettség eltér a vállalat 3 különböző vezetési irányelvét valló egységében? Az adatbázis <span class="citation" data-cites="SajtosMitev2007">Sajtos és Mitev (<a href="references.html#ref-SajtosMitev2007" role="doc-biblioref">2007, o. 332</a>)</span> könyvéből származik.<br>
+Egy vállalat menedzsmentje szeretné megvizsgálni különböző vezetési programok hatását, ezért három különböző vezetési programot vezetett be három különböző stratégiai üzleti egységben (SÜE). Az első SÜE-ben bevezetett program az egyenlőséget és az individualizmust hangsúlyozta. A második SÜE-ben az egyenlőséget és a csoportmunkát helyzeték középpontba. A harmadik SÜE-ben a bevezetett program egy nagyon hierarchikus vezetési elvet alkalmazott. Később mindhárom SÜE dolgozóinak körében felmérést végeztek, és a kérdések között szerepelt a szervezettel való elkötelezettség mértéke (<code>szelkot</code>), a szervezettel való elégedettség nagysága (<code>elegedett</code>), illetve a rendszer egalitárius vagy tekintélyelvű (autokrata) jellege (<code>rendszer</code>).</p>
+<ul>
+<li><p>Az adatbázis szerkezete:</p>
+<ul>
+<li><code>SUE</code> - a három különböző vezetési irányelvet követő stratégiai üzleti egység (nominális: 1-3)</li>
+<li><code>szelkot</code> - szervezet elkötelezettség mértéke (likert: 1-5)</li>
+<li><code>elegedett</code> - szervezettel való elégedettség (likert: 1-5)</li>
+<li><code>rendszer</code> - szervezet tekintélyelvű jellege (likert: 1-5)</li>
+</ul></li>
+<li><p>Kapcsolódó állományok:</p>
+<ul>
+<li><code>manova_vezetesi_program.omv</code> - Többváltozós varianciaelemzés jamovi-ban</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="diszkriminancia-elemzés" class="level2" data-number="B.3">
+<h2 data-number="B.3" class="anchored" data-anchor-id="diszkriminancia-elemzés"><span class="header-section-number">B.3</span> Diszkriminancia elemzés</h2>
+<ul>
+<li><p><code>diszkriminancia_alkalmassag.xlsx</code> - szalagmunkások adatai (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span>, 4.1. táblázat)</p>
+<ul>
+<li><p>Az adatbázis szerkezete:</p>
+<ul>
+<li><code>bevalt</code> - a munkás beválásával kapcsolatos információ: bevált? (nominális: “igen”, “nem”)</li>
+<li><code>figyelem</code> - a munkás figyelmi képessége (likert: 1-7, a magasabb érték jobb képességeket jelent)</li>
+<li><code>monotonia_tures</code> - a munkás monotónia tűrése (likert: 1-7, a magasabb érték jobb képességeket jelent)</li>
+</ul></li>
+</ul></li>
+<li><p><code>diszkriminancia_baleset.xlsx</code> - mely tényezők járulnak hozzá a balesetekhez (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span>, 4.11. R-forráskód)</p>
+<ul>
+<li><p>Az adatbázis szerkezete:</p>
+<ul>
+<li><code>baleset</code> - volt már balesete a személynek vagy sem (nominális “nem volt balesete”, “volt baleste”)</li>
+<li><code>megosztott</code> - megosztott figyelem (intervallum/arány)</li>
+<li><code>pontossag</code> - a figyelem pontossága (intervallum/arány)</li>
+<li><code>kockazat</code> - kockázatvállalási hajlandóság (intervallum/arány)</li>
+<li><code>eszleles</code> - észlelés gyorsasága (intervallum/arány)</li>
+</ul></li>
+</ul></li>
+<li><p><code>diszkriminancia_depresszio.xlsx</code> - a postpartum depresszió pszichés és szociális háttere (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span>, 4.16. R-forráskód)</p>
+<ul>
+<li><p>Az adatbázis szerkezete:</p>
+<ul>
+<li><code>ppdepresszio</code> - szülés utáni depresszió jelenléte (nominális: “nincs depresszió”, “van depresszió”)</li>
+<li><code>szeretet</code> - a személyek mennyire érzik, hogy a szüleik szeretik őket (intervallum/arány)</li>
+<li><code>tulvedes</code> - mennyire hajlamosak arra a személyek, hogy túlságosan is burokban tartsák, túlvédjék gyerekeiket (intervallum/arány)</li>
+<li><code>kor</code> - életkor (intervallum/arány)</li>
+<li><code>iskola</code> - az elvégzett iskolai osztályok száma (intervallum/arány)</li>
+</ul></li>
+</ul></li>
+<li><p><code>diszkriminancia_pszichoszomatika.xlsx</code> - a pszichoszomatikus megbetegedéseket vizsgálata (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span>, 4.21. R-forráskód)</p>
+<ul>
+<li>Az adatbázis szerkezete:
+<ul>
+<li><code>pszichoszomatika</code> - van valamilyen pszichoszomatikus megbetegedése a személynek? (nominális: “szichoszomatikus megbetegedése van”, ” egészséges”)</li>
+<li><code>stressz</code> - a személyt ért stressz mértéke (intervallum/arány)</li>
+<li><code>szorongas</code> - a szorongási szintje (intervallum/arány)</li>
+<li><code>coping</code> - a megküzdési stratégiáinak hatékonysága (intervallum/arány)</li>
+</ul></li>
+</ul></li>
+<li><p><code>diszkriminancia_bio.xlsx</code> - kik vásárolnak bio termékeket (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span>, 4.26. R-forráskód)</p>
+<ul>
+<li><p>Az adatbázis szerkezete:</p>
+<ul>
+<li><code>vasarlas</code> - a biotermékek vásárlásának gyakorisága (ordinális: “soha nem vesz”, “időnként vesz”, “gyakran vesz”)</li>
+<li><code>ertek</code> - minél nagyobb pontszámot kap a skálán, annál jobban értékeli a személy a bio termékeket (intervallum/arány)</li>
+<li><code>attitud</code> - a magasabb értékek kedvezőbb atttitűdöt jelez a biotermékek iránt (intervallum/arány)</li>
+<li><code>fizetes</code> - a személy fizetésének nagysága (intervallum/arány)</li>
+<li><code>kor</code> - a személy életkora(intervallum/arány)</li>
+</ul></li>
+</ul></li>
+<li><p><code>diszkriminancia_vezetesi_program.xlsx</code> - A szervezeti elkötelezettség, a szervezeti kultúra és az elégedettség alapján szétválasztható a vállalat 3 különböző vezetési irányelvét valló egysége? Az adatbázis <span class="citation" data-cites="SajtosMitev2007">Sajtos és Mitev (<a href="references.html#ref-SajtosMitev2007" role="doc-biblioref">2007, o. 332</a>)</span> könyvéből származik.<br>
+Egy vállalat menedzsmentje szeretné megvizsgálni különböző vezetési programok hatását, ezért három különböző vezetési programot vezetett be három különböző stratégiai üzleti egységben (SÜE). Az első SÜE-ben bevezetett program az egyenlőséget és az individualizmust hangsúlyozta. A második SÜE-ben az egyenlőséget és a csoportmunkát helyzeték középpontba. A harmadik SÜE-ben a bevezetett program egy nagyon hierarchikus vezetési elvet alkalmazott. Később mindhárom SÜE dolgozóinak körében felmérést végeztek, és a kérdések között szerepelt a szervezettel való elkötelezettség mértéke (<code>szelkot</code>), a szervezettel való elégedettség nagysága (<code>elegedett</code>), illetve a rendszer egalitárius vagy tekintélyelvű (autokrata) jellege (<code>rendszer</code>).</p>
+<ul>
+<li>Az adatbázis szerkezete:
+<ul>
+<li><code>SUE</code> - a három különböző vezetési irányelvet követő stratégiai üzleti egység (nominális: 1-3)</li>
+<li><code>szelkot</code> - szervezet elkötelezettség mértéke (likert: 1-5)</li>
+<li><code>elegedett</code> - szervezettel való elégedettség (likert: 1-5)</li>
+<li><code>rendszer</code> - szervezet tekintélyelvű jellege (likert: 1-5)</li>
+</ul></li>
+<li>Kapcsolódó állományok:
+<ul>
+<li><code>diszkriminancia_vezetesi_program.omv</code> - diszkriminancia elemzés jamovi-ban</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="lineáris-regresszió" class="level2" data-number="B.4">
+<h2 data-number="B.4" class="anchored" data-anchor-id="lineáris-regresszió"><span class="header-section-number">B.4</span> Lineáris regresszió</h2>
+<ul>
+<li><code>lin_reg_fizetes_elegedettseg_01.omv</code> - konstans oszlopokkal nem tudunk számolni (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.1/A táblázat)</li>
+<li><code>lin_reg_fizetes_elegedettseg_02.omv</code>- az adatpontok szinte tökéletesen az egyenesre illeszkednek (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.1/B táblázat)</li>
+<li><code>lin_reg_kapcsolatok_01.omv</code> - nem szisztematikus kapcsolat két változó között (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.5. R-forráskód)</li>
+<li><code>lin_reg_kapcsolatok_02.omv</code> - szisztematikus (függvényszerű) kapcsolat két változó között (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.6. R-forráskód)</li>
+<li><code>lin_reg_kapcsolatok_03.omv</code> - szisztematikus (függvényszerű) kapcsolat két változó között (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.7. R-forráskód)</li>
+<li><code>lin_reg_kapcsolatok_04.omv</code> - szisztematikus (függvényszerű) kapcsolat két változó között (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.8. R-forráskód)</li>
+<li><code>lin_reg_kapcsolatok_05.omv</code> - szisztematikus (függvényszerű) kapcsolat két változó között (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.9. R-forráskód)</li>
+<li><code>lin_reg_elegedttseg.omv</code> - a fizetés és a munkahellyel való elégedettség pontdiagramja, egyszerű lineáris regresszió (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.10 R-forráskód)</li>
+<li><code>lin_reg_fizetes_eletkor_eledettseg_01.omv</code> - többszörös lineáris regresszió, 2 numerikus magyarázó változó (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.2. táblázat)</li>
+<li><code>lin_reg_intelligencia_testmagassag_eletkor_01.omv</code> - többszörös lineáris regresszió, 2 numerikus magyarázó változó, parciális korreláció magyarázata
+<ul>
+<li>minél magasabb valaki, annál intelligensebb</li>
+<li>ha bevonjuk az életkor változót, akkor eltűnik az intelligencia és a testmagasság közötti kapcsolat</li>
+</ul></li>
+<li><code>lin_tizproba.omv</code> - többszörös lineáris regresszió, a legjobb modell keresése, sok numerikus magyarázó változó</li>
+<li><code>lin_college_success_02.omv</code> - többszörös lineáris regresszió, sok numerikus magyarázó változó, GPA a függő változó, mi magyarázza az egyetemi teljesítményt</li>
+<li><code>lin_reg_elegedttseg_02.omv</code> - A férfiak vagy a nők elégedettebbek a munkahelyükkel? (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.6.3 probléma), egyetlen kategorikus magyarázó változó 2 értékkel (nem: férfi, nő)
+<ul>
+<li>kapcsolat a kétmintás t-próbával</li>
+</ul></li>
+<li><code>lin_reg_magassag_hajhossz_nem_01.omv</code> - többszörös lineáris regresszió, parciális korreláció 1 numerikus és 1 kategorikus változóval (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 1.2. táblázat)
+<ul>
+<li>a testmagasság és a hajhossz között kapcsolat van</li>
+<li>ha a személyek nemét is figyelembe vesszük, egyáltalán nincs kapcsolat a testmagasság és a hajhosszúság között</li>
+</ul></li>
+<li><code>lin_auction.omv</code> - többszörös lineáris regresszió, Simpson paradoxon, párhuzamos regresszió, majd interakció bevonása.</li>
+</ul>
+</section>
+<section id="főkomponens-elemzés" class="level2" data-number="B.5">
+<h2 data-number="B.5" class="anchored" data-anchor-id="főkomponens-elemzés"><span class="header-section-number">B.5</span> Főkomponens elemzés</h2>
+<ul>
+<li><code>fokomp_elemzes_tantargyak.omv</code> - 1 főkomponens létrehozása (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 2.2. táblázat)</li>
+<li><code>fokomp_real_targyak.omv</code> - példa kidolgozása, 1 főkomponens(<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 2.5.1 Probléma)</li>
+<li><code>fokomp_kerdoivtervezet.omv</code> - példa kidolgozása (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 2.5.2 Probléma)</li>
+<li><code>fokomp_munkahelyi_tolarencia.omv</code> - példa kidolgozása (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 2.5.3 Probléma)</li>
+<li><code>fokomp_munkahelyi_elegedettseg.omv</code> - példa kidolgozása (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 2.5.4 Probléma)</li>
+</ul>
+</section>
+<section id="faktorelemzés" class="level2" data-number="B.6">
+<h2 data-number="B.6" class="anchored" data-anchor-id="faktorelemzés"><span class="header-section-number">B.6</span> Faktorelemzés</h2>
+<ul>
+<li><code>faktor_szorongas.omv</code> - példa (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 3.1. R-forráskód)</li>
+<li><code>faktor_real_human_targyak.omv</code> - példa (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 3.9. R-forráskód)</li>
+<li><code>faktor_bigfive.omv</code> - példa (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 3.21. R-forráskód)</li>
+<li><code>faktor_kockazat.omv</code> - példa (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 3.7.4 Probléma)</li>
+<li><code>faktor_fogkrem.omv</code> - példa (<span class="citation" data-cites="MalhotraSimon2008">Malhotra és Simon (<a href="references.html#ref-MalhotraSimon2008" role="doc-biblioref">2008</a>)</span> 617. oldal)</li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-MalhotraSimon2008" class="csl-entry" role="doc-biblioentry">
+Malhotra, N. K. és Simon, J. (2008). <em>Marketingkutatás</em>. Akadémiai Kiadó.
+</div>
+<div id="ref-MunnichNagyAbari2006" class="csl-entry" role="doc-biblioentry">
+Münnich, Á., Nagy, Á. és Abari, K. (2006). <em>Többváltozós statisztika pszichológus hallgatók számára</em>. Bölcsész Konzorcium. <a href="http://psycho.unideb.hu/statisztika">http://psycho.unideb.hu/statisztika</a>
+</div>
+<div id="ref-SajtosMitev2007" class="csl-entry" role="doc-biblioentry">
+Sajtos, L. és Mitev, A. (2007). <em>SPSS kutatási és adatelemzési kézikönyv</em>. Alinea Kiadó.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Sikeres másolás!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Sikeres másolás!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./appendix_linkek.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Elérhető videók</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

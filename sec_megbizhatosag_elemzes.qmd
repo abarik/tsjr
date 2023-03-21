@@ -1,0 +1,57 @@
+# Megbízhatóság elemzés {#sec-megbizhatosag-elemzes}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+
+A pszichológiai tesztelés során használt mérőeszközök legfontosabb tulajdonsága a megbízhatóság (reliabilitás) és a validitás [@CarverScheier2006; @Nagybanyai2006]. A reliabilitás azt mutatja meg, hogy az eszköz mennyire mér megbízhatóan, pontosan, mennyire bízhatunk abban, hogy a mérés második és harmadik alkalommal is ugyanazt az eredményt adja, amit az első esetben. A validitás vagy érvényesség azt jelenti, hogy a mérőeszköz azt méri, amit mérni szeretnénk. A klasszikus ábrázolás szerint mérőeszközünk a megbízhatóság és az érvényesség alapján a lenti négy csoportok egyikébe is eshet:
+
+![Megbízhatóság és validitás esetei](images/megbizhatosag_kep_01.png)
+ 
+Egy mérőeszköz megbízhatóságát mindig úgy vizsgáljuk, hogy a mérés eredményét egy vagy több más eszköz eredményével hasonlítjuk össze. Az összehasonlítás mindig korrelációt típusú vizsgálatot jelent, és a magasabb korreláció egyben magasabb megbízhatóságot jelöl. Ennek megfelelően a megbízhatósági mutatók értéktartománya megegyezik a korrelációs együttható értéktartományával (feltehetően azonban 0 és 1 közötti lesz az értéke, negatív értéket ritkán kapunk és el is szeretnénk kerülni).
+
+A megbízhatósággal kapcsolatban három aspektust érdemes vizsgálni:
+
+* **belső konzisztencia** – az önjellemző skálák sok tételből állnak (melyik mindegyike külön mérőeszköznek tekinthető), ezek kitöltésével egyidejűleg végzünk egymással ekvivalens, párhuzamos méréseket.
+* **időbeli stabiltás (teszt-reteszt reliabilitás)** – időben eltolva, ugyanazon mérést egy későbbi időpontban megismételve jutunk két mérési eredményhez, például, ha ugyanazt az önjellemző skálát mondjuk, egy nap eltéréssel felvesszük ugyanazon személyekkel.
+* **értékelő megbízhatóság (inter-rater reliabilitás)** – amikor megfigyelő pontoz, akkor a megfigyelő személy a mérőeszköz, így a megfigyelői ítéleteket az értékelő megbízhatóságának meghatározásával ellenőrizzük.
+
+## Cronbach-alfa – belső konzisztencia mérése
+
+Főkomponens elemzés segítségével könnyen tudunk több változót - viszonylag csekély veszteséggel - egyetlen változóba tömöríteni, ezért gyakran használják kérdőívek itemeinek szelekciójára, valamint megbízhatóság (reliabilitás) vizsgálatra. A klasszikus tesztelmélet keretein belül azonban a tesztek megbízhatóságának (reliabilitásának) több lehetséges mutatója is létezik. 
+
+Cronbach 1951-es munkájában publikálta azon nézetét, hogy a korábbi egyszerű tesztfelezéses eljárás helyett egy annál tökéletesebb mutatót kellene használni a tesztek megbízhatóságának indikátoraként. Ha az itemek száma alacsony vagy az itemek közötti átlagos korreláció alacsony, akkor csökkenni fog a Cronbach-féle alfa értéke is. Az is egyértelmű, hogy az itemek közötti alacsony korreláció arra enged következtetni, hogy a teszt itemjei nem egy és ugyanazon dolog vizsgálatára szolgálnak, a belőlük képzendő tesztérték nem alkalmas sem elméleti, sem pedig gyakorlati felhasználásra.
+
+Az ómega (McDonald $\omega$) korrigálja a Cronbach-alfa torzítását, érdemes elvégezni az elemzést ezzel a mutatóval is [@Malkewitz2023; @Karasz2022].
+
+## Példa: Real tárgyak iránti fogékonyság
+
+Egy fiktív adatbázis 9 tanuló iskolai jegyeit tartalamzza reál tantárgyakból (matematika, fizika, kémia, informatika) (`megbizhatosag_tantargyak.xlsx`). Vizsgáljuk meg, ha a reál tantárgyak iránti fogékonyságot ezzel a 4 érdemjeggyel mérnénk, akkor ez megbízhatóság szempontjából alkalmas mérőeszköz lenne.
+
+
+```{r}
+real <- rio::import(file = "adat/megbizhatosag_tantargyak.xlsx")
+str(real)
+```
+
+A Cronbach alfa meghatározását végezhetjük a `{psych}` csomag `alpha()` függvényével.
+
+```{r}
+psych::alpha(real) # Cronbach-alfa
+```
+
+A McDonald $\omega$ értékét kiszámolhatjuk a `{psych}` csomag `omega()` függvényével.
+
+```{r}
+psych::omega(real, plot = F) # McDonald-ómega
+```
+
+A fenti elemzéseket jamovi-ban a `Factor / Reliability Analysis` menüpont segítségével végezhetjük el.
+
+![Megbízhatóság elemzés jamovi-ban](images/megbizhatosag_jamovi_kep_02.jpg)
+ 
+A fenti megbízhatósági elemzések azt mutatják, hogy a négy tantárgy alfa értéke 0,966, ami egy igen jó érték, hiszen közel van 1-hez (jamovi-ban: Scale Reliability Statistics). Az Item Reliability Statistics táblázat oszlopában szereplő értékek azt mutatják, mi történik, ha egy változót kiveszünk a modellből. Láthatjuk, hogy egyedül a fizika változó értéke növelné az alfát, de a növekedés mértéke elenyésző lenne, tehát nem éri meg eltávolítani a változót, hiszen minél több információnk van egy személyről, annál jobb.
+

@@ -1,0 +1,12 @@
+# Lineáris regresszió {#sec-linearis-regresszio}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+
+JÖN.
+
+

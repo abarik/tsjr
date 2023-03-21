@@ -1,0 +1,14 @@
+{
+  "hash": "c712d7f9fe98aa5d9d7c56693d42c105",
+  "result": {
+    "markdown": "# Megerősítő faktorelemzés {#sec-megerosito-faktorelemzes}\n\n\n\n\n\n\nJÖN.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

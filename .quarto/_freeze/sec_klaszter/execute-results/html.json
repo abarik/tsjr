@@ -1,0 +1,14 @@
+{
+  "hash": "f5a9edaa074ebb341f685f79e602d531",
+  "result": {
+    "markdown": "# Klaszterelemzés {#sec-klaszterelemzes}\n\n\n\n\n\nAz klaszterelemzés segítségével vizsgált probléma a következő: egy $n$ elemű adatbázisban minden egyes elemhez $p$ darab változó értékei kapcsolódnak; alakítsunk az elemekből csoportokat úgy, hogy a \"hasonlóak\" egy csoportba kerüljenek. Minden klaszter elemei viszonylag hasonlóak legyenek egymáshoz, de különbözzenek más klaszterek elemeitől. \n\nSzámos eljárás született a klaszteranalízis módszerén belül. Ebben a könyvben két eljárással foglalkozunk részletesen: \n\n* a hierarchikus eljárásokkal és a \n* K-középpontú klaszteranalízissel.\n\n## Hierarchikus eljárások\n\nA hierarchikus eljárások az egyes személyek, objektumok, esetek közötti távolság meghatározásával kezdődnek. A csoportok, klaszterek kialakítása történhet összevonáson vagy felosztáson alapuló módszerekkel. Az összevonó módszerek abból indulnak ki, hogy minden egyes elem egy önálló csoportot alkot, majd fokozatosan vonják össze az egyelemes csoportokat egyetlen nagy csoportba. Ezzel szemben a lebontó módszerben az összes elem egyetlen csoportba tartozik, és ezt a csoportot osztjuk fel kettő, majd egyre több csoportra addig, amíg minden elem egy önálló csoportot nem alkot. Az összevonó módszernél kezdetben minden egyes elem külön klasztert alkot. A klaszterek a megfigyelési egységek egyre nagyobb klaszeterekbe csoportosításával alakulnak ki. A folyamat addig folytatódik, amíg egyetlen klaszter lesz az egész. A következőkben a legelterjedtebb klaszteralkotó módszereket soroljuk fel:\n\n* Egyszerű lánc, avagy a legközelebbi szomszéd elve\n* Teljes lánc, avagy a legtávolabbi szomszéd elve\n* Átlagos távolság\n* Variancia-módszerek\n* Ward-féle eljárás\n* Centroidmódszerek\n* Szekvenciális küszöbérték módszer\n* Párhuzamos küszöbérték módszer\n* Optimális felosztás módszere\n\nJamovi-ban a `snowCluster` csomag segítségével végethetünk klaszterelemzéseket. A csomag telepítése után a `snowCluster / Hiearchical Clustering` vagy `snowCluster / Clustering Dendogram` menüpontokat használjuk.\n\nA jamovi a következő módszereket ismeri:\n\n* ward.D\n* ward.D2\n* single\n* complete\n* average\n\n\n## K-középpontú klaszterelemzés\n\n\nJÖN.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

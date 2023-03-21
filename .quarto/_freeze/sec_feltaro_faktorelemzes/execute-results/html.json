@@ -1,0 +1,14 @@
+{
+  "hash": "30db5c8ae62b3d22de03a77172a0c137",
+  "result": {
+    "markdown": "# Feltáró faktorelemzés {#sec-feltaro-faktorelemzes}\n\n\n\n\n\n\nJÖN.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

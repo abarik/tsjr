@@ -1,0 +1,10 @@
+# Többszempontos varianciaelemzés {#sec-tobbszempontos-varianciaelemzes}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+
+JÖN.

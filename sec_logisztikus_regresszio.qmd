@@ -1,0 +1,13 @@
+# Logisztikus regresszió {#sec-logisztikus-regresszio}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+A logisztikus regresszió céljait tekintve megegyezik a diszkriminancia elemzéssel, de sokkal robusztusabb, azaz kevesebb alkalmazási feltétellel rendelkezik. Használható a logisztikus regresszió akkor is, ha a független változók között kategorikus változók is előfordulnak, illetve a normalitásra és homoszkedaszticitásra vonatkozó feltétel megsértésre sem érzékeny a módszer.
+
+JÖN.
+
+

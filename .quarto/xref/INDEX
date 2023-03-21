@@ -1,0 +1,53 @@
+{
+  "index.qmd": {
+    "index.html": "4ff75e44"
+  },
+  "intro.qmd": {
+    "intro.html": "c4aff1aa"
+  },
+  "summary.qmd": {
+    "summary.html": "2a375eaa"
+  },
+  "references.qmd": {
+    "references.html": "61b9ca36"
+  },
+  "sec_diszkrimninancia.qmd": {
+    "sec_diszkrimninancia.html": "71f8dc64"
+  },
+  "sec_klaszter.qmd": {
+    "sec_klaszter.html": "630f178f"
+  },
+  "sec_tobbvaltozos_variancia.qmd": {
+    "sec_tobbvaltozos_variancia.html": "c4fb11d9"
+  },
+  "sec_logisztikus_regresszio.qmd": {
+    "sec_logisztikus_regresszio.html": "60d856a4"
+  },
+  "sec_tobbdimenzios_skalazas.qmd": {
+    "sec_tobbdimenzios_skalazas.html": "c3cf0d55"
+  },
+  "appendix_linkek.qmd": {
+    "appendix_linkek.html": "92e26c4d"
+  },
+  "sec_fokomponens_elemzes.qmd": {
+    "sec_fokomponens_elemzes.html": "f108bce1"
+  },
+  "sec_megbizhatosag_elemzes.qmd": {
+    "sec_megbizhatosag_elemzes.html": "da8c2995"
+  },
+  "appendix_adatbazisok.qmd": {
+    "appendix_adatbazisok.html": "cc2e7c4c"
+  },
+  "sec_linearis_regresszio.qmd": {
+    "sec_linearis_regresszio.html": "f7bc223e"
+  },
+  "sec_feltaro_faktorelemzes.qmd": {
+    "sec_feltaro_faktorelemzes.html": "614dbbe1"
+  },
+  "sec_megerosito_faktorelemzes.qmd": {
+    "sec_megerosito_faktorelemzes.html": "b6a5e525"
+  },
+  "sec_tobbszempontos_variancielemzes.qmd": {
+    "sec_tobbszempontos_variancielemzes.html": "36b3d783"
+  }
+}
