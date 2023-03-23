@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,88 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
 }
 </style>
 
@@ -60,6 +142,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -84,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Többváltozós statisztika jamovi-ban és R-ben</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/abarik/aeer" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/abarik/tsjr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="" title="Download" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-download"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
         <li>
@@ -215,7 +298,23 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tartalomjegyzék</h2>
+   
+  <ul>
+  <li><a href="#egyszerű-lineáris-regresszió" id="toc-egyszerű-lineáris-regresszió" class="nav-link active" data-scroll-target="#egyszerű-lineáris-regresszió"><span class="toc-section-number">1.1</span>  Egyszerű lineáris regresszió</a></li>
+  <li><a href="#többszörös-lineáris-regresszió" id="toc-többszörös-lineáris-regresszió" class="nav-link" data-scroll-target="#többszörös-lineáris-regresszió"><span class="toc-section-number">1.2</span>  Többszörös lineáris regresszió</a></li>
+  <li><a href="#parciális-korrelációs-együttható" id="toc-parciális-korrelációs-együttható" class="nav-link" data-scroll-target="#parciális-korrelációs-együttható"><span class="toc-section-number">1.3</span>  Parciális korrelációs együttható</a></li>
+  <li><a href="#a-többszörös-lineáris-regresszió-esetei" id="toc-a-többszörös-lineáris-regresszió-esetei" class="nav-link" data-scroll-target="#a-többszörös-lineáris-regresszió-esetei"><span class="toc-section-number">1.4</span>  A többszörös lineáris regresszió esetei</a>
+  <ul class="collapse">
+  <li><a href="#egyetlen-dichotóm-magyarázó-változó" id="toc-egyetlen-dichotóm-magyarázó-változó" class="nav-link" data-scroll-target="#egyetlen-dichotóm-magyarázó-változó"><span class="toc-section-number">1.4.1</span>  Egyetlen dichotóm magyarázó változó</a></li>
+  </ul></li>
+  <li><a href="#modellválasztás" id="toc-modellválasztás" class="nav-link" data-scroll-target="#modellválasztás"><span class="toc-section-number">1.5</span>  Modellválasztás</a></li>
+  <li><a href="#alkalmazási-feltételek" id="toc-alkalmazási-feltételek" class="nav-link" data-scroll-target="#alkalmazási-feltételek"><span class="toc-section-number">1.6</span>  Alkalmazási feltételek</a></li>
+  <li><a href="#példa" id="toc-példa" class="nav-link" data-scroll-target="#példa"><span class="toc-section-number">1.7</span>  1. Példa</a></li>
+  <li><a href="#példa-1" id="toc-példa-1" class="nav-link" data-scroll-target="#példa-1"><span class="toc-section-number">1.8</span>  2. Példa</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -237,9 +336,652 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>JÖN.</p>
+<p>A korrelációszámítás két változó szimmetrikus kapcsolatának erősségét és irányát vizsgálja csupán. Mivel az egyszerű lineáris regresszió két változó függvényszerű kapcsolatát vizsgálja, ez már nem szimmetrikus viszony, vagyis megkülönböztetjük a</p>
+<ul>
+<li>függő változót (célváltozót, <span class="math inline">\(Y\)</span>-t), amely “elszenvedi” a független változó hatását, és a</li>
+<li>független változót (magyarázó változót, <span class="math inline">\(X\)</span>-et), amely befolyásolja a függő változót.</li>
+</ul>
+<p>A többszörös lineáris regresszió annyiban tér el az egyszerű lineáris regressziótól, hogy a független változók száma egynél több. Itt is megkülönböztetjük a</p>
+<ul>
+<li>függő változót (célváltozót, <span class="math inline">\(Y\)</span>-t), amelynek értékei a független változóktól függenek, és a</li>
+<li>független változókat (magyarázó változókat, <span class="math inline">\(X_1,X_2,..,X_r\)</span>-t) amelyek hatnak a függő változóra.</li>
+</ul>
+<p>Két változó (<span class="math inline">\(X\)</span> és <span class="math inline">\(Y\)</span>) között nem feltétlenül van szisztematikus kapcsolat, lehet a két változó független is egymástól. Ha van valamilyen szisztematikus kapcsolat <span class="math inline">\(X\)</span> és <span class="math inline">\(Y\)</span> között, akkor az még számos formában megvalósulhat, ezek egyike a lineáris kapcsolat,</p>
+<ul>
+<li>amely olyan függvényszerű kapcsolat, amely megmondja, hogy milyen mértékű változás várható az <span class="math inline">\(Y\)</span> változóban, ha <span class="math inline">\(X\)</span> adott mértéknyit változik.</li>
+</ul>
+<section id="egyszerű-lineáris-regresszió" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="egyszerű-lineáris-regresszió"><span class="header-section-number">1.1</span> Egyszerű lineáris regresszió</h2>
+<p>Az egyszerű lineáris regressziós modell: <span class="math inline">\(Y=\beta_0+β_1 X+\epsilon\)</span>, amely egy egyenessel (regressziós egyenes) írja le a két változó függvényszerű kapcsolatát, ahol</p>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> – tengelymeszet, a regressziós egyenes itt metszi az y tengelyt</li>
+<li><span class="math inline">\(\beta_1\)</span> – meredekség, a regressziós egyenes és az x tengely szögének tangense</li>
+<li><span class="math inline">\(\epsilon\)</span> – hibatag, amelyről feltételezzük, hogy normális eloszlású 0 várható értékkel.</li>
+</ul>
+<p>A <span class="math inline">\(\beta_0\)</span> és <span class="math inline">\(\beta_1\)</span> populációbeli paramétereket a minta alapján becsüljük a legkisebb négyzetek módszere segítségével, így kapjuk a <span class="math inline">\(b_0\)</span> és <span class="math inline">\(b_1\)</span> becsléseket.</p>
+<p>A regressziós egyenes birtokában tetszőleges <span class="math inline">\(X\)</span> értékhez tudunk <span class="math inline">\(Y\)</span> értéket előre jelezni, vagyis jósolni bizonyos hibával: <span class="math inline">\(\hat{Y}=b_0+b_1 X\)</span>.</p>
+<p>Például egy fiktív adatbázison vizsgálhatjuk a fizetés és a munkahellyel való elégedettség kapcsolatát <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_fizetes_elegedettseg_02.xlsx"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    5 obs. of  2 variables:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ fizetes     : num  44 66 89 155 130</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ elegedettseg: num  30 45 60 100 85</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   fizetes elegedettseg</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      44           30</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      66           45</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      89           60</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     155          100</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     130           85</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(elegedettseg <span class="sc">~</span> fizetes, <span class="at">data =</span> d)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = elegedettseg ~ fizetes, data = d)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1       2       3       4       5 </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.8423  0.3420  0.8983 -0.5488  0.1508 </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 3.210890   0.931791   3.446   0.0411 *  </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes     0.627987   0.008873  70.774 6.22e-06 ***</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.8077 on 3 degrees of freedom</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.9994, Adjusted R-squared:  0.9992 </span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic:  5009 on 1 and 3 DF,  p-value: 6.216e-06</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jamovi-ban a <code>Regression / Linear Regression</code> menüpontot kell használnunk.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_elegedettseg_02_kep.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Fizetés és elégedettésg kapcsolata (N=5): együtthatók</figcaption><p></p>
+</figure>
+</div>
+<p>A fenti elemzés alapján például a <span class="math inline">\(\hat{Y}=b_0+b_1 X\)</span> konkrét formája:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>becsült elégedettség = 3,211+ 0,628 * fizetés</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>A <span class="math inline">\(b_0\)</span> értelmezése: a zérus <span class="math inline">\(X\)</span>-hez tartozó <span class="math inline">\(Y\)</span> érték.</li>
+<li>A <span class="math inline">\(b_1\)</span> értelmezése: az <span class="math inline">\(X\)</span> egy egységnyi növekedéséhez ilyen nagyságú <span class="math inline">\(Y\)</span> változás tartozik.</li>
+</ul>
+<p>Tudjuk, hogy az <span class="math inline">\(r_{XY}\)</span> Pearson-féle korrelációs együttható, az <span class="math inline">\(X\)</span> és <span class="math inline">\(Y\)</span> változók közötti kapcsolat erősségét és irányát mutatja meg. A <span class="math inline">\(b_1\)</span> és <span class="math inline">\(r_{XY}\)</span> kapcsolatban áll:</p>
+<ul>
+<li>azonos az előjelük,</li>
+<li>az <span class="math inline">\(X\)</span> egy szórásnyi növekedéséhez tartozó <span class="math inline">\(Y\)</span> változás megegyezik az <span class="math inline">\(Y\)</span> szórásának <span class="math inline">\(r_{XY}\)</span> szeresével (rövidebben, a populációbeli paraméterekkel megfogalmazva: <span class="math inline">\(\beta_1=\frac{\sigma_Y}{\sigma_X}\rho_{XY}\)</span></li>
+</ul>
+<p>A determinációs együttható (<span class="math inline">\(R^2\)</span>) a korrelációs együttható négyzete <span class="math inline">\((R^2=r_{XY}^2)\)</span>, amely szimmetrikus mutató, megmutatja, hogy <span class="math inline">\(Y\)</span> varianciájának mekkora hányadát magyarázza <span class="math inline">\(X\)</span> varianciája, vagy fordítva, <span class="math inline">\(X\)</span> varianciájának mekkora hányadát magyarázza <span class="math inline">\(Y\)</span> varianciája.</p>
+<p>A fenti példában látható, hogy 99%-ban lehet a függő változó varianciáját magyarázni a független változóval (az arányt legtöbbször százalékos formában adjuk meg).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)<span class="sc">$</span>r.squared</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.9994014</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_elegedettseg_02_kep_02.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Fizetés és elégedettésg kapcsolata (N=5): determinációs együttható</figcaption><p></p>
+</figure>
+</div>
+<p>A <span class="math inline">\(\beta_0\)</span> és <span class="math inline">\(\beta_1\)</span> együtthatók értékét hipotézisvizsgálatokkal vizsgálhatjuk:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_0=0\)</span>, <span class="math inline">\(H_1: \beta_0 \neq 0\)</span> Kérdés: origón átmenő a regresszió? (<span class="math inline">\(H_0\)</span> megtartása esetén igen)</li>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_1=0\)</span>, <span class="math inline">\(H_1: \beta_1 \neq 0\)</span> Kérdés: <span class="math inline">\(Y\)</span> függ <span class="math inline">\(X\)</span>-től? (<span class="math inline">\(H_1\)</span> elfogadása esetén igen)</li>
+</ul>
+<p>A példában látható, hogy nem origón átmenő a regresszió, és az elégedettség függ a fizetéstől.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)<span class="sc">$</span>coefficients</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate  Std. Error   t value     Pr(&gt;|t|)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 3.2108896 0.931790852  3.445934 4.105805e-02</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes     0.6279867 0.008873152 70.773796 6.216433e-06</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_elegedettseg_02_kep_02.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Fizetés és elégedettésg kapcsolata (N=5): hipotézisvizsgálat az együtthatókra</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="többszörös-lineáris-regresszió" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="többszörös-lineáris-regresszió"><span class="header-section-number">1.2</span> Többszörös lineáris regresszió</h2>
+<p>A többszörös lineáris regressziós modell: <span class="math inline">\(Y=\beta_0+\beta_1 X_1+\beta_2 X_2+\dots + \beta_r X_r+\epsilon\)</span>.</p>
+<p>Míg az egyszerű lineáris regresszió esetén a regressziós egyenes írta le a két változó kapcsolatát, a többszörös lineáris regresszió esetén a lineáris függvény egy <span class="math inline">\(r\)</span> dimenziós sík az <span class="math inline">\(r+1\)</span> dimenziós térben.</p>
+<p>Az egyes <span class="math inline">\(\beta_i\)</span> együtthatók becslése itt is a legkisebb négyzetek elve alapján történik, így kapjuk a <span class="math inline">\(b_0, b_1, \dots, b_r\)</span> becsléseket.</p>
+<p>A lineáris függvény birtokában tetszőleges <span class="math inline">\(X_1,X_2,\dots,X_r\)</span> értékekhez tudunk <span class="math inline">\(Y\)</span> értéket előre jelezni, vagyis jósolni bizonyos hibával: <span class="math inline">\(\hat{Y}=b_0+b_1 X_1+\dots+ b_r X_r\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_fizetes_eletkor_elegedettseg_01.xlsx"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    5 obs. of  3 variables:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ fizetes     : num  44 66 89 155 130</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ eletkor     : num  25 65 21 35 40</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ elegedettseg: num  37 36 61 92 76</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   fizetes eletkor elegedettseg</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      44      25           37</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      66      65           36</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      89      21           61</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     155      35           92</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     130      40           76</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(elegedettseg <span class="sc">~</span> fizetes <span class="sc">+</span> eletkor, <span class="at">data =</span> d)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = elegedettseg ~ fizetes + eletkor, data = d)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        1        2        3        4        5 </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.28596  0.08556 -0.30015  0.71047 -0.78184 </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 21.508055   1.292166   16.64  0.00359 ** </span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes      0.519198   0.008847   58.69  0.00029 ***</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; eletkor     -0.305549   0.023279  -13.12  0.00575 ** </span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.8047 on 2 degrees of freedom</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.9995, Adjusted R-squared:  0.9989 </span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic:  1841 on 2 and 2 DF,  p-value: 0.000543</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_01.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): együtthatók</figcaption><p></p>
+</figure>
+</div>
+<p>A fenti példában a lineáris regresszió futtatása után azt mondhatjuk:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>becsült elégedettség = 21,05 -0,306*életkor + 0,519*fizetés</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Más szavakkal a fizetés tekintetében a magasabb fizetés nagyobb mértékű elégedettséggel jár, addig az életkor esetében az évek számának növekedése a munkahellyel való elégedetlenséget vonja maga után.</p>
+<ul>
+<li>A <span class="math inline">\(b_0\)</span> értelmezése: a csupa zérus <span class="math inline">\(X_1, X_2,\dots,X_r\)</span>-ekhez tartozó <span class="math inline">\(Y\)</span> érték.</li>
+<li>A <span class="math inline">\(b_i\)</span> <span class="math inline">\((i=1,\dots,r)\)</span> értelmezése: az <span class="math inline">\(X_i\)</span> hatása úgy, hogy a többi független változót is figyelembe vesszük.</li>
+</ul>
+<p>A fenti többszörös lineáris regressziós együtthatók nem alkalmasak az egyes magyarázó változóktól való függés erősségének mérésére, ugyanis a nagyságuk függ a változó értékeinek nagyságától is. Ezért a standard lineáris regressziós együtthatókat használjuk, amelyek már mértékegység nélküli, egymással összehasonlítható arányszámok, így abszolút értékeiket összevetve megtudhatjuk, milyen relatív fontossággal bírnak az egyes független változók a függő változó magyarázásában.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lsr<span class="sc">::</span><span class="fu">standardCoefs</span>(lm_1)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  b       beta</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes  0.5191980  0.9677518</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; eletkor -0.3055489 -0.2164358</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_02.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): standardizált együtthatók</figcaption><p></p>
+</figure>
+</div>
+<p>A fenti példában láthatjuk, hogy a fizetés erősebb kapcsolatban van az elégedettséggel, hiszen a standardizált együtthatójának értéke abszolút értékben nagyobb, mint az életkor standardizált együtthatójának abszolút értéke.</p>
+<p>Többszörös lineáris regresszió esetén több hipotézisvizsgálat végezhető:</p>
+<ul>
+<li>minden együtthatót külön tesztelhetünk t-próbákkal <span class="math inline">\((n-r-1)\)</span> szabadsági fokkal
+<ul>
+<li><span class="math inline">\(H_0:\beta_i=0\)</span>, <span class="math inline">\(H_1:\beta_i\neq0\)</span>, <span class="math inline">\(i=1,\dots,r\)</span> Kérdés: <span class="math inline">\(Y\)</span> függ <span class="math inline">\(X_i\)</span>-től? (<span class="math inline">\(H_1\)</span> elfogadása esetén igen)</li>
+</ul></li>
+<li>a teljes modellt tesztelhetjük F-próbával <span class="math inline">\((r,n-r-1)\)</span> szabadsági fokkal
+<ul>
+<li><span class="math inline">\(H_0: \text{minden } \beta_i=0\)</span>, <span class="math inline">\(H_1: \text{van olyan i, melyre } \beta_i\neq0\)</span> Kérdés: a modell bír valamilyen bejósló erővel? (<span class="math inline">\(H_1\)</span> elfogadása esetén igen)</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)<span class="sc">$</span>coefficients</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Estimate Std. Error   t value     Pr(&gt;|t|)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 21.5080549 1.29216584  16.64496 0.0035899688</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes      0.5191980 0.00884672  58.68819 0.0002902081</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; eletkor     -0.3055489 0.02327903 -13.12550 0.0057544940</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)<span class="sc">$</span>fstatistic</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    value    numdf    dendf </span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1840.547    2.000    2.000</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="at">q =</span> <span class="fu">summary</span>(lm_1)<span class="sc">$</span>fstatistic[<span class="dv">1</span>], <span class="at">df1 =</span> <span class="fu">summary</span>(lm_1)<span class="sc">$</span>fstatistic[<span class="dv">2</span>],</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">df2 =</span> <span class="fu">summary</span>(lm_1)<span class="sc">$</span>fstatistic[<span class="dv">3</span>], <span class="at">lower.tail =</span> F)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        value </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0.0005430217</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_03.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): hipotézisvizsgálatok</figcaption><p></p>
+</figure>
+</div>
+<p>A lenti példában látható, hogy mindkét magyarázó változótól függ az elégedettség (életkor p-értéke: 0,006, a fizetés p-értéke p &lt; 0,001), és a teljes modell bír magyarázó erővel (p-érték: p &lt; 0,001).</p>
+<p>A függő változó és a független változók közötti korreláció erősségének leírására több mennyiséget használhatunk</p>
+<ul>
+<li><p>többszörös korrelációs együttható: <span class="math inline">\(R\)</span>, amely a függő változó és a becsült értékek közötti korrelációs együttható értékével egyezik meg, azaz <span class="math inline">\(R(Y,X_1,X_2,…,X_r )=R(Y,\hat{Y})\)</span>. Valójában a lineáris regresszió ennek a korrelációs együtthatónak az értékét maximalizálja, mikor az <span class="math inline">\(\hat{Y}\)</span>-t <span class="math inline">\(X\)</span>-ek speciális lineáris kombinációjaként előállítja.</p></li>
+<li><p>többszörös determinációs együttható: <span class="math inline">\(R^2\)</span>, amely a többszörös korrelációs együttható négyzete, és megmutatja, hogy a magyarázó változók a függő változó ingadozásának hányad részét magyarázzák.</p></li>
+<li><p>korrigált determinációs együttható: <span class="math inline">\(R_{adj}^2\)</span>, amely kiküszöböli az <span class="math inline">\(R^2\)</span> azon tulajdonságát, hogy a magyarázó változók számának növekedésével, függetlenül azok hatásától, nő az értéke. Így alkalmas több modell esetén a magyarázó erők összehasonlítására, akkor is, ha azok eltérő számú független változót használnak.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)<span class="sc">$</span>r.squared</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.999457</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.998914</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_04.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): magyarázó erő</figcaption><p></p>
+</figure>
+</div>
+<p>A fenti példában látható mindhárom fenti mutató. Az <span class="math inline">\(R_{adj}^2\)</span> leolvasásával láthatjuk, hogy a két független változó, az életkor és a fizetés a függő változó 99%-át magyarázza.</p>
+</section>
+<section id="parciális-korrelációs-együttható" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="parciális-korrelációs-együttható"><span class="header-section-number">1.3</span> Parciális korrelációs együttható</h2>
+<p>Parciális korrelációs együttható: két változó (<span class="math inline">\(S_1,S_2\)</span>) közötti korreláció mértéke, miután változók egy halmazának <span class="math inline">\((T_1,T_2,\dots,T_g)\)</span> a két változó korrelációjára vonatkozó hatását többszörös lineáris regresszióval kiküszöböljük:</p>
+<ul>
+<li><span class="math inline">\(R( S_1,S_2 |T_1,T_2,\dots,T_g )= R(S_1- \hat{S_1},S_2- \hat{S_2})\)</span>, ahol <span class="math inline">\(\hat{S_1}\)</span> és <span class="math inline">\(\hat{S_2}\)</span> az <span class="math inline">\(S_1\)</span> és <span class="math inline">\(S_2\)</span> változó többszörös lineáris regresszióból származó becslése a <span class="math inline">\(T_1,T_2,\dots,T_g\)</span> magyarázó változók esetén.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_intelligencia_testmagassag_eletkor_01.xlsx"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    5 obs. of  3 variables:</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ intelligencia: num  81 86 91 101 111</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ testmagassag : num  138 145 156 163 167</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ eletkor      : num  9 12 14 18 22</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   intelligencia testmagassag eletkor</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1            81          138       9</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2            86          145      12</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3            91          156      14</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4           101          163      18</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5           111          167      22</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(d<span class="sc">$</span>intelligencia, d<span class="sc">$</span>testmagassag)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Pearson's product-moment correlation</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  d$intelligencia and d$testmagassag</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 5.4629, df = 3, p-value = 0.01205</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.4463631 0.9970093</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      cor </span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0.953235</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>RcmdrMisc<span class="sc">::</span><span class="fu">partial.cor</span>(d, <span class="at">tests =</span> T)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Partial correlations:</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               intelligencia testmagassag eletkor</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; intelligencia       0.00000     -0.46317 0.97875</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; testmagassag       -0.46317      0.00000 0.62856</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; eletkor             0.97875      0.62856 0.00000</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Number of observations: 5 </span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Pairwise two-sided p-values:</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               intelligencia testmagassag eletkor</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; intelligencia               0.5368       0.0213 </span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; testmagassag  0.5368                     0.3714 </span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; eletkor       0.0213        0.3714              </span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Adjusted p-values (Holm's method)</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               intelligencia testmagassag eletkor</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; intelligencia               0.7429       0.0638 </span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; testmagassag  0.7429                     0.7429 </span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; eletkor       0.0638        0.7429</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/lin_reg_intelligencia_testmagassag_eletkor_01_kep_01.jpg" class="img-fluid" alt="Az intelligencia és a testmagasság kapcsolata (N=5): korrelációs együttható és parciális korrelációs együttható"> A fenti példában látható, hogy míg szignifikáns erős pozitív kapcsolat van az intelligencia és a magasság között (korrelációs együttható: <span class="math inline">\(r=0,95; p=0,012\)</span>), ez a kapcsolat eltűnik, ha figyelembe vesszük az életkor változót is (parciális korreláció: <span class="math inline">\(r_{par}=-0,46; p=0,537\)</span>). Vagyis sikerült az intelligencia és a testmagasság közötti kapcsolat erősségét megállapítani, miközben az életkor hatását erre a kapcsolatra kiküszöböltük.</p>
+<p>A többszörös lineáris regressziós modell <span class="math inline">\((Y=\beta_0+\beta_1 X_1+\beta_2 X_2+\dots+\beta_r X_r+\epsilon)\)</span> becsült paraméterei <span class="math inline">\((b_1,b_2,…,b_r)\)</span> nagyban hasonlítanak a parciális korrelációs együtthatókra, mivel minden <span class="math inline">\(b_i\)</span> az <span class="math inline">\(Y\)</span> és <span class="math inline">\(X_i\)</span> közötti kapcsolat erősségét írja le, miközben a többi magyarázó változó (<span class="math inline">\(X_1,X_2,\dots,X_r\)</span>, összesen <span class="math inline">\((r-1)\)</span> db, <span class="math inline">\(X_i\)</span> nincs köztük) hatását kiküszöböljük a két változó korrelációjából.</p>
+<p>A parciális korrelációs együtthatók és a többszörös lineáris regresszió együtthatói között annyira közvetlen a kapcsolat, hogy azonos p-érték tartozik hozzájuk, mint a lenti példában ez látható is lesz.</p>
+<p>A lenti példában két modell szerepel, először az intelligencia és a testmagasság függvényszerű kapcsolatát vizsgáljuk és azt a meglepő dolgot tapasztaljuk, hogy minél magasabb valaki, annál intelligensebb <span class="math inline">\((p=0,012)\)</span>, majd ha bevonjuk az életkor változót, akkor azt tapasztalhatjuk, hogy eltűnik az intelligencia és a testmagasság közötti kapcsolat <span class="math inline">\((p=0,537)\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(intelligencia <span class="sc">~</span> testmagassag, <span class="at">data =</span> d)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = intelligencia ~ testmagassag, data = d)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1       2       3       4       5 </span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1.9228  0.3114 -5.0779 -1.6892  4.5328 </span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  -51.2613    26.6569  -1.923   0.1502  </span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; testmagassag   0.9445     0.1729   5.463   0.0121 *</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 4.202 on 3 degrees of freedom</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.9087, Adjusted R-squared:  0.8782 </span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 29.84 on 1 and 3 DF,  p-value: 0.01205</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(intelligencia <span class="sc">~</span> testmagassag <span class="sc">+</span> eletkor, <span class="at">data =</span> d)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_2)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = intelligencia ~ testmagassag + eletkor, data = d)</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        1        2        3        4        5 </span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.89121 -1.16330 -0.09995  0.21170  0.16034 </span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   73.1026    19.6042   3.729   0.0650 .</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; testmagassag  -0.1210     0.1637  -0.739   0.5368  </span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; eletkor        2.6338     0.3902   6.750   0.0213 *</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 1.055 on 2 degrees of freedom</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.9962, Adjusted R-squared:  0.9923 </span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 259.3 on 2 and 2 DF,  p-value: 0.003841</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_intelligencia_testmagassag_eletkor_01_kep_02.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Az intelligencia és a testmagasság kapcsolata (N=5): két modell, életkor nélkül és életkorral</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="a-többszörös-lineáris-regresszió-esetei" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="a-többszörös-lineáris-regresszió-esetei"><span class="header-section-number">1.4</span> A többszörös lineáris regresszió esetei</h2>
+<section id="egyetlen-dichotóm-magyarázó-változó" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="egyetlen-dichotóm-magyarázó-változó"><span class="header-section-number">1.4.1</span> Egyetlen dichotóm magyarázó változó</h3>
+<p>A magyarázó változóink eddig kvantitatívak voltak, de kategorikus változók is lehetnek. Ha a kategorikus változónk csupán 2 értékű, akkor a becsült (<span class="math inline">\(b_0\)</span>, <span class="math inline">\(b_1\)</span>) együtthatók értelmezése módosul. A tengelymetszet (<span class="math inline">\(b_0\)</span>) a kategorikus változó referencia szintjén a függő változó átlagát tartalmazza, míg a (<span class="math inline">\(b_1\)</span>) a kategorikus változó másik szintjén számolt átlag eltérését a <span class="math inline">\(b_0\)</span>-hoz képest.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_magassag_hajhossz_nem_01.xlsx"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>nem <span class="ot">&lt;-</span> <span class="fu">factor</span>(d<span class="sc">$</span>nem, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"nő"</span>, <span class="st">"férfi"</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    6 obs. of  3 variables:</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ magassag: num  158 159 162 170 182 179</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ hajhossz: num  28 25 20 1 1.5 3</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ nem     : Factor w/ 2 levels "nő","férfi": 1 1 1 2 2 2</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   magassag hajhossz   nem</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      158     28.0    nő</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      159     25.0    nő</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      162     20.0    nő</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      170      1.0 férfi</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      182      1.5 férfi</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      179      3.0 férfi</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(magassag <span class="sc">~</span> nem, <span class="at">data =</span> d)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = magassag ~ nem, data = d)</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1       2       3       4       5       6 </span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -1.6667 -0.6667  2.3333 -7.0000  5.0000  2.0000 </span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  159.667      2.687  59.413 4.81e-07 ***</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nemférfi      17.333      3.801   4.561   0.0103 *  </span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 4.655 on 4 degrees of freedom</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.8387, Adjusted R-squared:  0.7984 </span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic:  20.8 on 1 and 4 DF,  p-value: 0.01033</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_magassag_hajhossz_nem_01_kep_01.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">A magasság és a nem kapcsolata</figcaption><p></p>
+</figure>
+</div>
+<p>A fenti példa a nem hatását vizsgálja testmagasságra. A p-érték alapján ez a hatás szignifikáns, tehát a függés fennáll, a paraméterek pedig a nők átlagáról <span class="math inline">\((b_0=159,67)\)</span> és a férfiak és nők átlagának eltéréséről tájékoztatnak <span class="math inline">\((b_1=17,33)\)</span>.</p>
+</section>
+</section>
+<section id="modellválasztás" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="modellválasztás"><span class="header-section-number">1.5</span> Modellválasztás</h2>
+<p>Előfordulhat, hogy egy jelenség vizsgálatakor több lineáris regressziós modellt is meg tudunk fogalmazni, nem csak egyetlen modell létezik. Ez a probléma leggyakrabban úgy jelenik meg, hogy rengeteg független változónk van, és nem tudjuk eldönteni, hogy elég egy kisebb modell, néhány változóval, vagy vegyük inkább a nagyobb modellt több változóval.</p>
+<p>A megfelelő modell megtaláláshoz a modelleket összehasonlíthatjuk F-próba segítségével, szignifikáns eredmény esetén a két modell magyarázó ereje eltér egymástól. Ilyenkor a célunk a legszűkebb (legkevesebb magyarázó változót tartalmazó), de a legbővebbtől szignifikánsan nem különböző modell megtalálása.</p>
+<p>A korrigált determinációs együttható <span class="math inline">\((R_{adj}^2)\)</span> is alkalmas mód a modellek összehasonlítására: az 1-hez legközelebbi értékkel bíró modell rendelkezik a legnagyobb magyarázó erővel. Léteznek már kritériumok is:</p>
+<ul>
+<li>AIC (Akaike-kritérium): minél kisebb az AIC értéke, annál nagyobb a modell magyarázó ereje.</li>
+<li>BIC (Bayes-kritérium): minél kisebb a BIC értéke, annál nagyobb a modell magyarázó ereje.</li>
+<li>RMSE (négyzetes középérték, Root Mean Square Error) az a mennyiség, amennyivel a vizsgált értékek eltérnek az előre megbecsült értékektől. Minél kisebb ez az érték, annál jobban becsül a modell.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_fizetes_eletkor_elegedettseg_01.xlsx"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    5 obs. of  3 variables:</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ fizetes     : num  44 66 89 155 130</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ eletkor     : num  25 65 21 35 40</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ elegedettseg: num  37 36 61 92 76</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   fizetes eletkor elegedettseg</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      44      25           37</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      66      65           36</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      89      21           61</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     155      35           92</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     130      40           76</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(elegedettseg <span class="sc">~</span> fizetes, <span class="at">data =</span> d)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = elegedettseg ~ fizetes, data = d)</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1      2      3      4      5 </span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4.249 -8.272  4.684  1.123 -1.785 </span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  9.71048    7.07562   1.372  0.26355   </span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes      0.52365    0.06738   7.772  0.00443 **</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 6.134 on 3 degrees of freedom</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.9527, Adjusted R-squared:  0.9369 </span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic:  60.4 on 1 and 3 DF,  p-value: 0.004432</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(elegedettseg <span class="sc">~</span> fizetes <span class="sc">+</span> eletkor, <span class="at">data =</span> d)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_2)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = elegedettseg ~ fizetes + eletkor, data = d)</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        1        2        3        4        5 </span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.28596  0.08556 -0.30015  0.71047 -0.78184 </span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 21.508055   1.292166   16.64  0.00359 ** </span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes      0.519198   0.008847   58.69  0.00029 ***</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; eletkor     -0.305549   0.023279  -13.12  0.00575 ** </span></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.8047 on 2 degrees of freedom</span></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.9995, Adjusted R-squared:  0.9989 </span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic:  1841 on 2 and 2 DF,  p-value: 0.000543</span></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_1, lm_2)</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Analysis of Variance Table</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model 1: elegedettseg ~ fizetes</span></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model 2: elegedettseg ~ fizetes + eletkor</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Res.Df     RSS Df Sum of Sq      F   Pr(&gt;F)   </span></span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      3 112.864                                </span></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      2   1.295  1    111.57 172.28 0.005754 **</span></span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">model_performance</span>(lm_1)</span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Indices of model performance</span></span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AIC    |   AICc |    BIC |    R2 | R2 (adj.) |  RMSE | Sigma</span></span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ------------------------------------------------------------</span></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35.773 | 59.773 | 34.601 | 0.953 |     0.937 | 4.751 | 6.134</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">model_performance</span>(lm_2)</span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Indices of model performance</span></span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AIC    | AICc |    BIC |    R2 | R2 (adj.) |  RMSE | Sigma</span></span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ----------------------------------------------------------</span></span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15.436 |  Inf | 13.873 | 0.999 |     0.999 | 0.509 | 0.805</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_05.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): modellek összehasonlítása</figcaption><p></p>
+</figure>
+</div>
+<p>A fenti példán látható, hogy két modellt építettünk. Az 1. modell az elégedettséget a fizetés segítségével próbálja jósolni. A 2. modell az elégedettséget a fizetéssel és az életkorral. Láthatjuk a 2. modell szignifikánsan eltér magyarázó erőben a az 1. modelltől, valamint a modell “jóságát” leíró mutatók mindegyike kedvezőbb a 2. modell esetén: <span class="math inline">\(R_{adj}^2\)</span>, <span class="math inline">\(AIC\)</span>, <span class="math inline">\(BIC\)</span>, <span class="math inline">\(RMSE\)</span>.</p>
+</section>
+<section id="alkalmazási-feltételek" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="alkalmazási-feltételek"><span class="header-section-number">1.6</span> Alkalmazási feltételek</h2>
+<p>A regressziós modellt ne használjuk, ha az alkalmazási feltételek valamelyike nem teljesül. Melyek ezek?</p>
+<ul>
+<li>Multikollinearitás: a független változók közötti korreláció. Multikollinearitás esetén elképzelhető, hogy a regressziós számítást el sem lehet végezni. Van mérőszám, amelynek a segítségével ki lehet szűrni az érintett változókat:
+<ul>
+<li>VIF (variancia infláció faktor): a nagy érték kollinearitást jelez az érintett változókat kihagyhatjuk, vagy származtatott adatokkal dolgozunk tovább (például főkomponenselemzéssel nyert adatokat)</li>
+</ul></li>
+<li>Autokorreláció: a hibatagok együttmozgása szignifikáns.</li>
+</ul>
+</section>
+<section id="példa" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="példa"><span class="header-section-number">1.7</span> 1. Példa</h2>
+<p>Befolyásolja-e a munkahellyel való elégedettséget a fizetés nagysága és az életkor? <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [1.6.1 probléma]</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_elegedettseg.xlsx"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    30 obs. of  4 variables:</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ fizetes     : num  109 125 98 124 115 132 124 99 165 187 ...</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ elegedettseg: num  69.2 90.8 71 90.1 77.8 ...</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ kor         : num  20 46.3 36.2 46 31 ...</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ nem         : chr  "nő" "férfi" "nő" "férfi" ...</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(d)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     fizetes elegedettseg   kor   nem</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       109        69.15    20    nő</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       125        90.85 46.33 férfi</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        98        71.04  36.2    nő</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       124        90.12 45.95 férfi</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...     ...          ...   ...  &lt;NA&gt;</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27      129        96.32    53 férfi</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28      135        97.86  49.4 férfi</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29      145          100  46.9 férfi</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30      120        81.08    32 férfi</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(elegedettseg <span class="sc">~</span> fizetes <span class="sc">+</span> kor, <span class="at">data =</span> d)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = elegedettseg ~ fizetes + kor, data = d)</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -10.248  -1.543   1.188   2.437   4.333 </span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  8.13712    3.26797   2.490   0.0192 *  </span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes      0.44404    0.02321  19.128  &lt; 2e-16 ***</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; kor          0.53361    0.07127   7.487 4.71e-08 ***</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 3.59 on 27 degrees of freedom</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.953,  Adjusted R-squared:  0.9496 </span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 273.9 on 2 and 27 DF,  p-value: &lt; 2.2e-16</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>lsr<span class="sc">::</span><span class="fu">standardCoefs</span>(lm_1)</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 b      beta</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; fizetes 0.4440418 0.8322319</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; kor     0.5336111 0.3257287</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_elegedettseg_kep_01.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és lektkorra (N=30)</figcaption><p></p>
+</figure>
+</div>
+<p>A fenti outputból láthatjuk, hogy a fizetés és a kor változó is szignifikánsan befolyásolja az elégedettséget, hiszen a hozzájuk tartozó szignifikanciaszint <span class="math inline">\(p&lt;0,05\)</span>. A teljes modell vonatkozó F-próba is szignifikáns. A fizetés változó együtthatója <span class="math inline">\((b_1)\)</span> 0,44, a kor változó együtthatója <span class="math inline">\((b_2)\)</span> pedig 0,53, ami arra utal, hogy pozitív kapcsolat van a változó között: minél magasabb a fizetés, és minél idősebbek az emberek, annál elégedettebbek a munkahelyükkel.</p>
+<p>A pontos becslés a regressziós egyenlet alapján a következőképpen fest:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>elégedettség = 8,14 + 0,44 * fizetés + 0,53 * kor</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Mivel a többszörös regresszió esetében a független változók hatása csak a standardizált együtthatók mentén hasonlítható össze, így kiszámoltuk a standardizált együtthatókat is. Az adatok jól példázzák, hogy miért fontos a standardizált együtthatókat is vizsgálni, hiszen a nem standardizált együtthatók esetén a kor változó együtthatójának értéke a magasabb, míg a standardizált értékeknél fordítva. Vagyis, ha az egyes változók relatív fontosságának vizsgálatakor nem nézzük a dimenziómentes értékeket, akkor könnyen téves következtetésre juthatunk.</p>
+<p>A négyzetes korrelációs együttható értéke 0,9, ami arra utal, hogy a független változók igen jól magyarázzák a függő változót.</p>
+</section>
+<section id="példa-1" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="példa-1"><span class="header-section-number">1.8</span> 2. Példa</h2>
+<p>Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt? <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [1.6.2 probléma]</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_katonasag.xlsx"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    156 obs. of  4 variables:</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ kaland  : num  3 3 5 1 3 4 2 2 3 5 ...</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ egyhangu: num  3 2 4 1 3 1 2 1 2 3 ...</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ sport   : num  1 1 2 1 2 2 2 1 2 2 ...</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ evek    : num  4 7 10 3 6 15 5 6 9 13 ...</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(d)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     kaland egyhangu sport evek</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        3        3     1    4</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        3        2     1    7</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        5        4     2   10</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        1        1     1    3</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...    ...      ...   ...  ...</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 153      2        4     2    1</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 154      3        5     3    2</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 155      1        3     2    2</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 156      3        2     4   12</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(evek <span class="sc">~</span> egyhangu <span class="sc">+</span> sport <span class="sc">+</span> kaland, <span class="at">data =</span> d)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_1)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = evek ~ egyhangu + sport + kaland, data = d)</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -1.6611 -0.5925 -0.0798  0.2726  9.7833 </span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  0.63951    0.33263   1.923   0.0564 .  </span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; egyhangu    -2.28197    0.09160 -24.912   &lt;2e-16 ***</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sport        1.52987    0.09447  16.194   &lt;2e-16 ***</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; kaland       3.17525    0.09884  32.125   &lt;2e-16 ***</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 1.213 on 152 degrees of freedom</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.9195, Adjusted R-squared:  0.9179 </span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 578.4 on 3 and 152 DF,  p-value: &lt; 2.2e-16</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>lsr<span class="sc">::</span><span class="fu">standardCoefs</span>(lm_1)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  b       beta</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; egyhangu -2.281974 -0.5927751</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sport     1.529871  0.3821476</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; kaland    3.175249  0.7676009</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_katonasag_kep_01.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt? (N=156)</figcaption><p></p>
+</figure>
+</div>
+<p>A fenti output a többszörös lineáris regresszió eredményét mutatja:</p>
+<ul>
+<li>A lineáris regressziós modellt megtarthatjuk, hiszen az F-statisztika értékét tekintve a modell szignifikáns, a változók együtthatóinak az értéke nem nulla.</li>
+<li>A modell magyarázóértéke igen jó, hiszen a korrigált determinációs együttható értéke 0,92, vagyis a független változók a függő változó varianciájának kb. 92%-át magyarázzák.</li>
+<li>Minden egyes független változó hatással van a függő változóra, vagyis mind a kalandvágy, az extrém sportok szeretete és a nyugalom utáni vágy is befolyásolja azt, hogy mennyi időt tölt valaki a hivatásos katonai szolgálatban.</li>
+<li>Ellenben a <span class="math inline">\(b_0\)</span> vagyis a konstans értéke most nulla, hiszen a táblázatban szereplő érték nem szignifikáns.</li>
+<li>Maga a regressziós egyenlet a pontos együtthatók ismeretében a következőképpen alakul:</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="in">    evek=3,18*kaland+1,53*sport-2,28*egyhangu</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>Vagyis minél jobban kedveli valaki a kalandos életet és az extrém sportokat, és minél jobban irtózik a szürke hétköznapoktól, annál több időt tölt a katonaság kötelékében.</p></li>
+<li><p>A standardizált változók alapján a kaland szeretetének a hatása a legerősebb (0,768), a második legerősebb hatás az egyhangúság kedvelése, ám hatásának iránya negatív (-0,593), leggyengébb hatása pedig az extrém sportok szeretetének van (0,382).</p></li>
+</ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-MunnichNagyAbari2006" class="csl-entry" role="doc-biblioentry">
+Münnich, Á., Nagy, Á. és Abari, K. (2006). <em>Többváltozós statisztika pszichológus hallgatók számára</em>. Bölcsész Konzorcium. <a href="http://psycho.unideb.hu/statisztika">http://psycho.unideb.hu/statisztika</a>
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

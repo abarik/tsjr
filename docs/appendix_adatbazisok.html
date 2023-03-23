@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -103,7 +103,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Többváltozós statisztika jamovi-ban és R-ben</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/abarik/aeer" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/abarik/tsjr/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="" title="Download" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-download"></i></a>
     <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
         <li>
@@ -244,6 +244,7 @@ div.csl-indent {
   <li><a href="#lineáris-regresszió" id="toc-lineáris-regresszió" class="nav-link" data-scroll-target="#lineáris-regresszió"><span class="toc-section-number">B.4</span>  Lineáris regresszió</a></li>
   <li><a href="#főkomponens-elemzés" id="toc-főkomponens-elemzés" class="nav-link" data-scroll-target="#főkomponens-elemzés"><span class="toc-section-number">B.5</span>  Főkomponens elemzés</a></li>
   <li><a href="#faktorelemzés" id="toc-faktorelemzés" class="nav-link" data-scroll-target="#faktorelemzés"><span class="toc-section-number">B.6</span>  Faktorelemzés</a></li>
+  <li><a href="#feltáró-faktorelemzés" id="toc-feltáró-faktorelemzés" class="nav-link" data-scroll-target="#feltáró-faktorelemzés"><span class="toc-section-number">B.7</span>  Feltáró faktorelemzés</a></li>
   </ul>
 </nav>
     </div>
@@ -431,6 +432,28 @@ Egy vállalat menedzsmentje szeretné megvizsgálni különböző vezetési prog
 <li><code>faktor_bigfive.omv</code> - példa (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 3.21. R-forráskód)</li>
 <li><code>faktor_kockazat.omv</code> - példa (<span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006</a>)</span> 3.7.4 Probléma)</li>
 <li><code>faktor_fogkrem.omv</code> - példa (<span class="citation" data-cites="MalhotraSimon2008">Malhotra és Simon (<a href="references.html#ref-MalhotraSimon2008" role="doc-biblioref">2008</a>)</span> 617. oldal)</li>
+</ul>
+</section>
+<section id="feltáró-faktorelemzés" class="level2" data-number="B.7">
+<h2 data-number="B.7" class="anchored" data-anchor-id="feltáró-faktorelemzés"><span class="header-section-number">B.7</span> Feltáró faktorelemzés</h2>
+<ul>
+<li><p><code>faktor_fogkrem.xlsx</code> - A kutató arra volt kíváncsi, milyen előnyöket keresnek a fogyasztók a fogrémvásárlásnál. Egy 30 fős mintán a válaszadókat arra kérték, hogy jelezzék, mennyire értenek egyet a következő állításokkal (1 = egyáltalán nem ért egyet; 7 = teljes mértékben egyetért)</p>
+<ul>
+<li><p>Az adatbázis szerkezete:</p>
+<ul>
+<li><code>sorszam</code>: válaszadó sorszáma (id)</li>
+<li><code>v1</code>: Fontos, hogy olyan fogkrémet vásároljak, amellyel megelőzhető a fogszuvasodás. (likert: 1-7)</li>
+<li><code>v2</code>: Az olyan fogkrémeket szeretem, amely fényessé teszi a fogaimat. (likert: 1-7)</li>
+<li><code>v3</code>: Egy fogkrémnek erősítenie kell a fogínyt. (likert: 1-7)</li>
+<li><code>v4</code>: Az olyan fogkrémeket szeretem, amely friss leheletet biztosít. (likert: 1-7)</li>
+<li><code>v5</code>: A fog romlásának megelőzése számomra nem fontos elvárás. (likert: 1-7)</li>
+<li><code>v6</code>: A legfontosabb szempont a fogkrém vásárlásánál a szép fog. (likert: 1-7)</li>
+</ul></li>
+<li><p>Kapcsolódó állományok:</p>
+<ul>
+<li><code>efa_fogkrem.omv</code> - Feltáró faktorelemzés jamovi-ban</li>
+</ul></li>
+</ul></li>
 </ul>
 
 

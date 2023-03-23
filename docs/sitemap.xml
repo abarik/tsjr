@@ -1,63 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://abarik.github.io/aeer/index.html</loc>
-    <lastmod>2023-03-21T21:05:42.890Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/index.html</loc>
+    <lastmod>2023-03-23T21:10:58.169Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_linearis_regresszio.html</loc>
-    <lastmod>2023-03-21T21:06:28.414Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_linearis_regresszio.html</loc>
+    <lastmod>2023-03-23T21:10:58.175Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_fokomponens_elemzes.html</loc>
-    <lastmod>2023-03-21T21:06:54.796Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_fokomponens_elemzes.html</loc>
+    <lastmod>2023-03-23T21:10:58.175Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_megbizhatosag_elemzes.html</loc>
-    <lastmod>2023-03-21T21:06:34.471Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_megbizhatosag_elemzes.html</loc>
+    <lastmod>2023-03-23T21:10:58.175Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_feltaro_faktorelemzes.html</loc>
-    <lastmod>2023-03-21T21:05:42.895Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_feltaro_faktorelemzes.html</loc>
+    <lastmod>2023-03-23T21:10:58.183Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_megerosito_faktorelemzes.html</loc>
-    <lastmod>2023-03-21T21:05:42.896Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_megerosito_faktorelemzes.html</loc>
+    <lastmod>2023-03-23T21:10:58.185Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_tobbszempontos_variancielemzes.html</loc>
-    <lastmod>2023-03-21T21:05:42.897Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_tobbszempontos_variancielemzes.html</loc>
+    <lastmod>2023-03-23T21:10:58.187Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_klaszter.html</loc>
-    <lastmod>2023-03-21T21:05:42.898Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_klaszter.html</loc>
+    <lastmod>2023-03-23T21:10:58.188Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_diszkrimninancia.html</loc>
-    <lastmod>2023-03-21T21:05:42.905Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_diszkrimninancia.html</loc>
+    <lastmod>2023-03-23T21:10:58.190Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_tobbvaltozos_variancia.html</loc>
-    <lastmod>2023-03-21T21:05:42.908Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_tobbvaltozos_variancia.html</loc>
+    <lastmod>2023-03-23T21:10:58.190Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_logisztikus_regresszio.html</loc>
-    <lastmod>2023-03-21T21:05:42.908Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_logisztikus_regresszio.html</loc>
+    <lastmod>2023-03-23T21:10:58.190Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/sec_tobbdimenzios_skalazas.html</loc>
-    <lastmod>2023-03-21T21:05:42.909Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/sec_tobbdimenzios_skalazas.html</loc>
+    <lastmod>2023-03-23T21:10:58.199Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/appendix_linkek.html</loc>
-    <lastmod>2023-03-21T21:05:42.910Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/appendix_linkek.html</loc>
+    <lastmod>2023-03-23T21:10:58.200Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/appendix_adatbazisok.html</loc>
-    <lastmod>2023-03-21T21:05:42.911Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/appendix_adatbazisok.html</loc>
+    <lastmod>2023-03-23T21:10:58.202Z</lastmod>
   </url>
   <url>
-    <loc>https://abarik.github.io/aeer/references.html</loc>
-    <lastmod>2023-03-21T21:05:42.912Z</lastmod>
+    <loc>https://abarik.github.io/tsjr/references.html</loc>
+    <lastmod>2023-03-23T21:10:58.204Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abarik.github.io/tsjr/Többváltozós-statisztika-jamovi-ban-és-R-ben.epub</loc>
+    <lastmod>2023-03-23T21:10:15.704Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abarik.github.io/tsjr/Többváltozós-statisztika-jamovi-ban-és-R-ben.pdf</loc>
+    <lastmod>2023-03-23T21:10:51.606Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abarik.github.io/tsjr/Többváltozós-statisztika-jamovi-ban-és-R-ben.docx</loc>
+    <lastmod>2023-03-23T21:10:56.596Z</lastmod>
   </url>
 </urlset>
