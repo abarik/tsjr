@@ -7,4 +7,10 @@ source("_common.R")
 ```
 
 
-JÖN.
+Tehát az a kísérletünk, hogy az EFA segítségével azonosítsuk a mögöttes látens tényezőket a személyiségi elemkészletből gondosan kiválasztott kérdésekkel, meglehetősen sikeresnek tűnt. A személyiség hasznos mérőszámának kidolgozására irányuló törekvésünk következő lépése az eredeti EFA-ban azonosított látens tényezők ellenőrzése egy másik mintán. Azt akarjuk látni, hogy a tényezők helytállóak-e, meg tudjuk-e igazolni létezésüket különböző adatokkal. Ez egy szigorúbb ellenőrzés, mint látni fogjuk. És ezt Confirmatory Factor Analysisnek (CFA) hívják, mivel nem meglepő módon egy előre meghatározott látens faktorstruktúra megerősítésére törekszünk.
+
+A CFA-ban ahelyett, hogy olyan elemzést végzünk, amelyben az adatok feltáró értelemben vett együttállását látjuk, ehelyett struktúrát írunk elő, mint a 15.13. ábrán, és megnézzük, hogy az adatok mennyire illeszkednek az előre megadott struktúránkhoz. Ebben az értelemben egy megerősítő elemzést végzünk, hogy megnézzük, mennyire erősítik meg a megfigyelt adatok egy előre meghatározott modellt.
+
+A személyiségelemek egyszerű megerősítő faktoranalízise (CFA) ezért öt látens faktort határoz meg, amint azt a 15.13. ábra mutatja, mindegyiket öt megfigyelt változóval mérve. Mindegyik változó egy mögöttes látens tényező mértéke. Például az A1-et a mögöttes látens egyetértési tényező előrejelzi. És mivel A1 nem tökéletes mértéke az elfogadhatósági tényezőnek, van egy hibatag,
+, kapcsolódik hozzá. Más szavakkal,
+  az A1 eltérését jelenti, amelyet az egyetértési tényező nem vesz figyelembe. Ezt néha mérési hibának nevezik.

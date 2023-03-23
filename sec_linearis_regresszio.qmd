@@ -6,7 +6,346 @@
 source("_common.R")
 ```
 
+A korrelációszámítás két változó szimmetrikus kapcsolatának erősségét és irányát vizsgálja csupán. Mivel az egyszerű lineáris regresszió két változó függvényszerű kapcsolatát vizsgálja, ez már nem szimmetrikus viszony, vagyis megkülönböztetjük a
 
-JÖN.
+* függő változót (célváltozót, $Y$-t), amely "elszenvedi" a független változó hatását, és a
+* független változót (magyarázó változót, $X$-et), amely befolyásolja a függő változót.
 
+A többszörös lineáris regresszió annyiban tér el az egyszerű lineáris regressziótól, hogy a független változók száma egynél több. Itt is megkülönböztetjük a
+
+* függő változót (célváltozót, $Y$-t), amelynek értékei a független változóktól függenek, és a
+* független változókat (magyarázó változókat, $X_1,X_2,..,X_r$-t) amelyek hatnak a függő változóra.
+
+Két változó ($X$ és $Y$) között nem feltétlenül van szisztematikus kapcsolat, lehet a két változó független is egymástól. Ha van valamilyen szisztematikus kapcsolat $X$ és $Y$ között, akkor az még számos formában megvalósulhat, ezek egyike a lineáris kapcsolat, 
+
+* amely olyan függvényszerű kapcsolat, amely megmondja, hogy milyen mértékű változás várható az $Y$ változóban, ha $X$ adott mértéknyit változik.
+
+## Egyszerű lineáris regresszió
+
+Az egyszerű lineáris regressziós modell: $Y=\beta_0+β_1 X+\epsilon$, amely egy egyenessel (regressziós egyenes) írja le a két változó függvényszerű kapcsolatát, ahol
+
+* $\beta_0$ – tengelymeszet, a regressziós egyenes itt metszi az y tengelyt
+* $\beta_1$ – meredekség, a regressziós egyenes és az x tengely szögének tangense
+* $\epsilon$ – hibatag, amelyről feltételezzük, hogy normális eloszlású 0 várható értékkel.
+
+A $\beta_0$ és $\beta_1$ populációbeli paramétereket a minta alapján becsüljük a legkisebb négyzetek módszere segítségével, így kapjuk a $b_0$ és $b_1$ becsléseket.
+
+A regressziós egyenes birtokában tetszőleges $X$ értékhez tudunk $Y$ értéket előre jelezni, vagyis jósolni bizonyos hibával: $\hat{Y}=b_0+b_1 X$.
+	
+Például egy fiktív adatbázison vizsgálhatjuk a fizetés és a munkahellyel való elégedettség kapcsolatát [@MunnichNagyAbari2006].
+
+```{r}
+d <- rio::import(file = "adat/lin_reg_fizetes_elegedettseg_02.xlsx")
+str(d)
+d
+```
+
+
+```{r}
+lm_1 <- lm(elegedettseg~fizetes, data=d)
+summary(lm_1)
+```
+
+
+Jamovi-ban a `Regression / Linear Regression` menüpontot kell használnunk.
+
+![Fizetés és elégedettésg kapcsolata (N=5): együtthatók](images/lin_reg_fizetes_elegedettseg_02_kep.jpg)
+	
+A fenti elemzés alapján például a $\hat{Y}=b_0+b_1 X$ konkrét formája:
+
+```markdown
+becsült elégedettség = 3,211+ 0,628 * fizetés
+```
+ 
+* A $b_0$ értelmezése: a zérus $X$-hez tartozó $Y$ érték.
+* A $b_1$ értelmezése: az $X$ egy egységnyi növekedéséhez ilyen nagyságú $Y$ változás tartozik.
+
+Tudjuk, hogy az $r_{XY}$ Pearson-féle korrelációs együttható, az $X$ és $Y$ változók közötti kapcsolat erősségét és irányát mutatja meg. A $b_1$ és $r_{XY}$ kapcsolatban áll: 
+
+* azonos az előjelük, 
+* az $X$ egy szórásnyi növekedéséhez tartozó $Y$ változás megegyezik az $Y$ szórásának $r_{XY}$ szeresével (rövidebben, a populációbeli paraméterekkel megfogalmazva: $\beta_1=\frac{\sigma_Y}{\sigma_X}\rho_{XY}$
+
+A determinációs együttható ($R^2$) a korrelációs együttható négyzete $(R^2=r_{XY}^2)$, amely szimmetrikus mutató, megmutatja, hogy $Y$ varianciájának mekkora hányadát magyarázza $X$ varianciája, vagy fordítva, $X$ varianciájának mekkora hányadát magyarázza $Y$ varianciája.
+
+A fenti példában látható, hogy 99%-ban lehet a függő változó varianciáját magyarázni a független változóval (az arányt legtöbbször százalékos formában adjuk meg).
+
+```{r}
+summary(lm_1)$r.squared
+```
+
+
+![Fizetés és elégedettésg kapcsolata (N=5): determinációs együttható](images/lin_reg_fizetes_elegedettseg_02_kep_02.jpg)
+ 
+A $\beta_0$ és $\beta_1$ együtthatók értékét hipotézisvizsgálatokkal vizsgálhatjuk:
+
+* $H_0$: $\beta_0=0$, $H_1: \beta_0 \neq 0$ Kérdés: origón átmenő a regresszió? ($H_0$ megtartása esetén igen)
+* $H_0$: $\beta_1=0$, $H_1: \beta_1 \neq 0$ Kérdés: $Y$ függ $X$-től? ($H_1$ elfogadása esetén igen)
+
+A példában látható, hogy nem origón átmenő a regresszió, és az elégedettség függ a fizetéstől.
+
+```{r}
+summary(lm_1)$coefficients
+```
+
+
+![Fizetés és elégedettésg kapcsolata (N=5): hipotézisvizsgálat az együtthatókra](images/lin_reg_fizetes_elegedettseg_02_kep_02.jpg)
+ 
+ 
+## Többszörös lineáris regresszió
+
+A többszörös lineáris regressziós modell: $Y=\beta_0+\beta_1 X_1+\beta_2 X_2+\dots + \beta_r X_r+\epsilon$. 
+
+Míg az egyszerű lineáris regresszió esetén a regressziós egyenes írta le a két változó kapcsolatát, a többszörös lineáris regresszió esetén a lineáris függvény egy $r$ dimenziós sík az $r+1$ dimenziós térben. 
+
+Az egyes $\beta_i$ együtthatók becslése itt is a legkisebb négyzetek elve alapján történik, így kapjuk a $b_0, b_1, \dots, b_r$ becsléseket.
+
+A lineáris függvény birtokában tetszőleges $X_1,X_2,\dots,X_r$ értékekhez tudunk $Y$ értéket előre jelezni, vagyis jósolni bizonyos hibával: $\hat{Y}=b_0+b_1 X_1+\dots+ b_r X_r$.
+
+
+```{r}
+d <- rio::import(file = "adat/lin_reg_fizetes_eletkor_elegedettseg_01.xlsx")
+str(d)
+d
+```
+
+```{r}
+lm_1 <- lm(elegedettseg ~ fizetes + eletkor, data = d)
+summary(lm_1)
+```
+
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): együtthatók](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_01.jpg)
+
+A fenti példában a lineáris regresszió futtatása után azt mondhatjuk:
+
+```markdown
+becsült elégedettség = 21,05 -0,306*életkor + 0,519*fizetés
+```
+
+Más szavakkal a fizetés tekintetében a magasabb fizetés nagyobb mértékű elégedettséggel jár, addig az életkor esetében az évek számának növekedése a munkahellyel való elégedetlenséget vonja maga után.
+
+* A $b_0$ értelmezése: a csupa zérus $X_1, X_2,\dots,X_r$-ekhez tartozó $Y$ érték.
+* A $b_i$ $(i=1,\dots,r)$ értelmezése: az $X_i$ hatása úgy, hogy a többi független változót is figyelembe vesszük. 
+
+A fenti többszörös lineáris regressziós együtthatók nem alkalmasak az egyes magyarázó változóktól való függés erősségének mérésére, ugyanis a nagyságuk függ a változó értékeinek nagyságától is. Ezért a standard lineáris regressziós együtthatókat használjuk, amelyek már mértékegység nélküli, egymással összehasonlítható arányszámok, így abszolút értékeiket összevetve megtudhatjuk, milyen relatív fontossággal bírnak az egyes független változók a függő változó magyarázásában.
+
+```{r}
+lsr::standardCoefs(lm_1)
+```
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): standardizált együtthatók](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_02.jpg)
+
+A fenti példában láthatjuk, hogy a fizetés erősebb kapcsolatban van az elégedettséggel, hiszen a standardizált együtthatójának értéke abszolút értékben nagyobb, mint az életkor standardizált együtthatójának abszolút értéke.
+
+Többszörös lineáris regresszió esetén több hipotézisvizsgálat végezhető:
+
+* minden együtthatót külön tesztelhetünk t-próbákkal $(n-r-1)$ szabadsági fokkal
+    * $H_0:\beta_i=0$, $H_1:\beta_i\neq0$, $i=1,\dots,r$ Kérdés: $Y$ függ $X_i$-től? ($H_1$ elfogadása esetén igen)
+* a teljes modellt tesztelhetjük F-próbával $(r,n-r-1)$ szabadsági fokkal
+    * $H_0: \text{minden } \beta_i=0$, $H_1: \text{van olyan i, melyre } \beta_i\neq0$ Kérdés: a modell bír valamilyen bejósló erővel? ($H_1$ elfogadása esetén igen)
+
+
+```{r}
+summary(lm_1)$coefficients
+summary(lm_1)$fstatistic
+pf(q = summary(lm_1)$fstatistic[1],
+   df1 = summary(lm_1)$fstatistic[2], 
+   df2 = summary(lm_1)$fstatistic[3],
+  lower.tail = F)
+```
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): hipotézisvizsgálatok](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_03.jpg)
+
+
+A lenti példában látható, hogy mindkét magyarázó változótól függ az elégedettség (életkor p-értéke: 0,006, a fizetés p-értéke p < 0,001), és a teljes modell bír magyarázó erővel (p-érték: p < 0,001).
+
+A függő változó és a független változók közötti korreláció erősségének leírására több mennyiséget használhatunk
+
+* többszörös korrelációs együttható: $R$, amely a függő változó és a becsült értékek közötti korrelációs együttható értékével egyezik meg, azaz $R(Y,X_1,X_2,…,X_r )=R(Y,\hat{Y})$. Valójában a lineáris regresszió ennek a korrelációs együtthatónak az értékét maximalizálja, mikor az $\hat{Y}$-t $X$-ek speciális lineáris kombinációjaként előállítja.
+
+* többszörös determinációs együttható: $R^2$, amely a többszörös korrelációs együttható négyzete, és megmutatja, hogy a magyarázó változók a függő változó ingadozásának hányad részét magyarázzák.
+
+* korrigált determinációs együttható: $R_{adj}^2$, amely kiküszöböli az $R^2$ azon tulajdonságát, hogy a magyarázó változók számának növekedésével, függetlenül azok hatásától, nő az értéke. Így alkalmas több modell esetén a magyarázó erők összehasonlítására, akkor is, ha azok eltérő számú független változót használnak.
+
+```{r}
+summary(lm_1)$r.squared
+summary(lm_1)$adj.r.squared
+```
+
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): magyarázó erő](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_04.jpg)
+
+A fenti példában látható mindhárom fenti mutató. Az $R_{adj}^2$ leolvasásával láthatjuk, hogy a két független változó, az életkor és a fizetés a függő változó 99%-át magyarázza.
+
+## Parciális korrelációs együttható
+
+Parciális korrelációs együttható: két változó ($S_1,S_2$) közötti korreláció mértéke, miután változók egy halmazának $(T_1,T_2,\dots,T_g)$ a két változó korrelációjára vonatkozó hatását többszörös lineáris regresszióval kiküszöböljük: 
+ 
+ * $R( S_1,S_2 |T_1,T_2,\dots,T_g )= R(S_1- \hat{S_1},S_2- \hat{S_2})$, ahol $\hat{S_1}$ és $\hat{S_2}$ az $S_1$ és $S_2$ változó többszörös lineáris regresszióból származó becslése a $T_1,T_2,\dots,T_g$ magyarázó változók esetén.
+ 
+```{r}
+d <- rio::import(file = "adat/lin_reg_intelligencia_testmagassag_eletkor_01.xlsx")
+str(d)
+d
+```
+
+```{r}
+cor.test(d$intelligencia, d$testmagassag)
+RcmdrMisc::partial.cor(d, tests = T)
+```
+
+![Az intelligencia és a testmagasság kapcsolata (N=5): korrelációs együttható és parciális korrelációs együttható](images/lin_reg_intelligencia_testmagassag_eletkor_01_kep_01.jpg)
+A fenti példában látható, hogy míg szignifikáns erős pozitív kapcsolat van az intelligencia és a magasság között (korrelációs együttható: $r=0,95; p=0,012$), ez a kapcsolat eltűnik, ha figyelembe vesszük az életkor változót is (parciális korreláció: $r_{par}=-0,46; p=0,537$). Vagyis sikerült az intelligencia és a testmagasság közötti kapcsolat erősségét megállapítani, miközben az életkor hatását erre a kapcsolatra kiküszöböltük.
+
+A többszörös lineáris regressziós modell $(Y=\beta_0+\beta_1 X_1+\beta_2 X_2+\dots+\beta_r X_r+\epsilon)$ becsült paraméterei $(b_1,b_2,…,b_r)$ nagyban hasonlítanak a parciális korrelációs együtthatókra, mivel minden $b_i$ az $Y$ és $X_i$ közötti kapcsolat erősségét írja le, miközben a többi magyarázó változó ($X_1,X_2,\dots,X_r$, összesen $(r-1)$ db, $X_i$ nincs köztük) hatását kiküszöböljük a két változó korrelációjából.
+
+A parciális korrelációs együtthatók és a többszörös lineáris regresszió együtthatói között annyira közvetlen a kapcsolat, hogy azonos p-érték tartozik hozzájuk, mint a lenti példában ez látható is lesz.
+
+A lenti példában két modell szerepel, először az intelligencia és a testmagasság függvényszerű kapcsolatát vizsgáljuk és azt a meglepő dolgot tapasztaljuk, hogy minél magasabb valaki, annál intelligensebb $(p=0,012)$, majd ha bevonjuk az életkor változót, akkor azt tapasztalhatjuk, hogy eltűnik az intelligencia és a testmagasság közötti kapcsolat $(p=0,537)$.
+
+```{r}
+lm_1 <- lm(intelligencia~testmagassag, data=d)
+summary(lm_1)
+lm_2 <- lm(intelligencia~testmagassag+eletkor, data=d)
+summary(lm_2)
+```
+
+![Az intelligencia és a testmagasság kapcsolata (N=5): két modell, életkor nélkül és életkorral](images/lin_reg_intelligencia_testmagassag_eletkor_01_kep_02.jpg)
+
+
+## A többszörös lineáris regresszió esetei
+
+### Egyetlen dichotóm magyarázó változó 
+
+A magyarázó változóink eddig kvantitatívak voltak, de kategorikus változók is lehetnek. Ha a kategorikus változónk csupán 2 értékű, akkor a becsült ($b_0$, $b_1$) együtthatók értelmezése módosul. A tengelymetszet ($b_0$) a kategorikus változó referencia szintjén a függő változó átlagát tartalmazza, míg a ($b_1$) a kategorikus változó másik szintjén számolt átlag eltérését a $b_0$-hoz képest.
+
+```{r}
+d <- rio::import(file = "adat/lin_reg_magassag_hajhossz_nem_01.xlsx")
+d$nem <- factor(d$nem, levels=c("nő", "férfi"))
+str(d)
+d
+```
+
+```{r}
+lm_1 <- lm(magassag~nem, data=d)
+summary(lm_1)
+```
+
+
+![A magasság és a nem kapcsolata](images/lin_reg_magassag_hajhossz_nem_01_kep_01.jpg)
+
+A fenti példa a nem hatását vizsgálja testmagasságra. A p-érték alapján ez a hatás szignifikáns, tehát a függés fennáll, a paraméterek pedig a nők átlagáról $(b_0=159,67)$ és a férfiak és nők átlagának eltéréséről tájékoztatnak $(b_1=17,33)$.
+
+
+ 
+## Modellválasztás
+
+Előfordulhat, hogy egy jelenség vizsgálatakor több lineáris regressziós modellt is meg tudunk fogalmazni, nem csak egyetlen modell létezik. Ez a probléma leggyakrabban úgy jelenik meg, hogy rengeteg független változónk van, és nem tudjuk eldönteni, hogy elég egy kisebb modell, néhány változóval, vagy vegyük inkább a nagyobb modellt több változóval.
+
+A megfelelő modell megtaláláshoz a modelleket összehasonlíthatjuk F-próba segítségével, szignifikáns eredmény esetén a két modell magyarázó ereje eltér egymástól. Ilyenkor a célunk a legszűkebb (legkevesebb magyarázó változót tartalmazó), de a legbővebbtől szignifikánsan nem különböző modell megtalálása.
+
+A korrigált determinációs együttható $(R_{adj}^2)$ is alkalmas mód a modellek összehasonlítására: az 1-hez legközelebbi értékkel bíró modell rendelkezik a legnagyobb magyarázó erővel. Léteznek már kritériumok is:
+
+* AIC (Akaike-kritérium): minél kisebb az AIC értéke, annál nagyobb a modell magyarázó ereje.
+* BIC (Bayes-kritérium): minél kisebb a BIC értéke, annál nagyobb a modell magyarázó ereje.
+* RMSE (négyzetes középérték, Root Mean Square Error) az a mennyiség, amennyivel a vizsgált értékek eltérnek az előre megbecsült értékektől. Minél kisebb ez az érték, annál jobban becsül a modell.
+
+```{r}
+d <- rio::import(file = "adat/lin_reg_fizetes_eletkor_elegedettseg_01.xlsx")
+str(d)
+d
+```
+
+```{r}
+lm_1 <- lm(elegedettseg ~ fizetes, data = d)
+summary(lm_1)
+lm_2 <- lm(elegedettseg ~ fizetes + eletkor, data = d)
+summary(lm_2)
+anova(lm_1, lm_2)
+performance::model_performance(lm_1)
+performance::model_performance(lm_2)
+```
+
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): modellek összehasonlítása](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_05.jpg)
+
+A fenti példán látható, hogy két modellt építettünk. Az 1. modell az elégedettséget a fizetés segítségével próbálja jósolni. A 2. modell az elégedettséget a fizetéssel és az életkorral. Láthatjuk a 2. modell szignifikánsan eltér magyarázó erőben a az 1. modelltől, valamint a modell "jóságát" leíró mutatók mindegyike kedvezőbb a 2. modell esetén: $R_{adj}^2$, $AIC$, $BIC$, $RMSE$.
+
+## Alkalmazási feltételek
+ 
+A regressziós modellt ne használjuk, ha az alkalmazási feltételek valamelyike nem teljesül. Melyek ezek?
+
+* Multikollinearitás: a független változók közötti korreláció. Multikollinearitás esetén elképzelhető, hogy a regressziós számítást el sem lehet végezni. Van mérőszám, amelynek a segítségével ki lehet szűrni az érintett változókat:
+    * VIF (variancia infláció faktor): a nagy érték kollinearitást jelez az érintett változókat kihagyhatjuk, vagy származtatott adatokkal dolgozunk tovább (például főkomponenselemzéssel nyert adatokat)
+* Autokorreláció: a hibatagok együttmozgása szignifikáns.
+
+## 1. Példa
+
+Befolyásolja-e a munkahellyel való elégedettséget a fizetés nagysága és az életkor? [@MunnichNagyAbari2006] [1.6.1 probléma]
+
+```{r}
+d <- rio::import(file = "adat/lin_reg_elegedettseg.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+```{r}
+lm_1 <- lm(elegedettseg~fizetes+kor, data=d)
+summary(lm_1)
+lsr::standardCoefs(lm_1)
+```
+
+
+![Elégedettség kapcsolata a fizetéssel és lektkorra (N=30)](images/lin_reg_elegedettseg_kep_01.jpg)
+ 
+A fenti outputból láthatjuk, hogy a fizetés és a kor változó is szignifikánsan befolyásolja az elégedettséget, hiszen a hozzájuk tartozó szignifikanciaszint $p<0,05$. A teljes modell vonatkozó F-próba is szignifikáns.
+A fizetés változó együtthatója $(b_1)$ 0,44, a kor változó együtthatója $(b_2)$ pedig 0,53, ami arra utal, hogy pozitív kapcsolat van a változó között: minél magasabb a fizetés, és minél idősebbek az emberek, annál elégedettebbek a munkahelyükkel. 
+
+A pontos becslés a regressziós egyenlet alapján a következőképpen fest: 
+
+```markdown
+elégedettség = 8,14 + 0,44 * fizetés + 0,53 * kor
+```
+
+Mivel a többszörös regresszió esetében a független változók hatása csak a standardizált együtthatók mentén hasonlítható össze, így kiszámoltuk a standardizált együtthatókat is. Az adatok jól példázzák, hogy miért fontos a standardizált együtthatókat is vizsgálni, hiszen a nem standardizált együtthatók esetén a kor változó együtthatójának értéke a magasabb, míg a standardizált értékeknél fordítva. Vagyis, ha az egyes változók relatív fontosságának vizsgálatakor nem nézzük a dimenziómentes értékeket, akkor könnyen téves következtetésre juthatunk.
+
+A négyzetes korrelációs együttható értéke 0,9, ami arra utal, hogy a független változók igen jól magyarázzák a függő változót.
+
+
+
+## 2. Példa
+
+Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt? [@MunnichNagyAbari2006] [1.6.2 probléma]
+	
+
+```{r}
+d <- rio::import(file = "adat/lin_reg_katonasag.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+```{r}
+lm_1 <- lm(evek~egyhangu+sport+kaland, data=d)
+summary(lm_1)
+lsr::standardCoefs(lm_1)
+```
+	
+	
+![Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt? (N=156)](images/lin_reg_katonasag_kep_01.jpg)
+ 
+A fenti output a többszörös lineáris regresszió eredményét mutatja:
+
+* A lineáris regressziós modellt megtarthatjuk, hiszen az F-statisztika értékét tekintve a modell szignifikáns, a változók együtthatóinak az értéke nem nulla.
+* A modell magyarázóértéke igen jó, hiszen a korrigált determinációs együttható értéke 0,92, vagyis a független változók a függő változó varianciájának kb. 92%-át magyarázzák. 
+* Minden egyes független változó hatással van a függő változóra, vagyis mind a kalandvágy, az extrém sportok szeretete és a nyugalom utáni vágy is befolyásolja azt, hogy mennyi időt tölt valaki a hivatásos katonai szolgálatban. 
+* Ellenben a $b_0$ vagyis a konstans értéke most nulla, hiszen a táblázatban szereplő érték nem szignifikáns.
+* Maga a regressziós egyenlet a pontos együtthatók ismeretében a következőképpen alakul:
+
+```markdown
+	evek=3,18*kaland+1,53*sport-2,28*egyhangu
+```
+
+* Vagyis minél jobban kedveli valaki a kalandos életet és az extrém sportokat, és minél jobban irtózik a szürke hétköznapoktól, annál több időt tölt a katonaság kötelékében.
+
+* A standardizált változók alapján a kaland szeretetének a hatása a legerősebb (0,768), a második legerősebb hatás az egyhangúság kedvelése, ám hatásának iránya negatív (-0,593), leggyengébb hatása pedig az extrém sportok szeretetének van (0,382).
 

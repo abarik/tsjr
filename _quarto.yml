@@ -15,10 +15,10 @@ book:
   title: "Többváltozós statisztika jamovi-ban és R-ben"
   author: "Abari Kálmán"
   cover-image: images/cover.jpg
-  date: "2023. 03. 22."
+  date: "2023. 03. 23."
   search: true
-  repo-url: https://github.com/abarik/aeer
-  site-url: https://abarik.github.io/aeer/
+  repo-url: https://github.com/abarik/tsjr/
+  site-url: https://abarik.github.io/tsjr/
   downloads: [pdf, epub]
   sharing: [twitter, facebook]
   page-navigation: true

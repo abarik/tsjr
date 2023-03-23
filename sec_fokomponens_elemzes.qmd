@@ -8,10 +8,10 @@ source("_common.R")
 
 
 A főkomponens elemzés a legegyszerűbb többváltozós statisztikai eljárások egyike. Olyan eljárás, amely az egy jelenségre vonatkozó méréseket úgy „összegzi”, hogy közben az óhatatlanul fellépő információ veszteséget a lehető legkisebb mértékűre csökkenti.
-{}
+
 A módszer alapgondolata az, hogy vegyünk $p$ változót: $X_1,X_2,\dots,X_p$, majd keressük meg ezek kombinációit, hogy ezáltal $Z_1,Z_2,..,Z_p$-vel jelölt indexeket kaphassunk, melyek egymással nem korrelálnak, továbbá $var(Z_1 )\geq var(Z_2 )\geq \dots \geq var(Z_p)$, ahol $var(Z_i)$ a $Z_i$ komponens varianciáját jelöli.
 
-A korreláció hiánya a $Z_i$-kben hasznos tulajdonság, ugyanis azt jelenti, hogy az indexek az adatok különböző „dimenzióit” mérik. 
+A korreláció hiánya a $Z_i$-kben hasznos tulajdonság, ugyanis azt jelenti, hogy az indexek az adatok különböző "dimenzióit" mérik. 
 
 A $Z_i$-t főkomponensnek nevezzük. Amikor főkomponens-analízist végzünk, mindig abban bízunk, hogy a legtöbb index varianciája elhanyagolhatóan kicsi. Ezáltal az adatok varianciája adekvátan leírható néhány olyan $Z_i$ változóval, melyek varianciája nem elhanyagolható.
 
@@ -55,9 +55,21 @@ A derékszögű esetében a tengelyek merőlegesen állnak egymásra, ezáltal a
 
 ## 1. Példa
 
-A példa @MunnichNagyAbari2006 2.3.1. alfejezet alapján készült és a  Kapcsolódó jamovi állomány: `fokomp_elemzes_tantargyak.omv`.
+A példa @MunnichNagyAbari2006 2.3.1. alfejezet alapján készült és a kapcsolódó jamovi állomány: `fokomp_elemzes_tantargyak.omv`.
 
 **1. Határozzuk meg a korrelációs mátrixot (jamovi-ban: `Regression / Correlation matrix`)**
+
+
+```{r}
+d <- rio::import(file = "adat/fokomp_elemzes_tantargyak.xlsx")
+str(d)
+d
+```
+
+```{r}
+cor(d)
+```
+
 
 ![Korrelációs mátrix meghatározása](images/fokomponens_kep_01.jpg)
  
@@ -131,3 +143,50 @@ A főkomponens elemzés célja az eredeti változók csökkentése. A főkompone
 Sikerült tehát az érdemjegyeket egyetlen mérőszámmal kifejezni, a fenti főkomponens érték az, amely a lehető legjobban magában foglalja az egyes tantárgyakból szerzett jegyeket és ezáltal a reál tantárgyak iránti fogékonyság mérőszáma lehet. A legjobban a kilencedik személy teljesít a reál tárgyakból, legrosszabbul pedig a hatodik. Ezek az értékek standardizáltak, vagyis 0 átlagúak és 1 szórásúak.
  
 ![Főkomponens értékek leíró statisztikája](images/fokomponens_kep_06.jpg)
+
+R-ben több lehetőségünk van a főlomponenselemzés elvégzésére.
+
+
+```{r}
+pca_1 <- prcomp(d, scale. = TRUE)
+pca_1
+```
+
+```{r}
+pca_1 <- princomp(d, cor = TRUE)
+pca_1
+```
+
+```{r}
+psych::pca(d, rotate = "varimax")
+```
+
+
+```{r}
+pca_1 <- FactoMineR::PCA(d, graph = FALSE)
+pca_1$eig
+pca_1$var
+factoextra::fviz_eig(pca_1, addlabels = TRUE, ylim = c(0, 110))
+factoextra::get_eigenvalue(pca_1)
+factoextra::get_pca_ind(pca_1)
+factoextra::get_pca_var(pca_1)
+factoextra::fviz_pca_ind(pca_1)
+factoextra::fviz_pca_var(pca_1)
+factoextra::fviz_pca_biplot(pca_1)
+corrplot::corrplot(pca_1$var$cos2, is.corr=FALSE)
+```
+
+
+2. Példa
+
+Létezik a reál tárgyak iránti fogékonyság?
+
+Korábban már foglalkoztunk azzal a felvetéssel, hogy néhány tantárgy eredményeit egyetlen mérőszámmal reprezentáljuk. Korábbi példánkban a matematika, fizika, informatika és kémia jegyek közötti összefüggéseket vizsgáltuk egy kisebb adatbázison, most egy sokkal nagyobb adatbázis segítségével mutatjuk be, hogyan végezhetünk főkomponens-analízist.
+
+Összességében az adatok jól sűríthetők egyetlen mérőszámba, minimális információveszteséggel, ezt a mutatót pedig hívhatjuk a reál tárgyak iránti fogékonyság mutatójának.
+
+3. Példa
+
+Egy kérdőív szerkesztésének problémái
+
+A kapott eredmények alapján az itemszelekciót ennél a lépésnél befejezhetjük. Az így kapott hat itemünk a statisztikai eredmények alapján egészen jól lefednek egy dimenziót, ezáltal használhatóak egy jelenség kérdőíves vizsgálatára.

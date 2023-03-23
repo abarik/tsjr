@@ -212,3 +212,23 @@ rio::export(x = d, file = "adat/faktor_fogkrem.sav")
 
 ```
 
+
+## Feltáró faktorelemzés
+
+
+-   `faktor_fogkrem.xlsx` - A kutató arra volt kíváncsi, milyen előnyöket keresnek a fogyasztók a fogrémvásárlásnál. Egy 30 fős mintán a válaszadókat arra kérték, hogy jelezzék, mennyire értenek egyet a következő állításokkal (1 = egyáltalán nem ért egyet; 7 = teljes mértékben egyetért)
+
+    - Az adatbázis szerkezete:
+        
+        * `sorszam`: válaszadó sorszáma (id)
+        * `v1`: Fontos, hogy olyan fogkrémet vásároljak, amellyel megelőzhető a fogszuvasodás. (likert: 1-7)
+        * `v2`: Az olyan fogkrémeket szeretem, amely fényessé teszi a fogaimat. (likert: 1-7)
+        * `v3`: Egy fogkrémnek erősítenie kell a fogínyt. (likert: 1-7)
+        * `v4`: Az olyan fogkrémeket szeretem, amely friss leheletet biztosít. (likert: 1-7)
+        * `v5`: A fog romlásának megelőzése számomra nem fontos elvárás. (likert: 1-7)
+        * `v6`: A legfontosabb szempont a fogkrém vásárlásánál a szép fog. (likert: 1-7)
+
+        
+    -   Kapcsolódó állományok:
+        - `efa_fogkrem.omv` - Feltáró faktorelemzés jamovi-ban 
+

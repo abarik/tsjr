@@ -7,4 +7,203 @@ source("_common.R")
 ```
 
 
-JÖN.
+A feltáró faktorelemzést új faktorok létrehozására használjuk, a megerősítő faktorelemzést egy meglévő modell tesztelésére (lásd következő fejezet). Ebben a fejezetben faktorelemzés alatt a feltáró faktorelemzést értjük [@Rozsa2019; @Watkins2018].
+
+A lineáris regresszióelemzéstől eltérően a főkomponens- és a faktorelemzés nagy számú változó kölcsönös összefüggésén alapuló módszer, így nincsenek függő vagy független változóink. Elemzéskor a változók korrelációs mátrixából indulunk ki.
+
+
+## A főkomponens elemzés és a faktorelemzés összehasonlítása
+
+* A főkomponens elemzés során az adatok teljes varianciáját vesszük figyelembe, míg faktorelemzés során a faktorokat csak a közös variancia alapján becsüljük. A két eljárás egyébként nagyon hasonló elvekre épül.
+    * Főkomponens elemzés során a korrelációs mátrix átlójában lévő 1-esek összege adja teljes varianciát, ami teljes egészében bekerül a faktormodellbe. Ezért ez az eljárás akkor javasolt, ha a fő cél, hogy meghatározzuk azon főkomponensek (faktorok) legkisebb számát, amelyek a legtöbb varianciát magyarázzák. Ezek a faktorok később jól alkalmazhatók többváltozós elemzésekben. Összegezve: a főkomponens elemzésnél részinformációkat próbálunk összegezni a lehető legkisebb információveszteséggel (vagyis a variancia maximalizálásával).
+    * Az ún. közös faktorelemzésnél a faktorokat csak a közös variancia alapján becsüljük, vagyis a kommunalitások kerülnek a korrelációs mátrix átlójába (ezek 1-nél kisebb számok). Összegezve a faktorelemzés általános célja egy látens, lineáris struktúra feltárása manifeszt változók segítségével.
+
+## Fogalmak
+
+A főkomponens- és fakorelemzésben a következő fogalmak fordulnak elő (a komponens és a faktor szavak felcserélhetők, attól függően, hogy főkomponens- vagy fakorelemzésről van szó).
+
+
+* **Kommuninalitás:** a variancia azon hányada, amelyen egy változó osztozik a többi elemzésbe vont változóval. Ez egyben a közös faktorok által magyarázott variancia aránya.
+* **Sajátérték:** Az egyes faktorok által magyarázott teljes varianciát fejezi ki.
+* **Faktorsúly:** A változók és a faktorok közötti közönséges korreláció.
+* **Faktormátrix:** Valamennyi változónak az összes előállított faktorra vonatkozó faktorsúlyát tartalmazza.
+* **Faktorértékek:** Az előállított faktoroknak az egyes megkérdezettekre vonatkozóan becsült értékei.
+* **Sajátértékábra (scree-plot, kőtörmelék ábra):** A sajátértékek ábrázolása az előállított faktorok sorszámának függvényében. 
+* **Varianciahányad:** A teljes variancia egy adott faktornak tulajdonított része százalékban kifejezve.
+
+## A faktormodell
+
+A főkomponens és faktorelemzés annyiban hasonlít a többszörös regressziószámításhoz, hogy minden változót kifejezhető a háttérben meghúzódó faktorok lineáris kombinációjaként. Minden egyes változó kifejezhető kisszámú közös faktor és egy egyedi faktor segítségével. Ezek a faktorok nem figyelhetők meg közvetlenül. Standardizált kiinduló változók esetén a faktormodell így írható fel:
+
+* $X_i=A_{i1} F_1+A_{i2} F_2+\dots+ A_{im} F_m+V_i U_i$, ahol
+	
+	* $X_i$ az $i.$ standardizált változó
+	* $A_{i1}$ az $i.$ változó $j.$ közös faktorra vonatkozó többszörös standardizált parciális regressziós együtthatója
+	* $F_j$ a $j.$ közös faktor
+	* $V_i$ az $i.$ változó $j.$ egyedi faktorra vonatkozó többszörös standardizált parciális regressziós együtthatója
+	* $U_i$ az $i.$ változó egyedi faktora
+	* $m$ a közös faktorok száma.
+	
+Az egyedi faktorok egymással és a közös faktorokkal is korrelálatlanok. A közös faktorok kifejezhetők a megfigyelt változók lineáris kombinációiként:
+
+* $F_i=W_{i1} X_1+W_i2 X_2+\dots+ W_im X_m+\dots+ W_ik X_k$, ahol 
+	* $F_i$ az $i.$ faktor becslése
+	* $W_i$ súly vagy a faktorérték együtthatója
+	* $k$ a változók száma
+
+A súlyokat vagy faktorérték együtthatókat úgy is meg lehet választani, hogy az első faktor magyarázza a teljes variancia legnagyobb részét, a második faktor a második legnagyobb részét és így tovább, valamint, hogy a faktorok korrelálatlanok legyenek egymással. Ez történik főkomponens elemzés esetén.
+
+## A faktorelmzés menete
+
+**1. A probléma megfogalmazása**
+
+A kutató arra volt kíváncsi, milyen előnyöket keresnek a fogyasztók a fogrémvásárlásnál. Egy 30 fős mintán a válaszadókat arra kérték, hogy jelezzék, mennyire értenek egyet a következő állításokkal (1 = egyáltalán nem ért egyet; 7 = teljes mértékben egyetért)
+
+* v1: Fontos, hogy olyan fogkrémet vásároljak, amellyel megelőzhető a fogszuvasodás.
+* v2: Az olyan fogkrémeket szeretem, amely fényessé teszi a fogaimat.
+* v3: Egy fogkrémnek erősítenie kell a fogínyt.
+* v4: Az olyan fogkrémeket szeretem, amely friss leheletet biztosít.
+* v5: A fog romlásának megelőzése számomra nem fontos elvárás.
+* v6: A legfontosabb szempont a fogkrém vásárlásánál a szép fog.
+
+**2. A korrelációs mátrix előállítása**
+
+A korrelációs mátrix előállítása során arra számítunk, hogy azok a változók, amelyek között magas a korreláció, ugyanazzal a faktorral fognak korrelálni.
+
+![Korrelációs mátrix](images/efa_fogkrem_01.jpg)
+
+A fogkrémvásárlás során keresett előnyök korrelációs mátrix tanulmányozásával látható:
+
+* viszonylag magas a korreláció a v1 (fogszuvasodás megelőzése), v3 (erős fogíny) és v5 (a fog romlásának megelőzése) között. Arra számítunk, hogy ezek a változók ugyanazokkal a faktorokkal fognak korrelálni. 
+* viszonylag magas a korreláció a v2 (fényes fogak), v4 (friss lehelet) és v6 (szép fogak) változók között, ezek is feltehetőleg ugyanazokkal a faktorokkal fognak korrelálni.
+
+
+**3. Az alkalmazási feltételek ellenőrzése**
+
+Ahhoz, hogy a faktorelemzés alkalmazható legyen, a változóknak korrelálniuk kell egymással. Erről meggyőződhetünk kétféle objektív módszerrel is:
+
+* Bartlett-féle szferikus próba: nullhipotézise szerint a korrelációs mátrix egységmátrix (a változók korrelálatlanok), azaz az átlón kívül minden elem nulla. Amennyiben a nullhipotézis nem vethető el, a faktorelemzés alkalmazhatósága megkérdőjelezhető.
+* Kaiser-Meyer-Olkin-féle megfelelőségi mutató: a megfigyelt korrelációs együtthatók nagyságát viszonyítja a parciális korrelációs együtthatók nagyságához. Az alacsony KMO-mutató azt jelzi, hogy a változópárok közötti korreláció nem magyarázható más változókkal, így a faktorelemzés nem megfelelő módszer. Általában 0,5 fölött érték kívánatos.
+
+
+Jamovi-ban a `Factor / Exploratory Factor Analysis` menüpontban tudjuk a fenti vizsgálatokat elvégezni.
+
+![Alkalmazási feltételek ellenőrzése](images/efa_fogkrem_02.jpg)
+A Bartlett-féle szferikus próba szerint a pupulációban a korrelációs mátrix nem egységmátrix (ez számunkra kedvező), valamint a KMO-érték 0,66, ameéy elég magas (>0,5), így megállapíthatjuk, hogy a faktorelemzés alkalmas módszer a korrelációs mátrix elemzésére.
+
+**4. A faktorelemzés módszerének meghatározása**
+
+A faktorelemzés egyes módszerei abban különböznek egymástól, hogy milyen módon határozzák meg a súlyokat vagy faktorérték együtthatókat. 
+
+A jamovi 3 módszert ismer a közös faktorok becslésére:
+
+* Principal axis – főtengelyelemzés
+* Minimum residuals
+* Maximum likelihood
+
+**5. A faktorok számának meghatározása**
+
+A faktorelemzés akkor ér célt, ha a változók számánál kevesebb számú közös faktort hozunk létre. De mi legyen ez a szám. Több eljárás létezik. Ezeket részletesen a főkomponens elemzés során bemutattuk. Itt csak felsoroljuk őket:
+
+* Horn-féle párhuzamos analízis (jamovi-ban: `Based on parallel analysis`)
+* A priori meghatározás (jamovi-ban: `Fixed number`)
+* Sajátértéken alapuló megoldás (jamovi-ban: `Based on eigenvalue`)
+* Sajátértékábrán (scree-plot, kőtörmelék ábra) alapuló meghatározás (jamovi-ban: `Scree plot`)
+* Magyarázott varianciahányadon alapuló meghatározás (jamovi-ban: `Component summary`)
+
+ **6. A faktorok forgatása**
+ 
+A faktorelemzés fontos eredménye a faktormátrix (jamovi-ban: `Factor Loadings`). 
+
+![A faktormátrix](images/efa_fogkrem_03.jpg)
+
+A faktormátrix tartalmazza azokat az együtthatókat, amelyekkel a standardizált változókat ki lehet fejezni a faktorokkal. Ezeket az együtthatókat faktorsúlyoknak nevezzük, a faktorok és a faktorsúlyok közötti korrelációt mutatják. A magas abszolút értékű együttható azt jelzi, hogy a faktor és a változó szorosan összefügg. A faktormátrix együttható alapján lehet a faktorokat értelmezni.
+
+A kiinduló vagy rotálatlan faktormátrix jelzi ugyan az egyes változók és a faktorok kapcsolatát, de ritkán eredményez könnyen értelmezhető faktorokat. Ennek főképp az az oka, hogy a faktorok túl sok változóval korrelálnak. (A rotálatlan faktormátrix beállításához jamovi-ban a `Rotation: None` beállítást használjuk.) 
+
+A faktorok forgatásával a faktormátrix egyszerűbbé, könnyebben értelmezhetővé válik. A faktorok forgatásával szeretnénk elérni:
+
+* minden faktor csak néhány vátozóra rendelkezzen szignifikánsan nem nulla súllyal
+* minden változónak lehetőleg egy faktorral legyen nem nulla, azaz szignifikáns faktorsúlya.
+
+A forgatás nem érinti a kommunalitásokat és a magyarázott varianciahányadot, azonban az egy faktor által magyarázott varianciahányad változik (és természetesen a faktorsúlyok is).
+
+A forgatási módszereket érdemes jól megválasztani, mert más-más faktorok azonosításához vezetnek.
+
+Az ortogonális (derékszögű) forgatási eljárások egymással nem korreláló faktorokat eredményeznek. 
+
+* Ezek közül az egyik legnépszerűbb a Varimax eljárás, amely minimalizálja a nagy faktorsúllyal rendelkező változók  számát, így segíti a faktorok értelmezését. A magyarázott variancia egyenletesen próbálja elosztani a faktorok között.
+
+* A Quartimax eljárás első faktorként egy általános faktort faktort hoz létre, amellyel szinte mindegyik változó magasan korrelál.
+
+A ferdeszögű forgatási eljárások során a tengelyek hegyeszöget zárnak be egymással, és a kapott faktorok korrelálni fognak egymással. Ferdeszögű forgatást akkor kell használni, ha feltételezhető, hogy a sokaságban a faktorok erősen összefüggenek.
+
+* A Promax eljárás gyorsan lefuttatható, amely főképp nagy adatbázisoknál jelent előnyt. 
+
+* A Simplimax a Promax egy módosított formája.
+
+* Az Oblimin eljárás a tengelyek egymással bezárt szögét fokozatosan változtatja, ami egyben a faktorok korreláltságát is meghatározza. 
+
+ **7. A faktorok értelmezése**
+
+Az értelmezést megkönnyíti, ha meghatározzuk azokat a változókat, amelyeknek ugyanazon a faktorra nagy a súlyuk. A faktort a magas faktorsúlyú változók alapján lehet értelmezni.
+
+Az 1. faktornak magasabb az együtthatói a v1 (fugszuvasodás megelőzése), v3 (erős fogíny) változókkal, negatív az együttható a v5 (a fog romlásának megeleőzése nem fontos) változó esetében. Ezt a faktort az "egészséggel kapcsolatos előnyöknek" nevezhetjük. A 2. faktor a v2 (fényes fogak), a v4 (friss lehelet), v6 (szép fogak) változókkal függ össze. Ezt a 2. faktort "társadalmi előnyök"-nek nevezhetjük.
+
+Összegezve, a fogyasztók feltehetőleg két fő előnyt keresnek a fogkrémvásárlás során: egészséggel kapcsolatos és társadalmi előnyöket.
+
+**8. A faktorértékek kiszámítása**
+
+A faktorelemzésnek önmagában is van értelme, hiszen látens változók azonosításához vezet, azonban hasznos lehet a későbbi elemzések számára a faktorértékek kiszámítása minden egyes megkérdezettre. A faktor az eredeti változók lineáris kombinációja. A standardizált változó értékeinek és a megfelelő faktorérték-együtthatónak a szorzata adja a faktorétéket, amely jelen példában minden válaszadóra két faktorértéket jelent. A faktorérték csak főkomponens elemzés esetében lehet pontosan kiszámítani, egyébként csak közelítő értékeket kapunk.
+
+
+![Faktorértékek kiszámítása](images/efa_fogkrem_04.jpg)
+
+
+
+## Illeszkedési mutatók
+
+* **CFI** - összehasonlító illeszkedési mutató (Comparative Fit Index) - A CFI azt méri fel, hogy egy feltételezett hipotetikus modell milyen mértékben reprodukálja a valós adatokon nyugvó kovarianciamátrixot egy független modellhez képest.
+
+* **TLI** - Tucker–Lewis-féle Illeszkedési mutató - A TLI a CFI-hez hasonló módon méri az illeszkedést, annyi különbséggel, hogy ez a mutató a modellben használt szabadságfokot is figyelembe veszi, így kiküszöböli a vizsgálati minta méretének befolyásoló szerepét
+
+A CFI és TLI mutatók értéke 0 és 1 közötti tartományba eshet, ahol az 1-hez közeli érték jelzi a szoros
+illeszkedést. Kezdetben a mutatók elfogadhatósági kritériumának 0,90-et adtak meg, de az utóbbi időkben inkább a 0,95-ot tekintik az elfogadhatóság alsó határának.
+
+* **RMSEA** - a becslési hiba négyzetes átlagának gyöke (Root-Mean-Square Error of Approximation) - A Steiger-féle RMSEA mutatót a modell populációs kovariancia mátrixhoz viszonyított illeszkedésének becsléséhez használjuk. Az RMSEA az elemszámtól függetlenül hasonlítja össze, hogy a valós és az optimális paraméterekkel rendelkező hipotetikus modell kovarianciamátrixa milyen mértékben illeszkedik. 
+Az RMSEA a modell takarékosságának megbízható jelzője, a komplex modellek hibás specifikálásának hatékony mutatója. Az RMSEA értéke is 0 és 1 közé eshet, itt azonban a kisebb, 0-hoz közel eső érték jelzi a jobb illeszkedést. Browne és Cudeck (1993) szerint az RMSEA értékei 0,05-ig szoros illeszkedést jeleznek; 0,08-os értékig pedig megfelelő illeszkedést, elfogadható populáción belüli becslési hibákkal. 
+
+
+**Model Test**
+
+Az adatok és a teoretikus modell egybeesésének vizsgálata. Az egyik leggyakrabban használt illeszkedési mutató a $\chi^2$-próba mértéke, amelyet általában akkor tekinthetünk elfogadhatónak, ha a szabadságfokhoz viszonyított értéke alacsony (pl. kisebb, mint a szabadságfok kétszerese) és nem szignifikáns (p > 0,05). Ennek a mutatónak azonban több korlátja létezik. A legjellemzőbbek a többváltozós normalitás sérülésére és a mintanagyságra való érzékenység. Számos empirikus eredmény és szimulációs vizsgálat támasztja alá, hogy a normalitás sérülésekor vagy nagy elemszámú minta esetében a $\chi^2$-próba kevésbé informatív, és a legtöbb esetben a modell elvetését jelzi. A mintanagyságból fakadó korlátot gyakran a $\chi^2$-próba szabadságfokhoz mért arányával próbálják kompenzálni ($\chi^2$/szabadságfok), amelynek ugyan nincs pontos kritériuma, de az ajánlások általában
+2-től 5-ig terjednek, és a határérték alatti érték jelez megfelelő illeszkedést.
+
+![Illeszkedési mutatók](images/efa_fogkrem_05.jpg)
+
+## 1. Példa
+
+Valóban szétválasztható a reál és a humán tárgyakhoz szükséges tudás?
+
+Összefoglalva, az adatokra jól illeszkedik a kétfaktoros modell, vagyis azonosíthatjuk a humán és a reál tárgyakat az egyes tantárgyakból nyújtott eredmények alapján. Az egyes tárgyak faktorba történő besorolása összhangban van „hétköznapi”, előzetes tudásunkkal: a matek, informatika és a kémia sorolható a reál, míg az irodalom, nyelvtan és angol tárgyak a humán tárgyakhoz.
+
+
+
+## 2. Példa
+
+Milyen dimenziói vannak a kockázatvállalásnak és változik-e a korral a kockázatvállalás?
+
+ A példák is mutatják, hogy a kockázatvállalásokat csoportosíthatjuk a kockázatot jelentő tényezők alapján, ahol az egyik csoportban az emberek saját testi épségüket teszik kockára (mint az autóversenyzés esetében), de kockáztathatnak pénzt vagy valamilyen becsületbeli dolgot is (mint a kártyázás és a blöffölés esetében). Példánkban megnézzük, hogy a faktoranalízis alátámasztja-e feltevésünket, majd a faktoranalízis eredményeit felhasználva megnézzük, hogy a kockázatvállaló viselkedésre hatással van-e a kor.
+
+Az adatbázisban szereplő adatokat úgy kaptuk, hogy a vizsgálati személyeknek különböző foglalkozású, illetve különböző tevékenységet végző embereket kellett megítélniük, hogy mennyire tartják őket szimpatikusnak egy 1-7 skálán, ahol a 7 jelentette azt, hogy nagyon szimpatikus. Ily módon megkaptuk a személyek kockázat iránti attitűdjét. A változók között olyan személyek szerepelnek, mint kártyajátékosok, autóversenyzők, üzletemberek (akik sok pénzt kockáztatnak), veszélyes sportot űző emberek, nagy pénzekben fogadó emberek, blöffölők és hivatásos katonák.
+
+Ezen kívül két adat szerepel az adatbázisban: a nem és a kor.
+
+
+Összefoglalva, sikerült a faktoranalízissel alátámasztanunk a kockázatvállalás két faktorát. Azt is megállapítottuk, hogy mindkét faktor függ a kortól: az anyagi/erkölcsi téren vállalt kockázat iránti attitűd az évek múlásával egyre kedvezőbbé válik, míg a testi épség terén vállalt kockázat iránti attitűd idővel egyre elutasítóbbá válik.
+
+## 3. Példa
+
+Egy kérdőív szerkesztésének problémái
+
+Egy jó kérdőív kialakítása hosszas és nagyon alapos munkát igényel. Egyik lépése, hogy megnézzük, az itemek valóban egy dimenzióra illeszkednek-e. A nem odaillő itemeket pedig kivesszük a kérdőívből (itemszelekció). Ennek módszerei lehetnek a korábban már tárgyalt Cronbach-alfa, illetve ha főkomponens-analízist végzünk az itemekkel, akkor a Theta is. A következőkben egy főkomponens-analízisen és Cronbach-alfán alapuló itemszelekcióra nézünk példát.
