@@ -20,6 +20,88 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -60,6 +142,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -205,7 +288,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
+  <a href="./appendix_gyakorlo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Gyakorló feladatok</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
   </div>
 </li>
       </ul>
@@ -215,7 +303,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tartalomjegyzék</h2>
+   
+  <ul>
+  <li><a href="#az-mds-algoritmusok-típusai" id="toc-az-mds-algoritmusok-típusai" class="nav-link active" data-scroll-target="#az-mds-algoritmusok-típusai"><span class="toc-section-number">11.1</span>  Az MDS algoritmusok típusai</a></li>
+  <li><a href="#példa" id="toc-példa" class="nav-link" data-scroll-target="#példa"><span class="toc-section-number">11.2</span>  1. Példa</a></li>
+  <li><a href="#korrelációs-mátrix-megjelenítése-többdimenziós-skálázással" id="toc-korrelációs-mátrix-megjelenítése-többdimenziós-skálázással" class="nav-link" data-scroll-target="#korrelációs-mátrix-megjelenítése-többdimenziós-skálázással"><span class="toc-section-number">11.3</span>  Korrelációs mátrix megjelenítése többdimenziós skálázással</a></li>
+  <li><a href="#az-mds-és-a-pca-összehasonlítása" id="toc-az-mds-és-a-pca-összehasonlítása" class="nav-link" data-scroll-target="#az-mds-és-a-pca-összehasonlítása"><span class="toc-section-number">11.4</span>  Az MDS és a PCA összehasonlítása</a></li>
+  <li><a href="#példa-1" id="toc-példa-1" class="nav-link" data-scroll-target="#példa-1"><span class="toc-section-number">11.5</span>  2. Példa</a></li>
+  <li><a href="#példa-2" id="toc-példa-2" class="nav-link" data-scroll-target="#példa-2"><span class="toc-section-number">11.6</span>  3. Példa</a></li>
+  <li><a href="#példa-3" id="toc-példa-3" class="nav-link" data-scroll-target="#példa-3"><span class="toc-section-number">11.7</span>  4. Példa</a></li>
+  <li><a href="#példa-unnumbered" id="toc-példa-unnumbered" class="nav-link" data-scroll-target="#példa-unnumbered"><span class="toc-section-number">11.8</span>  5. Példa {unnumbered}</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -237,9 +338,767 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>JÖN.</p>
+<p>A többdimenziós skálázás (MDS) egy olyan többváltozós adatelemzési módszer, amelyet a minták közötti hasonlóság/különbség megjelenítésére használnak.</p>
+<p>Az MDS a kiinduló <span class="math inline">\(p\)</span> változó közötti hasonlóságot alacsonyabb, <span class="math inline">\(k\)</span> dimenziós térben ábrázolja. Legtöbbször a <span class="math inline">\(k = 2\)</span> az optimális választás, mert ekkor az objektumok helyét egy kétdimenziós pontdiagramon láthatjuk.</p>
+<p>Az MDS-algoritmus bemenetként az objektumpárok közötti távolságokat reprezentáló hasonlósági mátrixot vár. Ezt R-ben a <code>dist()</code> függvénnyel állíthatjuk elő.</p>
+<section id="az-mds-algoritmusok-típusai" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="az-mds-algoritmusok-típusai"><span class="header-section-number">11.1</span> Az MDS algoritmusok típusai</h2>
+<p>Különféle MDS-algoritmusok léteznek:</p>
+<ul>
+<li><p><strong>Klasszikus többdimenziós skálázás.</strong> Ez a módszer a lehető legjobban őrzi az eredeti távolságmértéket a pontok között. Az MDS térképen lévő illesztett távolságok és az eredeti távolságok ugyanabban a mértékegységben vannak kifejezve. A klasszikus MDS az úgynevezett metrikus többdimenziós skálázás kategóriába tartozik. Szokták főtengely-elemzésnek is nevezni, és jellemzően kvantitatív adatokra alkalmazzuk.</p></li>
+<li><p><strong>Nem metrikus többdimenziós skálázás.</strong> Ordinális MDS néven is ismert. Itt nem a távolságérték mérőszáma a fontos vagy értelmes, hanem az, hogy a többi objektumpár közötti távolságokhoz képes ez kisebb vagy nagyobb. Az ordinális MDS olyan illesztett távolságokat konstruál, amelyek az eredeti távolságokkal azonos rangsorrendben helyednek el. Például, ha az 1. és 5. objektumok távolsága az ötödik helyen áll az eredeti távolságadatokban, akkor az MDS-konfigurációban is az ötödik helyen kell szerepelniük. Ezt az algoritmust általában kategorikus adatokra alkalmazzuk.</p></li>
+</ul>
+</section>
+<section id="példa" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="példa"><span class="header-section-number">11.2</span> 1. Példa</h2>
+<p>A <code>swiss</code> adatbázis 47 francia nyelvű tartományának termékenységi és társadalmi-gazdasági adatait tartalmazza. Az adatbázis a <code>{datasets}</code> csomagból származik, további információ: <code>?swiss</code>. A példa ötlete <a href="http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/122-multidimensional-scaling-essentials-algorithms-and-r-code/">innen</a> származik.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_swiss.xlsx"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    47 obs. of  7 variables:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Fertility       : num  80.2 83.1 92.5 85.8 76.9 76.1 83.8 ...</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Agriculture     : num  17 45.1 39.7 36.5 43.5 35.3 70.2 67...</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Examination     : num  15 6 5 12 17 9 16 14 12 16 ...</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Education       : num  12 9 5 7 15 7 7 8 7 13 ...</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Catholic        : num  9.96 84.84 93.4 33.77 5.16 ...</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Infant.Mortality: num  22.2 22.2 20.2 20.3 20.6 26.6 23.6 ...</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ province        : chr  "Courtelary" "Delemont" "Franches-M...</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(d)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Fertility Agriculture Examination Education Catholic</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        80.2          17          15        12     9.96</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        83.1        45.1           6         9    84.84</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        92.5        39.7           5         5     93.4</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        85.8        36.5          12         7    33.77</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...       ...         ...         ...       ...      ...</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44       67.6        18.7          25         7     8.65</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45         35         1.2          37        53    42.34</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46       44.7        46.6          16        29    50.43</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47       42.8        27.7          22        29    58.33</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Infant.Mortality     province</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1               22.2   Courtelary</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2               22.2     Delemont</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3               20.2 Franches-Mnt</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4               20.3      Moutier</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...              ...         &lt;NA&gt;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44              19.5 ValdeTravers</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45                18 V. De Geneve</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46              18.2  Rive Droite</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47              19.3  Rive Gauche</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Az R-ben több függvény is rendelkezésre áll:</p>
+<ul>
+<li><code>cmdscale()</code> - Klasszikus (metrikus) többdimenziós skálázás kiszámítása.</li>
+<li><code>MASS::isoMDS()</code> - A Kruskal nem metrikus többdimenziós skálázásának kiszámítása (a nem metrikus MDS egyik formája).</li>
+<li><code>MASS::sammon()</code> - Sammon nemlineáris leképezésének kiszámítása (a nem metrikus MDS egyik formája).</li>
+</ul>
+<p>A fenti függvények egy távolságobjektumot várnak argumentumként, és <code>k=</code> a kívánt dimenziószámot jelenti. Alapértelmezés szerint kétdimenziós megoldással térnek vissza, de ezt meg tudjuk változtatni.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dist_1 <span class="ot">&lt;-</span> <span class="fu">dist</span>(<span class="at">x =</span> d, <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> <span class="fu">cmdscale</span>(dist_1, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mds_1)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mds_1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Dim.1"</span>, <span class="st">"Dim.2"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot MDS</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggscatter</span>(mds_1, <span class="at">x =</span> <span class="st">"Dim.1"</span>, <span class="at">y =</span> <span class="st">"Dim.2"</span>, <span class="at">label =</span> d<span class="sc">$</span>province,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">1</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Hozzunk létre 3 csoportot a k-közép eljárással.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># K-közep klaszter</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>groups <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(mds_1, <span class="dv">3</span>)<span class="sc">$</span>cluster <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.factor</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot and color by groups</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggscatter</span>(mds_1, <span class="at">x =</span> <span class="st">"Dim.1"</span>, <span class="at">y =</span> <span class="st">"Dim.2"</span>, <span class="at">label =</span> <span class="fu">rownames</span>(swiss),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"groups"</span>, <span class="at">palette =</span> <span class="st">"jco"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">ellipse =</span> <span class="cn">TRUE</span>, <span class="at">ellipse.type =</span> <span class="st">"convex"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Jamovi-ban a fenti lépések végrehajtásáshoz a <code>snowCluster</code> csomagot kell telepíteni, majd a megjelenő <code>snowCluster</code> menüből a <code>Multidimensional Scaling Plot</code> almenüpontot kell kiválasztani.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mds_swiss_kep_01.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Többdimenziós skálázás jamovi-ban</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="korrelációs-mátrix-megjelenítése-többdimenziós-skálázással" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="korrelációs-mátrix-megjelenítése-többdimenziós-skálázással"><span class="header-section-number">11.3</span> Korrelációs mátrix megjelenítése többdimenziós skálázással</h2>
+<p>Az MDS a korrelációs mátrix vizsgálatára is alkalmas, rejtett mintázat felfedésére is használhatjuk.</p>
+<p>A korreláció valójában a hasonlóságot méri, de könnyen átalakítható az eltérés (távolság) jellegű mértékké. Az objektumok közötti távolság: <code>1 - res.cor</code>. A példában a <code>faktor_real_human_targyak.xlsx</code> adatbázist használjuk <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [3.7.1 Probléma].</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/faktor_real_human_targyak.xlsx"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    30 obs. of  6 variables:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ matek      : num  5 4 3 2 5 1 5 2 5 5 ...</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ informatika: num  4 4 4 2 5 1 5 2 5 4 ...</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ kemia      : num  5 5 3 3 5 1 5 3 5 5 ...</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ irodalom   : num  5 4 2 5 3 5 3 5 4 2 ...</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ nyelvtan   : num  4 4 2 5 3 5 3 5 5 2 ...</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ angol      : num  5 5 3 5 3 5 3 5 5 2 ...</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(d)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     matek informatika kemia irodalom nyelvtan angol</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       5           4     5        5        4     5</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       4           4     5        4        4     5</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       3           4     3        2        2     3</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       2           2     3        5        5     5</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...   ...         ...   ...      ...      ...   ...</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27      5           5     5        2        2     3</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28      5           5     5        4        4     4</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29      2           2     3        4        5     5</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30      5           5     5        4        5     5</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>res.cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(d, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mds.cor <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> res.cor) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cmdscale</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mds.cor) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Dim.1"</span>, <span class="st">"Dim.2"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggscatter</span>(mds.cor, <span class="at">x =</span> <span class="st">"Dim.1"</span>, <span class="at">y =</span> <span class="st">"Dim.2"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">label =</span> <span class="fu">colnames</span>(res.cor),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A pozitívan korreláló objektumok közel vannak egymáshoz, ugyanazon oldalon (bal vagy jobb).</p>
+</section>
+<section id="az-mds-és-a-pca-összehasonlítása" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="az-mds-és-a-pca-összehasonlítása"><span class="header-section-number">11.4</span> Az MDS és a PCA összehasonlítása</h2>
+<p>Az MDS és a dimenzió-redukciós módszerek (például a főkomponens elemzés és a faktoranalízis) között matematikailag és fogalmilag szoros összefüggés van .</p>
+<p>A PCA inkább magukra a dimenziókra összpontosít, és a megmagyarázott variancia maximalizálására törekszik, míg az MDS inkább a skálázott objektumok közötti kapcsolatokra összpontosít.</p>
+<p>Az MDS n-dimenziós adatpontokat vetít ki egy (általában) 2-dimenziós síkba úgy, hogy az n-dimenziós térben lévő hasonló objektumok közel lesznek egymáshoz a kétdimenziós diagramon is, míg a PCA többdimenziós teret vetít a maximális variancia irányába a korrelációs/kovariancia mátrix elemzésével.</p>
+</section>
+<section id="példa-1" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="példa-1"><span class="header-section-number">11.5</span> 2. Példa</h2>
+<p>A példa a magyar városokat elhelyezkedését vizsgálja a térképen <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [6.1. R-forráskód]. Az adatok már eleve távolságmátrixban vannak reprezentálva (<code>mds_varos_tavolsagmatrix.xlsx</code>), ahol az egyes cellák a városok közti légvonalbeli távolságot listázzák. Mivel a többdimenziós skálázást eredetileg a térképészetben használták térképek rajzolására, ebben a példában Magyarország nagyobb városait jelenítjük meg egy kétdimenziós térképen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_varos_tavolsagmatrix.xlsx"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    10 obs. of  11 variables:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ VAROSNEV: chr  "Budapest" "Gyor" "Tatab" "Szhely" ...</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ BUDAPEST: num  0 114 52 185 190 160 157 190 204 135</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ GYŐR    : num  NA 0 60 95 113 148 248 304 305 233</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ TATAB   : num  NA NA 0 144 144 140 193 243 251 182</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ SZHELY  : num  NA NA NA 0 45 126 289 381 392 330</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ ZALAE   : num  NA NA NA NA 0 90 262 375 391 330</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ KAPOSVAR: num  NA NA NA NA NA 0 183 322 345 297</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ SZEGED  : num  NA NA NA NA NA NA 0 179 220 208</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ DEBRECEN: num  NA NA NA NA NA NA NA 0 44 91</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ NYHAZA  : num  NA NA NA NA NA NA NA NA 0 72</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ MISKOLC : num  NA NA NA NA NA NA NA NA NA 0</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(d)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     VAROSNEV BUDAPEST GYŐR TATAB SZHELY ZALAE KAPOSVAR SZEGED</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   Budapest        0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       Gyor      114    0  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      Tatab       52   60     0   &lt;NA&gt;  &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     Szhely      185   95   144      0  &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...     &lt;NA&gt;      ...  ...   ...    ...   ...      ...    ...</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     Szeged      157  248   193    289   262      183      0</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   Debrecen      190  304   243    381   375      322    179</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9     Nyhaza      204  305   251    392   391      345    220</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10   Miskolc      135  233   182    330   330      297    208</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     DEBRECEN NYHAZA MISKOLC</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...      ...    ...     ...</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7       &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8          0   &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9         44      0    &lt;NA&gt;</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        91     72       0</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(d[<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dist</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1   2   3   4   5   6   7   8   9</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  114                                </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   52  60                            </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  185  95 144                        </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  190 113 144  45                    </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  160 148 140 126  90                </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  157 248 193 289 262 183            </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  190 304 243 381 375 322 179        </span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  204 305 251 392 391 345 220  44    </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 135 233 182 330 330 297 208  91  72</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Az elkészült távolságmátrix ismeretében már lefuttathatjuk a nem metrikus többdimenziós skálázást az R statisztikai program segítségével.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(dist, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 0.364001 </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 0.114745</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  10 value 0.037146</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 0.005866 </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>points</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]      [,2]</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     9.578911 -19.29945</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   -95.520939 -68.48619</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   -39.393870 -37.74982</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  -180.860153 -32.75667</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  -178.931803  11.19081</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  -121.302621  77.85193</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    55.462602 130.86356</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   196.837303  18.00145</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   210.243678 -22.43017</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  143.886892 -57.18545</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A fenti output mutatja a kapott kétdimenziós megoldást. Az egyes oszlopok az elemek első illetve második dimenzióbeli értékeit mutatja. Mivel a többdimenziós skálázásban fontos cél az adatok grafikus ábrázolása is, ezeket az értékeket kezelhetjük koordinátákként, melyek segítségével rajzolhatunk egy kétdimenziós térképet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mds_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mds_1<span class="sc">$</span>points)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(mds_data)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          V1     V2</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      9.58  -19.3</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    -95.52 -68.49</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    -39.39 -37.75</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   -180.86 -32.76</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...     ...    ...</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     55.46 130.86</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    196.84     18</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9    210.24 -22.43</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10   143.89 -57.19</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mds_data, <span class="fu">aes</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_label_repel</span>(<span class="at">label =</span> d<span class="sc">$</span>VAROSNEV)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A fenti outputban a magát a térképet kaphatjuk meg. Az egyetlen furcsaság a kapott térképen az, hogy az észak-dél irány fordítva van. Ennek oka, hogy a módszer az egyes objektumok egymáshoz való viszonyát modellezi, ám a koordináta-tengelyek iránya és helye változhat. Természetesen megkaphatjuk a “valódi” Magyarország térképet is.</p>
+<p>Ennek megoldásához csupán meg kell szoroznunk a második dimenziót (-1)-gyel.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mds_data<span class="sc">$</span>V2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> mds_data<span class="sc">$</span>V2</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mds_data, <span class="fu">aes</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_label_repel</span>(<span class="at">label =</span> d<span class="sc">$</span>VAROSNEV)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A kapott geometriai reprezentáció igen jól interpretálható. Ám emellett szükség van objektív mérőszámokra is, melyek információt adnak a kapott távolságok illeszkedésére vonatkozóan. A következőkben ilyen mérőszámokat mutatunk be.</p>
+<ul>
+<li><strong>A Stress-érték.</strong> Az első illeszkedés jóságát mutató mérőszám a Stress-érték. Az információveszteség mértékét méri. Minél kisebb, annál jobb. Az értéke 0,05 alatt igazán jó.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>stress</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.005865683</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Shepard-diagram.</strong> Grafikus információt adhat a kétdimenziós (vagy bármilyen más) megoldás jóságáról. Ehhez első lépésként elkészítjük a kétdimenziós megoldás távolságmátrixát (<code>delta</code> objektum). Ezután ábrázolhatjuk az eredeti távolságok és a kétdimenziós távolságok kapcsolatát egy pontdiagram segítségével. Minél jobb a kétdimenziós megoldás, annál inkább egy egyenesre illeszkednek az adatok.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fu">dist</span>(mds_1<span class="sc">$</span>points)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(delta, dist)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+<section id="példa-2" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="példa-2"><span class="header-section-number">11.6</span> 3. Példa</h2>
+<p>Ebben a példában különböző üdítőitalokat vizsgálunk meg a többdimenziós skálázás segítségével <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [6.5.1 probléma]. Az adatbázis a különböző üdítőitalok távolságmátrixát tartalmazza (<code>mds_uditok_tavolsagmatrix.xlsx</code>). Az embereknek azt kellett megítélni, hogy az egyes üdítők mennyire különböznek egymástól. A 0 érték azt jelenti, hogy teljesen egyformák az italok, míg az 1 a lehető legnagyobb mértékű különbözőséget jelzi.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_uditok_tavolsagmatrix.xlsx"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    7 obs. of  8 variables:</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ NEVEK       : chr  "szorp" "hohesC" "savm_asv_viz" "szobi"...</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ szorp       : num  0 0.48 0.66 0.19 0.72 0.94 0.89</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ hohesC      : num  0.48 0 0.45 0.3 0.32 0.4 0.56</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ savm_asv_viz: num  0.66 0.45 0 0.44 0.38 0.56 0.38</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ szobi       : num  0.19 0.3 0.44 0 0.48 0.68 0.67</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ traubi      : num  0.72 0.32 0.38 0.48 0 0.2 0.3</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ fantanarancs: num  0.94 0.4 0.56 0.68 0.2 0 0.45</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ asv_viz     : num  0.89 0.56 0.38 0.67 0.3 0.45 0</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(d)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            NEVEK szorp hohesC savm_asv_viz szobi traubi</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          szorp     0   0.48         0.66  0.19   0.72</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         hohesC  0.48      0         0.45   0.3   0.32</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   savm_asv_viz  0.66   0.45            0  0.44   0.38</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          szobi  0.19    0.3         0.44     0   0.48</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...         &lt;NA&gt;   ...    ...          ...   ...    ...</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41         szobi  0.19    0.3         0.44     0   0.48</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         traubi  0.72   0.32         0.38  0.48      0</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   fantanarancs  0.94    0.4         0.56  0.68    0.2</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        asv_viz  0.89   0.56         0.38  0.67    0.3</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     fantanarancs asv_viz</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1           0.94    0.89</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2            0.4    0.56</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3           0.56    0.38</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4           0.68    0.67</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...          ...     ...</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41          0.68    0.67</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5            0.2     0.3</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6              0    0.45</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7           0.45       0</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(d[<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>])</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dist</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1    2    3    4    5    6</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.48                         </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.66 0.45                    </span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.19 0.30 0.44               </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.72 0.32 0.38 0.48          </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.94 0.40 0.56 0.68 0.20     </span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 0.89 0.56 0.38 0.67 0.30 0.45</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(dist, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 1.573115 </span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 0.164954</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  10 value 0.022263</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 0.002023 </span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>points</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]        [,2]</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 -0.53868137  0.03041114</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 -0.06571066  0.18616088</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  0.02345226 -0.25210840</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 -0.31947272  0.03166493</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  0.17978098  0.01382719</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  0.37258175  0.22327908</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  0.34804977 -0.23323482</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A fenti output mutatja a kapott kétdimenziós megoldást. Az egyes oszlopok az elemek első illetve második dimenzióbeli értékeit mutatja. Mivel a többdimenziós skálázásban fontos cél az adatok grafikus ábrázolása is, ezeket az értékeket kezelhetjük koordinátákként, melyek segítségével rajzolhatunk egy kétdimenziós térképet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mds_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mds_1<span class="sc">$</span>points)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(mds_data)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        V1    V2</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   -0.54  0.03</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   -0.07  0.19</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    0.02 -0.25</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   -0.32  0.03</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...   ...   ...</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41  -0.32  0.03</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5    0.18  0.01</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    0.37  0.22</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    0.35 -0.23</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mds_data, <span class="fu">aes</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_label_repel</span>(<span class="at">label =</span> d<span class="sc">$</span>NEVEK)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>stress</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.002022712</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A Magyarország városait bemutató példában egyértelmű volt az egyes koordinátatengelyek, dimenziók elnevezése. Ám egy ilyen példánál már nagyobb gondot okozhat. A fenti eredmények alapján láthatjuk, hogy az első dimenzióban az ásványvíz és a Fanta Narancs szerepel magas értékekkel, viszonylag kis értéke van a Szobi gyümölcslének és a szörpnek. A második dimenzióiban is magas értékkel szerepel a Fanta és a Hohes C, viszont extrém alacsonnyal az ásványvíz. Ezek alapján az első dimenzió képviselheti a szénsavtartalmat, míg a második a gyümölcstartalmat. A feladatban szereplő emberek fejében ez a két szempont tűnt fontosnak az üdítőitalok különbözőségének megítélése során.</p>
+</section>
+<section id="példa-3" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="példa-3"><span class="header-section-number">11.7</span> 4. Példa</h2>
+<p>Ebben a példában autómárkák közötti hasonlóságokat ítéltetünk meg a személyekkel <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [6.5.2 probléma]. Az 1 érték jelenti a márkák teljes hasonlóságát, míg a 0 a hasonlóság hiányát.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_autok_tavolsagmatrix.xlsx"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    8 obs. of  9 variables:</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ AUTOK   : chr  "toyota celica" "audi a3" "seat ibiza" "sko...</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ TOYOTACE: num  1 0.4 0.25 0.12 0.67 0.39 0.26 0.19</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ AUDIA3  : num  0.4 1 0.31 0.39 0.5 0.24 0.18 0.52</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ SEATIBIZ: num  0.25 0.31 1 0.46 0.28 0.38 0.42 0.49</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ SKODAOCT: num  0.12 0.39 0.46 1 0.2 0.14 0.29 0.55</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ MAZDAMX6: num  0.67 0.5 0.28 0.2 1 0.38 0.26 0.26</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ NISSANM : num  0.39 0.24 0.38 0.14 0.38 1 0.4 0.22</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ SEATLEON: num  0.26 0.18 0.42 0.29 0.26 0.4 1 0.25</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ FORDMOND: num  0.19 0.52 0.49 0.55 0.26 0.22 0.25 1</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           AUTOK TOYOTACE AUDIA3 SEATIBIZ SKODAOCT MAZDAMX6 NI...</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 toyota celica     1.00   0.40     0.25     0.12     0.67   ...</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       audi a3     0.40   1.00     0.31     0.39     0.50   ...</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    seat ibiza     0.25   0.31     1.00     0.46     0.28   ...</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 skoda octavia     0.12   0.39     0.46     1.00     0.20   ...</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     mazda mx6     0.67   0.50     0.28     0.20     1.00   ...</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  nissan micra     0.39   0.24     0.38     0.14     0.38   ...</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     seat leon     0.26   0.18     0.42     0.29     0.26   ...</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   ford mondeo     0.19   0.52     0.49     0.55     0.26   ...</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   SEATLEON FORDMOND</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     0.26     0.19</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     0.18     0.52</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     0.42     0.49</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     0.29     0.55</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     0.26     0.26</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     0.40     0.22</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     1.00     0.25</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     0.25     1.00</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A fenti outputban egy hasonlósági mátrixot láthatunk. A többdimenziós skálázás előtt a hasonlósági mátrixot távolságmátrixszá kell transzformálni. Ezt egyszerűbben és pontosabban is megtehetjük:</p>
+<p>Az egyszerűbb eset az, hogy minden hasonlósági értéket kivonunk 1-ből, így a kis értékek közeli hasonlóságot jelentenek (kis távolság), a nagy értékek távoli hasonlóságot jelentenek (bagy távolság).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d_1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> d[<span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>d_1</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   TOYOTACE AUDIA3 SEATIBIZ SKODAOCT MAZDAMX6 NISSANM SEATLEON</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     0.00   0.60     0.75     0.88     0.33    0.61     0.74</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     0.60   0.00     0.69     0.61     0.50    0.76     0.82</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     0.75   0.69     0.00     0.54     0.72    0.62     0.58</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     0.88   0.61     0.54     0.00     0.80    0.86     0.71</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     0.33   0.50     0.72     0.80     0.00    0.62     0.74</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     0.61   0.76     0.62     0.86     0.62    0.00     0.60</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     0.74   0.82     0.58     0.71     0.74    0.60     0.00</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     0.81   0.48     0.51     0.45     0.74    0.78     0.75</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   FORDMOND</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     0.81</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     0.48</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     0.51</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     0.45</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     0.74</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     0.78</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     0.75</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     0.00</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dist_1 <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(d_1)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>dist_1</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1    2    3    4    5    6    7</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.60                              </span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.75 0.69                         </span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.88 0.61 0.54                    </span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.33 0.50 0.72 0.80               </span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.61 0.76 0.62 0.86 0.62          </span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 0.74 0.82 0.58 0.71 0.74 0.60     </span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 0.81 0.48 0.51 0.45 0.74 0.78 0.75</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(dist_1, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 5.826508 </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 2.950170</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 2.891815 </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>points</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           [,1]        [,2]</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 -0.361055519 -0.17243204</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  0.006764815 -0.30716195</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  0.216130743  0.18832931</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  0.412741547 -0.08945592</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 -0.324654056 -0.19618092</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 -0.288487909  0.28343789</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 -0.007968750  0.43461843</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  0.346529128 -0.14115478</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>stress</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.891815</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A távolságmátrix birtokában lefuttattuk a többdimenziós skálázást. Ez alkalommal háromdimenziós megoldást érdemes kérni, mivel a kétdimenziós megoldás Stress-értéke túl nagy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(dist_1, <span class="at">k =</span> <span class="dv">3</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 2.196611 </span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 0.256820</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  10 value 0.151733</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  15 value 0.107927</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  20 value 0.019342</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 0.000000 </span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>points</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]        [,2]        [,3]</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 -0.46448409 -0.15747133 -0.07985979</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  0.03707153 -0.40270153 -0.00671623</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  0.24092363  0.24184414  0.09663242</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  0.49812765 -0.05451923 -0.12227626</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 -0.36659549 -0.21506553 -0.04539081</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 -0.32944563  0.30522587  0.23017071</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 -0.00870002  0.45983004 -0.21064227</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  0.39310242 -0.17714243  0.13808223</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>stress</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.343565e-14</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 3D ábrázolás</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>d_3d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mds_1<span class="sc">$</span>points)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>d_3d<span class="sc">$</span>AUTOK <span class="ot">&lt;-</span> d<span class="sc">$</span>AUTOK</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(d_3d, <span class="at">x =</span> <span class="sc">~</span>V1, <span class="at">y =</span> <span class="sc">~</span>V2, <span class="at">z =</span> <span class="sc">~</span>V3) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_text</span>(<span class="at">text =</span> <span class="sc">~</span>AUTOK) <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_markers</span>(<span class="at">color =</span> <span class="sc">~</span>AUTOK)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A hasonlósági mátrix távolságmátrixszá alakításának pontosabb módja a <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> <a href="https://psycho.unideb.hu/statisztika/pages/p_6_12.html">6.4 fejezetében</a> olvasható.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>d_2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> d[<span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>]))</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dist_2 <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(d_2)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dist_2</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           1         2         3         4         5         6</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 1.0954451                                                  </span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 1.2247449 1.1747340                                        </span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 1.3266499 1.1045361 1.0392305                              </span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.8124038 1.0000000 1.2000000 1.2649111                    </span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 1.1045361 1.2328828 1.1135529 1.3114877 1.1135529          </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 1.2165525 1.2806248 1.0770330 1.1916375 1.2165525 1.0954451</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 1.2727922 0.9797959 1.0099505 0.9486833 1.2165525 1.2489996</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           7</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          </span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3          </span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          </span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5          </span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6          </span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7          </span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 1.2247449</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mds_2 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(dist_2, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 6.389472 </span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 5.192764</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  10 value 3.416955</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  15 value 2.949710</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 2.891118 </span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>mds_2<span class="sc">$</span>points</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         [,1]       [,2]</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1.4484081  0.8945686</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 -0.1610748  1.3129618</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 -0.8393349 -0.9062232</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 -1.7845996  0.2177189</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1.3049511  0.9653162</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  1.3352331 -1.0778650</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  0.2295031 -1.8533287</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 -1.5330862  0.4468514</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>mds_2<span class="sc">$</span>stress</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.891118</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A távolságmátrix birtokában lefuttattuk a többdimenziós skálázást. Ez alkalommal háromdimenziós megoldást érdemes kérni, mivel a kétdimenziós megoldás Stress-értéke túl nagy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mds_2 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(dist_2, <span class="at">k =</span> <span class="dv">3</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 5.751803 </span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 2.166360</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  10 value 1.472838</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  15 value 0.710732</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  20 value 0.271743</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 0.008855 </span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>mds_2<span class="sc">$</span>points</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]        [,2]       [,3]</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1.13442661  0.31620329  0.2158284</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 -0.10372721  0.94488131  0.2158065</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 -0.56639006 -0.51061522 -0.3193788</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 -1.22334085  0.08201655  0.2935412</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  0.86269111  0.49684620  0.2687634</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  0.78134789 -0.62616329 -0.7513363</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  0.06291958 -1.18359998  0.3083139</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 -0.94792707  0.48043115 -0.2315383</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>mds_2<span class="sc">$</span>stress</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.008855227</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 3D ábrázolás</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>d_3d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mds_2<span class="sc">$</span>points)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>d_3d<span class="sc">$</span>AUTOK <span class="ot">&lt;-</span> d<span class="sc">$</span>AUTOK</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(d_3d, <span class="at">x =</span> <span class="sc">~</span>V1, <span class="at">y =</span> <span class="sc">~</span>V2, <span class="at">z =</span> <span class="sc">~</span>V3) <span class="sc">%&gt;%</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_text</span>(<span class="at">text =</span> <span class="sc">~</span>AUTOK) <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_markers</span>(<span class="at">color =</span> <span class="sc">~</span>AUTOK)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(d[<span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>])</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>dist</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1    2    3    4    5    6    7</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.40                              </span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.25 0.31                         </span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.12 0.39 0.46                    </span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.67 0.50 0.28 0.20               </span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.39 0.24 0.38 0.14 0.38          </span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 0.26 0.18 0.42 0.29 0.26 0.40     </span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 0.19 0.52 0.49 0.55 0.26 0.22 0.25</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(dist, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 33.207938 </span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 20.383903</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 20.375967</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 20.375494</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 20.375494 </span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>points</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]        [,2]</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  0.21725475 -0.07057062</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  0.23169840  0.16729709</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  0.02516126  0.14398696</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 -0.07964438  0.22492857</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 -0.27770841 -0.02595944</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 -0.07736511 -0.03519537</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  0.04465412 -0.09341317</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 -0.08405063 -0.31107402</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>stress</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20.37549</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A távolságmátrix birtokában lefuttattuk a többdimenziós skálázást. Ez alkalommal háromdimenziós megoldást érdemes kérni, mivel a kétdimenziós megoldás Stress-értéke túl nagy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(dist, <span class="at">k =</span> <span class="dv">3</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 20.475699 </span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter   5 value 13.683747</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  10 value 12.173787</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  15 value 11.582671</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  20 value 10.623521</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; iter  25 value 10.205554</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 10.087435 </span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>points</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]        [,2]       [,3]</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  0.13460836  0.12178456 -0.2459601</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  0.26513691  0.11656555  0.1311542</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 -0.11581558  0.20541786  0.2225079</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 -0.07304790  0.17140624 -0.1649379</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 -0.24115264 -0.20298696  0.1827992</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 -0.19159160  0.01802297 -0.1309034</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  0.18865375 -0.07207344  0.1366108</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  0.03320869 -0.35813678 -0.1312707</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>stress</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 10.08743</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mds_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mds_1<span class="sc">$</span>points)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>mds_data</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            V1          V2         V3</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  0.13460836  0.12178456 -0.2459601</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  0.26513691  0.11656555  0.1311542</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 -0.11581558  0.20541786  0.2225079</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 -0.07304790  0.17140624 -0.1649379</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 -0.24115264 -0.20298696  0.1827992</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 -0.19159160  0.01802297 -0.1309034</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  0.18865375 -0.07207344  0.1366108</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  0.03320869 -0.35813678 -0.1312707</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Az eredmények vizsgálata alapján elnevezhetjük az egyes dimenziókat. A kapott konfigurációban az első dimenziót, vagyis az x-tengelyt nevezhetjük az ár tengelyének. A második tengely, az y, a családbarát jellegre vonatozik, míg az utolsó, z dimenzió a sportosságot képviselheti.</p>
+<p>Az MDS és főkomponens analízis összehasonlításáról itt olvashatunk: <a href="https://www.geeksforgeeks.org/multidimensional-scaling-using-r/">MDS using R</a></p>
+<p>A hasonlósági-távolságmátrix átalakítás két módját egy ábrán is összehasonlíthatjuk.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>r_ertekek <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>d_egyszeru <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> r_ertekek</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>d_pontos <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> r_ertekek))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(r_ertekek, r_ertekek), <span class="at">y =</span> <span class="fu">c</span>(d_egyszeru, d_pontos),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">szamitas =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"egyszerű"</span>, <span class="st">"pontos"</span>), <span class="at">each =</span> <span class="fu">length</span>(r_ertekek)))</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    202 obs. of  3 variables:</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ x       : num  0 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0...</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ y       : num  1 0.99 0.98 0.97 0.96 0.95 0.94 0.93 0.92 0...</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ szamitas: chr  "egyszerű" "egyszerű" "egyszerű" "egyszerű"...</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(d)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        x    y szamitas</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      0    1 egyszerű</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   0.01 0.99 egyszerű</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   0.02 0.98 egyszerű</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   0.03 0.97 egyszerű</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...  ...  ...     &lt;NA&gt;</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 199 0.97 0.24   pontos</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 200 0.98  0.2   pontos</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 201 0.99 0.14   pontos</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 202    1    0   pontos</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> szamitas, <span class="at">group =</span> szamitas)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"r (korreláció vagy hasonlóság)"</span>, <span class="at">y =</span> <span class="st">"Távolság"</span>, <span class="at">color =</span> <span class="st">"Számítás"</span>)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+<section id="példa-unnumbered" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="példa-unnumbered"><span class="header-section-number">11.8</span> 5. Példa {unnumbered}</h2>
+<p>A vállalatokat számtalan jellemző mentén mérhetjük, most a vállalat nagyságát, a hatalmi távolságot és a vállalat szemléletében jelen levő konzervativizmus mértékét választottuk.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_vallalatok.xlsx"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    10 obs. of  4 variables:</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ NEV     : chr  "A vallalat" "B vallalat" "C vallalat" "D v...</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ MERET   : num  75 1500 2000 21 1000 900 1000 35 120 100</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ HATALMIT: num  1 10 11 3 10 11 10 4 2 5</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ KONZERVA: num  2 9 8 4 9 8 11 3 2 4</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           NEV MERET HATALMIT KONZERVA</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  A vallalat    75        1        2</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  B vallalat  1500       10        9</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  C vallalat  2000       11        8</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  D vallalat    21        3        4</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  E vallalat  1000       10        9</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  F vallalat   900       11        8</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  G vallalat  1000       10       11</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  H vallalat    35        4        3</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  I vallalat   120        2        2</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 J vallalat   100        5        4</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ebben a példában nem távolságmátrixból indulunk ki.Ez tehát olyan példája a többdimenziós skálázásnak, amikor nyers adatokból indulunk ki. Állítsuk elő a távolságmátrixot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dist_1 <span class="ot">&lt;-</span> <span class="fu">dist</span>(d[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>dist_1</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             1          2          3          4          5</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1425.04561                                            </span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  1925.03532  500.00200                                 </span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    54.07402 1479.02502 1979.02021                      </span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5   925.07027  500.00000 1000.00100  979.03779           </span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   825.08242  600.00167 1100.00000  879.04551  100.01000</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7   925.08756  500.00400 1000.00500  979.05005    2.00000</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    40.12481 1465.02457 1965.01883   14.07125  965.03730</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9    45.01111 1380.04094 1880.03112   99.02525  880.06420</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10   25.39685 1400.01786 1900.01368   79.02531  900.02778</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             6          7          8          9</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                                             </span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3                                             </span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4                                             </span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                                             </span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6                                             </span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7   100.04999                                 </span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   865.04277  965.05181                      </span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   780.07500  880.08238   85.02941           </span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  800.03250  900.04111   65.01538   20.32240</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mds_1 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(<span class="at">d =</span> dist_1, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; initial  value 0.000000 </span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; final  value 0.000000 </span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; converged</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>points</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]        [,2]</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    600.1319 -3.12622014</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   -824.9116 -0.67138875</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  -1324.9030 -3.78267877</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    654.1132  0.03765570</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5   -324.9215  2.43526416</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   -224.9247  3.05195762</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7   -324.9291  3.85407994</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    640.1123 -0.05396771</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9    555.1277 -2.70104813</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10   575.1048  0.95634608</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>mds_1<span class="sc">$</span>stress</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.337118e-14</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A Stress-érték megfelelően kicsi, így elfogadhatjuk a kétdimenziós megoldást.</p>
+<p>A fenti output segítségével pedig pontosan megtudhatjuk, hogy az egyes vállalatok milyen értékekkel szerepelnek az egyes dimenziókban.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>mds_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mds_1<span class="sc">$</span>points)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">headTail</span>(mds_data)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          V1    V2</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    600.13 -3.13</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   -824.91 -0.67</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   -1324.9 -3.78</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    654.11  0.04</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...     ...   ...</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7   -324.93  3.85</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    640.11 -0.05</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9    555.13  -2.7</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    575.1  0.96</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mds_data, <span class="fu">aes</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_label_repel</span>(<span class="at">label =</span> d<span class="sc">$</span>NEV)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_tobbdimenzios_skalazas_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A kétdimenziós geometriai reprezentáció megmutatja, hogy az emberek véleménye szerint az egyes vállalatok hogyan helyezkednek el egymáshoz képest.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-MunnichNagyAbari2006" class="csl-entry" role="doc-biblioentry">
+Münnich, Á., Nagy, Á. és Abari, K. (2006). <em>Többváltozós statisztika pszichológus hallgatók számára</em>. Bölcsész Konzorcium. <a href="http://psycho.unideb.hu/statisztika">http://psycho.unideb.hu/statisztika</a>
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

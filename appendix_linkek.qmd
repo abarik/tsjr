@@ -11,6 +11,8 @@ source("_common.R")
     * [Jamovi a gyakorlatban](https://www.youtube.com/watch?v=sZummF3Sd90&list=PLnmeQHnHYqv5_FoVOvX9tqE90EqoOW01o)
     * [R a gyakorlatban](https://www.youtube.com/watch?v=UBeiIKzE8VA&list=PLnmeQHnHYqv6ENGrdTXiE9YJrvHuxH2C9)
 
+* Magyar nyelvű ismertető statisztikai eljárásokról: [Soltész-Várhelyi Klára](https://www.youtube.com/@stathelp)
+
 * Jamovi tutorial videók az összes tanult eljáráshoz
 
     * [datalab.cc](https://www.youtube.com/@datalabcc/videos)

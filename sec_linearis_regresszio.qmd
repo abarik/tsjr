@@ -275,13 +275,36 @@ A fenti példán látható, hogy két modellt építettünk. Az 1. modell az el�
  
 A regressziós modellt ne használjuk, ha az alkalmazási feltételek valamelyike nem teljesül. Melyek ezek?
 
-* Multikollinearitás: a független változók közötti korreláció. Multikollinearitás esetén elképzelhető, hogy a regressziós számítást el sem lehet végezni. Van mérőszám, amelynek a segítségével ki lehet szűrni az érintett változókat:
-    * VIF (variancia infláció faktor): a nagy érték kollinearitást jelez az érintett változókat kihagyhatjuk, vagy származtatott adatokkal dolgozunk tovább (például főkomponenselemzéssel nyert adatokat)
-* Autokorreláció: a hibatagok együttmozgása szignifikáns.
 
-## 1. Példa
+* **Kiugró értékek.** A kiugró értékek torzítják a regresszió eredményét, így lehetőség szerint az ilyen eseteket ki kell szűrnünk. Szűrésük történhet a Cook-féle távolság segítégével. A Cook-féle távolság egy eset általános hatását méri a modellre. A Cook-féle távolságnál a 4/N-nél nagyobb értékek jelenthetnek problémát. A megjelölt esetek így kiszűrésre kerülnek az adatbázisból. 
 
-Befolyásolja-e a munkahellyel való elégedettséget a fizetés nagysága és az életkor? [@MunnichNagyAbari2006] [1.6.1 probléma]
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): kiugró értékek vizsgálata](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_06.jpg)
+
+
+* **Multikollinearitás.** A multikollinearitás a független változók közötti erős korrelációra utal. Multikollinearitás bizonytalanná teszi és korlátozza a modell magyarázó erejét, bizonyos esetekben a regressziós számítást el sem lehet végezni. Ki lehet szűrni a multikollinearitásban érintett változókat a variancianövelő tényezők (variance inflation factor, VIF) és a tolerancia értékek elemzésével. Ha legnagyobb VIF érték tíznél nagyobb, illetve ha az átlagos VIF érték jelentősen nagyobb, mint egy, akkor az problémát jelenthet. A tolerancia értékek gyakorlatilag a VIF értékek reciprok értékei (1/VIF). Az érintett változókat kihagyhatjuk a modellből, vagy származtatott adatokkal dolgozunk tovább (például főkomponens elemzéssel nyert adatokkal).
+
+A VIF megmutatja a becsült regressziós együttható varianciája „felfújódásának” mértékét a hibatag varianciájához viszonyítva. A mutató értéke bármilyen nagy lehet. A tolerancia mutató megmutatja, hogy a magyarázóváltozó szórásnégyzetének mekkora része nem magyarázható együttesen a többi magyarázó változóval. Ennek értéke nulla és egy közé esik. Minél nagyobb a multikollinearitás mértéke annál közelebb van a mutató értéke a nullához.
+    
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): multikollinearitás vizsgálata](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_07.jpg)
+
+* **Homoszkedaszticitás.** A homoszkedaszticitás azt jelenti, hogy az eltérésváltozók varianciája állandó és független kell legyen, tehát a függő változó szórásának minden esetben ugyanannyinak kell lennie, függetlenül a független változóktól. Ha a Breusch-Pagan próba nem szignifikáns, akkor a homoszkedaszticitási előfeltétel teljesül.
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): homoszkedaszticitás vizsgálata](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_08.jpg)
+
+
+* **Autokorreláció.** A hibatagok szignifikáns együttmozgása az autokorreláció.A lineáris regresszió szempontjából fontos, hogy a hibatagok (reziduálisok) (vagyis a függő változó azon része, amit a független változók nem magyaráznak) ne korreláljanak egymással. Az autokorrelációt a Durbin-Watson próbával lehet ellenőrizni. A próba nullhipotézisének megtartása zat jelenti, hogy a hibatagokat nem tekintjük autokorreláltnak. (A Durbin-Watson próba esetében az egynél kisebb, illetve a háromnál nagyobb DW próbastatisztika értékek jelenthetnek problémát, a kettő közeli értékek kívánatosak.)
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): autokorreláció vizsgálata](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_09.jpg)
+
+* **Reziduálisok normális eloszlása.** A reziduális normális eloszlását a szokásos próbákkal és a QQ-ábrával is ellenőrizhetjük.
+
+![Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): reziduális normális eloszlása](images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_10.jpg)
+
+## Példa: Befolyásolja-e a munkahellyel való elégedettséget a fizetés nagysága és az életkor? 
+
+* A példa forrása: @MunnichNagyAbari2006 [1.6.1 probléma]
+* Kapcsolódó jamovi állomány: `lin_reg_elegedettseg.omv`
 
 ```{r}
 d <- rio::import(file = "adat/lin_reg_elegedettseg.xlsx")
@@ -294,7 +317,6 @@ lm_1 <- lm(elegedettseg~fizetes+kor, data=d)
 summary(lm_1)
 lsr::standardCoefs(lm_1)
 ```
-
 
 ![Elégedettség kapcsolata a fizetéssel és lektkorra (N=30)](images/lin_reg_elegedettseg_kep_01.jpg)
  
@@ -313,10 +335,11 @@ A négyzetes korrelációs együttható értéke 0,9, ami arra utal, hogy a füg
 
 
 
-## 2. Példa
+## Példa: Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt? 
 
-Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt? [@MunnichNagyAbari2006] [1.6.2 probléma]
-	
+
+* A példa forrása: @MunnichNagyAbari2006 [1.6.2 probléma]
+* Kapcsolódó jamovi állomány: `lin_reg_katonasag.omv`
 
 ```{r}
 d <- rio::import(file = "adat/lin_reg_katonasag.xlsx")

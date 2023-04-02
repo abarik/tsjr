@@ -29,7 +29,7 @@ Az ómega (McDonald $\omega$) korrigálja a Cronbach-alfa torzítását, érdeme
 
 ## Példa: Real tárgyak iránti fogékonyság
 
-Egy fiktív adatbázis 9 tanuló iskolai jegyeit tartalamzza reál tantárgyakból (matematika, fizika, kémia, informatika) (`megbizhatosag_tantargyak.xlsx`). Vizsgáljuk meg, ha a reál tantárgyak iránti fogékonyságot ezzel a 4 érdemjeggyel mérnénk, akkor ez megbízhatóság szempontjából alkalmas mérőeszköz lenne.
+Egy fiktív adatbázis 9 tanuló iskolai jegyeit tartalmazza reál tantárgyakból (matematika, fizika, kémia, informatika) (`megbizhatosag_tantargyak.xlsx`). Vizsgáljuk meg, ha a reál tantárgyak iránti fogékonyságot ezzel a 4 érdemjeggyel mérnénk, akkor ez megbízhatóság szempontjából alkalmas mérőeszköz lenne.
 
 
 ```{r}

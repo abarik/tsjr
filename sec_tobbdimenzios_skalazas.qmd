@@ -7,4 +7,394 @@ source("_common.R")
 ```
 
 
-JÖN.
+A többdimenziós skálázás (MDS) egy olyan többváltozós adatelemzési módszer, amelyet a minták közötti hasonlóság/különbség megjelenítésére használnak.
+
+Az MDS a kiinduló $p$ változó közötti hasonlóságot alacsonyabb, $k$ dimenziós térben ábrázolja. Legtöbbször a $k = 2$ az optimális választás, mert ekkor az objektumok helyét egy kétdimenziós pontdiagramon láthatjuk.
+
+Az MDS-algoritmus bemenetként az objektumpárok közötti távolságokat reprezentáló hasonlósági mátrixot vár. Ezt R-ben a `dist()` függvénnyel állíthatjuk elő.
+
+## Az MDS algoritmusok típusai
+
+Különféle MDS-algoritmusok léteznek:
+
+* **Klasszikus többdimenziós skálázás.** Ez a módszer a lehető legjobban őrzi az eredeti távolságmértéket a pontok között. Az MDS térképen lévő illesztett távolságok és az eredeti távolságok ugyanabban a mértékegységben vannak kifejezve. A klasszikus MDS az úgynevezett metrikus többdimenziós skálázás kategóriába tartozik. Szokták főtengely-elemzésnek is nevezni, és jellemzően kvantitatív adatokra alkalmazzuk.
+
+* **Nem metrikus többdimenziós skálázás.** Ordinális MDS néven is ismert. Itt nem a távolságérték mérőszáma a fontos vagy értelmes, hanem az, hogy a többi objektumpár közötti távolságokhoz képes ez kisebb vagy nagyobb. Az ordinális MDS olyan illesztett távolságokat konstruál, amelyek az eredeti távolságokkal azonos rangsorrendben helyednek el. Például, ha az 1. és 5. objektumok távolsága az ötödik helyen áll az eredeti távolságadatokban, akkor az MDS-konfigurációban is az ötödik helyen kell szerepelniük. Ezt az algoritmust általában kategorikus adatokra alkalmazzuk.
+
+## 1. Példa
+
+A `swiss` adatbázis 47 francia nyelvű tartományának termékenységi és társadalmi-gazdasági adatait tartalmazza. Az adatbázis a `{datasets}` csomagból származik, további információ: `?swiss`. A példa ötlete [innen](http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/122-multidimensional-scaling-essentials-algorithms-and-r-code/) származik.
+
+```{r}
+d <- rio::import(file = "adat/mds_swiss.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+
+Az R-ben több függvény is rendelkezésre áll:
+
+* `cmdscale()` - Klasszikus (metrikus) többdimenziós skálázás kiszámítása.
+* `MASS::isoMDS()` - A Kruskal nem metrikus többdimenziós skálázásának kiszámítása (a nem metrikus MDS egyik formája).
+* `MASS::sammon()` - Sammon nemlineáris leképezésének kiszámítása (a nem metrikus MDS egyik formája).
+
+A fenti függvények egy távolságobjektumot várnak argumentumként, és `k=` a kívánt dimenziószámot jelenti. Alapértelmezés szerint kétdimenziós megoldással térnek vissza, de ezt meg tudjuk változtatni.
+
+
+```{r}
+dist_1 <- dist(x = d, method = "euclidean")
+mds_1 <- cmdscale(dist_1, k = 2)
+mds_1 <- as.data.frame(mds_1)
+names(mds_1) <- c("Dim.1", "Dim.2")
+# Plot MDS
+ggpubr::ggscatter(mds_1, x = "Dim.1", y = "Dim.2", 
+          label = d$province,
+          size = 1,
+          repel = TRUE)
+```
+
+
+Hozzunk létre 3 csoportot a k-közép eljárással.
+
+```{r}
+library(magrittr)
+# K-közep klaszter
+mds_1$groups <- kmeans(mds_1, 3)$cluster %>% as.factor()
+# Plot and color by groups
+ggpubr::ggscatter(mds_1, x = "Dim.1", y = "Dim.2", 
+          label = rownames(swiss),
+          color = "groups",
+          palette = "jco",
+          size = 1, 
+          ellipse = TRUE,
+          ellipse.type = "convex",
+          repel = TRUE)
+```
+
+Jamovi-ban a fenti lépések végrehajtásáshoz a `snowCluster` csomagot kell telepíteni, majd a megjelenő `snowCluster` menüből a `Multidimensional Scaling Plot` almenüpontot kell kiválasztani.
+
+![Többdimenziós skálázás jamovi-ban](images/mds_swiss_kep_01.jpg)
+
+## Korrelációs mátrix megjelenítése többdimenziós skálázással
+
+Az MDS a korrelációs mátrix vizsgálatára is alkalmas, rejtett mintázat felfedésére is használhatjuk.
+
+A korreláció valójában a hasonlóságot méri, de könnyen átalakítható az eltérés (távolság) jellegű mértékké. Az objektumok közötti távolság: `1 - res.cor`. A példában a `faktor_real_human_targyak.xlsx` adatbázist használjuk [@MunnichNagyAbari2006] [3.7.1 Probléma].
+
+
+```{r}
+d <- rio::import(file = "adat/faktor_real_human_targyak.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+
+```{r}
+res.cor <- cor(d, method = "spearman")
+mds.cor <- (1 - res.cor) %>%
+  cmdscale() %>%
+  as.data.frame()
+colnames(mds.cor) <- c("Dim.1", "Dim.2")
+ggpubr::ggscatter(mds.cor, x = "Dim.1", y = "Dim.2", 
+          size = 1,
+          label = colnames(res.cor),
+          repel = TRUE)
+```
+
+
+A pozitívan korreláló objektumok közel vannak egymáshoz, ugyanazon oldalon (bal vagy jobb).
+
+## Az MDS és a PCA összehasonlítása
+
+Az MDS és a dimenzió-redukciós módszerek (például a főkomponens elemzés és a faktoranalízis) között matematikailag és fogalmilag szoros összefüggés van .
+
+A PCA inkább magukra a dimenziókra összpontosít, és a megmagyarázott variancia maximalizálására törekszik, míg az MDS inkább a skálázott objektumok közötti kapcsolatokra összpontosít.
+
+Az MDS n-dimenziós adatpontokat vetít ki egy (általában) 2-dimenziós síkba úgy, hogy az n-dimenziós térben lévő hasonló objektumok közel lesznek egymáshoz a kétdimenziós diagramon is, míg a PCA többdimenziós teret vetít a maximális variancia irányába a korrelációs/kovariancia mátrix elemzésével.
+
+## 2. Példa
+
+A példa a magyar városokat elhelyezkedését vizsgálja a térképen [@MunnichNagyAbari2006] [6.1. R-forráskód].
+Az adatok már eleve távolságmátrixban vannak reprezentálva (`mds_varos_tavolsagmatrix.xlsx`), ahol az egyes cellák a városok közti légvonalbeli távolságot listázzák. Mivel a többdimenziós skálázást eredetileg a térképészetben használták térképek rajzolására, ebben a példában Magyarország nagyobb városait jelenítjük meg egy kétdimenziós térképen.
+
+
+```{r}
+d <- rio::import(file = "adat/mds_varos_tavolsagmatrix.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+
+```{r}
+dist <- as.dist(d[2:11])
+dist
+```
+
+Az elkészült távolságmátrix ismeretében már lefuttathatjuk a nem metrikus többdimenziós skálázást az R statisztikai program segítségével.
+
+```{r}
+mds_1 <- MASS::isoMDS(dist, k=2)
+mds_1$points
+```
+
+A fenti output mutatja a kapott kétdimenziós megoldást. Az egyes oszlopok az elemek első illetve második dimenzióbeli értékeit mutatja. Mivel a többdimenziós skálázásban fontos cél az adatok grafikus ábrázolása is, ezeket az értékeket kezelhetjük koordinátákként, melyek segítségével rajzolhatunk egy kétdimenziós térképet.
+
+```{r}
+mds_data <- as.data.frame(mds_1$points)
+psych::headTail(mds_data)
+```
+
+
+```{r}
+library(ggplot2)
+library(ggrepel)
+ggplot(mds_data, aes(x=V1, y=V2)) + geom_point() + geom_label_repel(label=d$VAROSNEV)
+```
+
+A fenti outputban a magát a térképet kaphatjuk meg. Az egyetlen furcsaság a kapott térképen az, hogy az észak-dél irány fordítva van. Ennek oka, hogy a módszer az egyes objektumok egymáshoz való viszonyát modellezi, ám a koordináta-tengelyek iránya és helye változhat. Természetesen megkaphatjuk a "valódi" Magyarország térképet is.
+
+Ennek megoldásához csupán meg kell szoroznunk a második dimenziót (-1)-gyel.
+
+```{r}
+mds_data$V2 <- -1 * mds_data$V2
+ggplot(mds_data, aes(x=V1, y=V2)) + geom_point() + geom_label_repel(label=d$VAROSNEV)
+```
+
+A kapott geometriai reprezentáció igen jól interpretálható. Ám emellett szükség van objektív mérőszámokra is, melyek információt adnak a kapott távolságok illeszkedésére vonatkozóan. A következőkben ilyen mérőszámokat mutatunk be.
+
+* **A Stress-érték.** Az első illeszkedés jóságát mutató mérőszám a Stress-érték. Az információveszteség mértékét méri. Minél kisebb, annál jobb. Az értéke 0,05 alatt igazán jó.
+
+```{r}
+mds_1$stress
+```
+
+* **Shepard-diagram.** Grafikus információt adhat a kétdimenziós (vagy bármilyen más) megoldás jóságáról. Ehhez első lépésként elkészítjük a kétdimenziós megoldás távolságmátrixát (`delta` objektum). Ezután ábrázolhatjuk az eredeti távolságok és a kétdimenziós távolságok kapcsolatát egy pontdiagram segítségével. Minél jobb a kétdimenziós megoldás, annál inkább egy egyenesre illeszkednek az adatok.
+
+```{r}
+delta <- dist(mds_1$points)
+plot(delta,dist)
+```
+
+
+## 3. Példa
+
+Ebben a példában különböző üdítőitalokat vizsgálunk meg a többdimenziós skálázás segítségével [@MunnichNagyAbari2006] [6.5.1 probléma]. Az adatbázis a különböző üdítőitalok távolságmátrixát tartalmazza (`mds_uditok_tavolsagmatrix.xlsx`). Az embereknek azt kellett megítélni, hogy az egyes üdítők mennyire különböznek egymástól. A 0 érték azt jelenti, hogy teljesen egyformák az italok, míg az 1 a lehető legnagyobb mértékű különbözőséget jelzi.
+
+```{r}
+d <- rio::import(file = "adat/mds_uditok_tavolsagmatrix.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+
+```{r}
+dist <- as.dist(d[2:8])
+dist
+```
+
+```{r}
+mds_1 <- MASS::isoMDS(dist, k=2)
+mds_1$points
+```
+
+A fenti output mutatja a kapott kétdimenziós megoldást. Az egyes oszlopok az elemek első illetve második dimenzióbeli értékeit mutatja. Mivel a többdimenziós skálázásban fontos cél az adatok grafikus ábrázolása is, ezeket az értékeket kezelhetjük koordinátákként, melyek segítségével rajzolhatunk egy kétdimenziós térképet.
+
+```{r}
+mds_data <- as.data.frame(mds_1$points)
+psych::headTail(mds_data)
+```
+
+
+```{r}
+library(ggplot2)
+library(ggrepel)
+ggplot(mds_data, aes(x=V1, y=V2)) + geom_point() + geom_label_repel(label=d$NEVEK)
+```
+
+
+```{r}
+mds_1$stress
+```
+
+A Magyarország városait bemutató példában egyértelmű volt az egyes koordinátatengelyek, dimenziók elnevezése. Ám egy ilyen példánál már nagyobb gondot okozhat. A fenti eredmények alapján láthatjuk, hogy az első dimenzióban az ásványvíz és a Fanta Narancs szerepel magas értékekkel, viszonylag kis értéke van a Szobi gyümölcslének és a szörpnek. A második dimenzióiban is magas értékkel szerepel a Fanta és a Hohes C, viszont extrém alacsonnyal az ásványvíz. Ezek alapján az első dimenzió képviselheti a szénsavtartalmat, míg a második a gyümölcstartalmat. A feladatban szereplő emberek fejében ez a két szempont tűnt fontosnak az üdítőitalok különbözőségének megítélése során.
+
+## 4. Példa
+
+Ebben a példában autómárkák közötti hasonlóságokat ítéltetünk meg a személyekkel [@MunnichNagyAbari2006] [6.5.2 probléma]. Az 1 érték jelenti a márkák teljes hasonlóságát, míg a 0 a hasonlóság hiányát.
+
+```{r}
+d <- rio::import(file = "adat/mds_autok_tavolsagmatrix.xlsx")
+str(d)
+d
+```
+
+A fenti outputban egy hasonlósági mátrixot láthatunk. A többdimenziós skálázás előtt a hasonlósági mátrixot távolságmátrixszá kell transzformálni. Ezt egyszerűbben és pontosabban is megtehetjük:
+
+Az egyszerűbb eset az, hogy minden hasonlósági értéket kivonunk 1-ből, így a kis értékek közeli hasonlóságot jelentenek (kis távolság), a nagy értékek távoli hasonlóságot jelentenek (bagy távolság).
+
+```{r}
+d_1 <- 1-d[2:9]
+d_1
+```
+
+
+```{r}
+dist_1 <- as.dist(d_1)
+dist_1
+```
+
+```{r}
+mds_1 <- MASS::isoMDS(dist_1, k=2)
+mds_1$points
+mds_1$stress
+```
+
+A  távolságmátrix birtokában lefuttattuk a többdimenziós skálázást. Ez alkalommal háromdimenziós megoldást érdemes kérni, mivel a kétdimenziós megoldás Stress-értéke túl nagy.
+
+```{r}
+mds_1 <- MASS::isoMDS(dist_1, k=3)
+mds_1$points
+mds_1$stress
+```
+
+```{r}
+#| eval: false
+
+library(plotly)
+# 3D ábrázolás
+d_3d <- as.data.frame(mds_1$points)
+d_3d$AUTOK <- d$AUTOK
+plot_ly(d_3d, x=~V1,y=~V2, z=~V3) %>% add_text(text = ~AUTOK) %>% add_markers(color=~AUTOK)
+```
+
+A hasonlósági mátrix távolságmátrixszá alakításának pontosabb módja a [@MunnichNagyAbari2006] [6.4 fejezetében](https://psycho.unideb.hu/statisztika/pages/p_6_12.html) olvasható.
+
+```{r}
+d_2 <- sqrt(2*(1-d[2:9]))
+```
+
+```{r}
+dist_2 <- as.dist(d_2)
+dist_2
+```
+
+```{r}
+mds_2 <- MASS::isoMDS(dist_2, k=2)
+mds_2$points
+mds_2$stress
+```
+
+A  távolságmátrix birtokában lefuttattuk a többdimenziós skálázást. Ez alkalommal háromdimenziós megoldást érdemes kérni, mivel a kétdimenziós megoldás Stress-értéke túl nagy.
+
+```{r}
+mds_2 <- MASS::isoMDS(dist_2, k=3)
+mds_2$points
+mds_2$stress
+```
+
+```{r}
+#| eval: false
+
+library(plotly)
+# 3D ábrázolás
+d_3d <- as.data.frame(mds_2$points)
+d_3d$AUTOK <- d$AUTOK
+plot_ly(d_3d, x=~V1,y=~V2, z=~V3) %>% add_text(text = ~AUTOK) %>% add_markers(color=~AUTOK)
+```
+
+
+```{r}
+dist <- as.dist(d[2:9])
+dist
+```
+
+```{r}
+mds_1 <- MASS::isoMDS(dist, k=2)
+mds_1$points
+mds_1$stress
+```
+
+A  távolságmátrix birtokában lefuttattuk a többdimenziós skálázást. Ez alkalommal háromdimenziós megoldást érdemes kérni, mivel a kétdimenziós megoldás Stress-értéke túl nagy.
+
+```{r}
+mds_1 <- MASS::isoMDS(dist, k=3)
+mds_1$points
+mds_1$stress
+```
+
+```{r}
+mds_data <- as.data.frame(mds_1$points)
+mds_data
+```
+
+
+Az eredmények vizsgálata alapján elnevezhetjük az egyes dimenziókat. A kapott konfigurációban az első dimenziót, vagyis az x-tengelyt nevezhetjük az ár tengelyének. A második tengely, az y, a családbarát jellegre vonatozik, míg az utolsó, z dimenzió a sportosságot képviselheti.
+
+
+Az MDS és főkomponens analízis összehasonlításáról itt olvashatunk: [MDS using R](https://www.geeksforgeeks.org/multidimensional-scaling-using-r/)
+
+
+A hasonlósági-távolságmátrix átalakítás két módját egy ábrán is összehasonlíthatjuk.
+
+```{r}
+r_ertekek <- seq(from=0, to=1, by=0.01)
+d_egyszeru <- 1-r_ertekek
+d_pontos <- sqrt(2*(1-r_ertekek))
+d <- data.frame(x=c(r_ertekek, r_ertekek), 
+                y=c(d_egyszeru, d_pontos), 
+                szamitas=rep(c("egyszerű", "pontos"), each=length(r_ertekek)))
+str(d)
+psych::headTail(d)
+```
+
+```{r}
+library(ggplot2)
+ggplot(d, aes(x=x, y=y, color=szamitas, group=szamitas)) + geom_line(linewidth=1) + 
+  labs(x="r (korreláció vagy hasonlóság)", y="Távolság", color="Számítás")
+
+```
+
+
+
+## 5. Példa {unnumbered} 
+
+A vállalatokat számtalan jellemző mentén mérhetjük, most a vállalat nagyságát, a hatalmi távolságot és a vállalat szemléletében jelen levő konzervativizmus mértékét választottuk.
+
+```{r}
+d <- rio::import(file = "adat/mds_vallalatok.xlsx")
+str(d)
+d
+```
+
+Ebben a példában nem távolságmátrixból indulunk ki.Ez tehát olyan példája a többdimenziós skálázásnak, amikor nyers adatokból indulunk ki. Állítsuk elő a távolságmátrixot.
+
+```{r}
+dist_1 <- dist(d[2:4])
+dist_1
+```
+
+
+```{r}
+mds_1 <- MASS::isoMDS(d = dist_1, k = 2)
+mds_1$points
+mds_1$stress
+```
+
+A Stress-érték megfelelően kicsi, így elfogadhatjuk a kétdimenziós megoldást.
+
+A fenti output segítségével pedig pontosan megtudhatjuk, hogy az egyes vállalatok milyen értékekkel szerepelnek az egyes dimenziókban. 
+
+```{r}
+mds_data <- as.data.frame(mds_1$points)
+psych::headTail(mds_data)
+```
+
+
+```{r}
+library(ggplot2)
+library(ggrepel)
+ggplot(mds_data, aes(x=V1, y=V2)) + geom_point() + geom_label_repel(label=d$NEV)
+```
+
+A kétdimenziós geometriai reprezentáció megmutatja, hogy az emberek véleménye szerint az egyes vállalatok hogyan helyezkednek el egymáshoz képest.
+

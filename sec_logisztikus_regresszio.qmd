@@ -8,6 +8,28 @@ source("_common.R")
 
 A logisztikus regresszió céljait tekintve megegyezik a diszkriminancia elemzéssel, de sokkal robusztusabb, azaz kevesebb alkalmazási feltétellel rendelkezik. Használható a logisztikus regresszió akkor is, ha a független változók között kategorikus változók is előfordulnak, illetve a normalitásra és homoszkedaszticitásra vonatkozó feltétel megsértésre sem érzékeny a módszer.
 
-JÖN.
+A logisztikus regressziónak 3 típusa van:
+
+* binomiális logisztikus regresszió: a függő változónk dichotóm, csak két értéke van,
+* multinominális logisztikus regresszió: a függő változónk olyan kategorikus változó, amelynek kettőnél több értéke van,
+* ordinális logisztikus regresszió: a függő változó ordinális skálán mért.
+
+```{r}
+d <- rio::import(file = "adat/logreg_tanulo.sav")
+```
+
+
+```{r}
+# summarytools::ctable(x = d$HIVO2, y = d$HIVO01)
+DescTools::Desc(NEME2~HIVO01, data=d, plotit = F)
+```
+
+```{r}
+lm_1 <- lm(HIVO01~NEME2, data=d)
+summary(lm_1)
+```
+
+
+Mindhárom fenti esetben a független változóink lehetnek kategorikusak és folytonosak is.
 
 

@@ -171,7 +171,7 @@ A CFI és TLI mutatók értéke 0 és 1 közötti tartományba eshet, ahol az 1-
 illeszkedést. Kezdetben a mutatók elfogadhatósági kritériumának 0,90-et adtak meg, de az utóbbi időkben inkább a 0,95-ot tekintik az elfogadhatóság alsó határának.
 
 * **RMSEA** - a becslési hiba négyzetes átlagának gyöke (Root-Mean-Square Error of Approximation) - A Steiger-féle RMSEA mutatót a modell populációs kovariancia mátrixhoz viszonyított illeszkedésének becsléséhez használjuk. Az RMSEA az elemszámtól függetlenül hasonlítja össze, hogy a valós és az optimális paraméterekkel rendelkező hipotetikus modell kovarianciamátrixa milyen mértékben illeszkedik. 
-Az RMSEA a modell takarékosságának megbízható jelzője, a komplex modellek hibás specifikálásának hatékony mutatója. Az RMSEA értéke is 0 és 1 közé eshet, itt azonban a kisebb, 0-hoz közel eső érték jelzi a jobb illeszkedést. Browne és Cudeck (1993) szerint az RMSEA értékei 0,05-ig szoros illeszkedést jeleznek; 0,08-os értékig pedig megfelelő illeszkedést, elfogadható populáción belüli becslési hibákkal. 
+Az RMSEA a modell takarékosságának megbízható jelzője, a komplex modellek hibás specifikálásának hatékony mutatója. Az RMSEA értéke is 0 és 1 közé eshet, itt azonban a kisebb, 0-hoz közel eső érték jelzi a jobb illeszkedést. Az RMSEA értékei 0,05-ig szoros illeszkedést jeleznek; 0,08-os értékig pedig megfelelő illeszkedést. 
 
 
 **Model Test**
@@ -181,29 +181,381 @@ Az adatok és a teoretikus modell egybeesésének vizsgálata. Az egyik leggyakr
 
 ![Illeszkedési mutatók](images/efa_fogkrem_05.jpg)
 
-## 1. Példa
 
-Valóban szétválasztható a reál és a humán tárgyakhoz szükséges tudás?
+## Példa: Vonás- és állapot-szorongás
 
-Összefoglalva, az adatokra jól illeszkedik a kétfaktoros modell, vagyis azonosíthatjuk a humán és a reál tárgyakat az egyes tantárgyakból nyújtott eredmények alapján. Az egyes tárgyak faktorba történő besorolása összhangban van „hétköznapi”, előzetes tudásunkkal: a matek, informatika és a kémia sorolható a reál, míg az irodalom, nyelvtan és angol tárgyak a humán tárgyakhoz.
+* A példa forrása: @MunnichNagyAbari2006 [3.2 fejezet](https://psycho.unideb.hu/statisztika/pages/p_3_2.html)
+* Kapcsolódó jamovi állomány: `faktor_szorongas.omv`
+
+Az adatbázisunkban ún. állapot- és vonás-szorongásra vonatkozó (hipotetikus) adatokat találunk. Az első 3 item az állapot-szorongásra, míg a többi 3 item a vonás-szorongásra irányul. A következő kérdésekre vártunk választ a felmérésben:
+
+* v1: Nyugtalan vagyok.
+* v2: Aggódom.
+* v3: Félek, hogy valami baj fog történni.
+* v4: Hajlamos vagyok mindent a szívemre venni.
+* v5: Szerintem csupa nehézségből áll az életem.
+* v6: Ennél könnyebb életem nem is lehetne.
+
+* v1-v3: állapot-szorongás
+* v4-v6: vonás-szorongás
+
+Az adatok a `faktor_szorongas.xlsx` állományban találhatók.
+
+```{r}
+d <- rio::import("adat/faktor_szorongas.xlsx")
+str(d)
+d
+```
+
+Mivel a faktoranalízis is a korrelációs mátrixból indul ki - a főkomponens-analízishez hasonlóan -, így elsőként az adatok korrelációs mátrixát érdemes megvizsgálni 
+
+```{r}
+print(cor(d), digits=2)
+```
+
+A korrelációs mátrix értékei azt sugallják, hogy két faktort azonosíthatunk.
+
+Először a forgatás előtti faktorokat vizsgáljuk meg.
+
+```{r}
+fa_1 <- factanal(d, factors=2, rotation="none")
+fa_1
+```
+
+A fenti outputban láthatjuk a forgatás előtti faktorok adatait. Elsőként az egyes változók egyedi hatását, az egyedi fakorokat láthatjuk a „uniquenesses” címszó alatt. A „loadings” címszóval a faktorsúlyokat jelölik. A forgatás nélküli faktorok esetében több olyan változó van, amely mindkét faktorral erős kapcsolatban van. Ilyen például a v6 változó, amely faktorsúlya az első faktornál -0,788, a második faktornál pedig 0,609. Ezáltal a vizsgált látens struktúra kevésbé áttekinthető.
+
+A faktoranalízis modelljének végtelen számú alternatív megoldása van, és ez vezet a faktoranalízis második lépéséhez, amelyet faktor-rotációnak, vagy faktorforgatásnak hívnak.
 
 
+A lenti kódban kétfaktoros megoldást kértünk, a forgatásnál a "varimax” módszert, míg az egyes személyek faktorértékeinek kiszámításánál a Bartlett-módszert alkalmazzuk.
 
-## 2. Példa
+```{r}
+fa_2 <- factanal(d, factors=2, rotation="varimax", scores="Bartlett")
+fa_2
+```
 
-Milyen dimenziói vannak a kockázatvállalásnak és változik-e a korral a kockázatvállalás?
+A fenti outputban elsőként az egyes változók egyedi hatását, az egyedi fakorokat láthatjuk a „uniquenesses” címszó alatt. A egyedi faktorok és a kommunalitások kapcsolatban vannak egymással, összegük 1. Minél nagyobb egy változó egyedi faktorbeli értéke, annál kisebb lesz a kommunalitása, és minél nagyobb a kommunalitás értéke, annál nagyobb mértékben őrzi meg a faktor az eredeti változók szórását.
 
- A példák is mutatják, hogy a kockázatvállalásokat csoportosíthatjuk a kockázatot jelentő tényezők alapján, ahol az egyik csoportban az emberek saját testi épségüket teszik kockára (mint az autóversenyzés esetében), de kockáztathatnak pénzt vagy valamilyen becsületbeli dolgot is (mint a kártyázás és a blöffölés esetében). Példánkban megnézzük, hogy a faktoranalízis alátámasztja-e feltevésünket, majd a faktoranalízis eredményeit felhasználva megnézzük, hogy a kockázatvállaló viselkedésre hatással van-e a kor.
+```{r}
+kommunalitas <- 1-fa_2$uniquenesses
+print(kommunalitas, digits = 2)
+```
+
+Az egyes változók kommunalitását a fenti output tartalmazza. Láthatjuk, hogy a faktorok a legjobban a v6-os változó szórását őrizték meg, legkevésbé pedig az első (v1) itemét, hiszen ezek kommunalitása a legnagyobb, illetve a legkisebb. Mindez arra utal, hogy a faktorok az utolsó itemből származó információkat őrizték meg a leginkább, és az első itemből származókat a legkevésbé.
+
+Az egyedi faktorok után a "loadings" címszóval a faktorsúlyokat láthatjuk. A faktorsúlyok mutatják az egyes változók faktorokhoz való relatív hozzájárulását, a változók és a faktor közötti korrelációt. Ezek az értékek a már rotált faktorsúlyok. A faktorsúlyok megerősítik a korrelációs mátrix alapján felállított hipotézisünket, mely szerint két faktoros modell illeszkedik az adatokra. A v1-v3 faktor a második faktornál, míg a v4-v6 az első faktornál szerepel nagyobb súllyal. A v6 item faktorsúlya negatív előjelű, ennek oka, hogy fordított itemről van szó.
+
+Ezután a főkomponens-analízisből már ismert varianciák és magyarázott varianciahányadok szerepelnek. A táblázatban látható, hogy az első faktor varianciája majdnem 3, míg a második faktoré 2,5 ("SS loadings"). Az első faktor a varianciahányad közel 50%-át magyarázza, míg a második a 41%-át („Proportion var”). A „Cumulative var” sor mutatja, hogy a két faktor összesen az összvariancia 91%-át magyarázza.
+
+Az eredmény utolsó soraiban egy khi-négyzet próbát látunk, amely azt teszteli, hogy illeszkedik-e az adatokra az általunk választott kétfaktoros modell. Ha a tesztstatisztika értéke túl nagy, akkor nem illeszkedik a modell, egy másik megoldást kell választanunk. A khi-négyzet statisztika értéke a mintára 5,27, 4 szabadsági fokkal, a hozzá tartozó valószínűség p=0,261. Mivel jelen esetben p>0,05, így megtartjuk a null-hipotézist, vagyis a kétfaktoros modell valóban jól illeszkedik az adatokra. A két faktort pedig a faktorsúlyoknál vizsgált szerkezet alapján a következőképpen nevezhetjük el: mivel az első három változó a második faktorral mutat szorosabb kapcsolatot, így azt elnevezhetjük az állapot-szorongás faktorának, míg az első faktort - amely a második három változóval mutat szorosabb kapcsolatot - a vonás-szorongásnak.
+
+Összegezve, statisztikai mutatók megerősítették az elméletben leírt kétfaktoros szorongás-modellt, melynek egyik faktora a vonás-, másik faktora az állapot-szorongás.
+
+![Vonás- és állapot-szorongás: Feltáró faktorelemzés](images/faktor_szorongas_kep_01.jpg)
+
+## Példa: Valóban szétválasztható a reál és a humán tárgyakhoz szükséges tudás?
+
+* A példa forrása: @MunnichNagyAbari2006 [3.7.1 Probléma](https://psycho.unideb.hu/statisztika/pages/p_3_11.html)
+* Kapcsolódó jamovi állomány: `faktor_real_human_targyak.omv`
+
+Ebben a példában azzal foglalkozunk, hogy a diákok teljesítménye alapján a tantárgyak "szétválnak-e" reál és humán tárgyakra, avagy illeszthetünk-e egy kétfaktoros modellt az adatokra.
+
+Az adatok a `faktor_real_human_targyak.xlsx` állományban találhatók.
+
+```{r}
+d <- rio::import(file = "adat/faktor_real_human_targyak.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+
+Összesen hat változónk van. Az első hármat "hétköznapi" tudásunk alapján a reál tárgyak csoportjába, míg a második hármat a humán tárgyak csoportjába sorolnánk.
+
+```{r}
+print(cor(d), digits=2)
+```
+
+A korrelációs mátrix értékei azt sugallják, hogy két faktort azonosíthatunk. Az első faktort az első három változó (vagyis a reál tárgyak) alkotják, míg a második faktort a második három változó, azaz a humán tárgyak adják. A következő lépésben faktoranalízis segítségével teszteljük, hogy helyes-e a megérzésünk.
+
+```{r}
+fa_1 <- factanal(d, factors=2, rotation="varimax", scores="Bartlett")
+fa_1
+```
+
+Láthatjuk, hogy a khi-négyzet statisztika alapján a kétfaktoros modell illeszkedik az adatokra, hiszen a statisztikához tartozó szignifikancia-szint p=0,264.
+
+A "Proportion Var" sor mutatja, hogy egyes faktorok az összvariancia hány százalékát magyarázzák. Láthatjuk, hogy az első faktor 47%-át magyarázza az összvarianciának, míg a második 45%-át - kerekített értékben. A két faktor összesen kb. 91%-át magyarázza az összvarianciának.
+
+A "Loadings" résznél láthatjuk a faktorsúlyokat. A faktorsúlyok értékei megerősítik azt, amit a korrelációs mátrix és az előzetes tudásunk alapján véltünk: a matek, informatika és a kémia tárgyak alkotják az egyik faktort (a másodikat), a faktorsúlyok a második faktornál 0,9-es érték körül mozognak. Az irodalom, nyelvtan és angol tárgyak alkotják a másik faktort (az elsőt), az ide tartozó faktorsúlyok is 0,9 felett vannak.  
+```{r}
+kommunalitas <- 1-fa_1$uniquenesses
+print(kommunalitas, digits = 3)
+```
+
+A kommunalitások alapján látható, hogy az eredeti változók a szórásuk nagy részét megőrizték a faktorba kerüléskor. A magas, 0,9 körüli értékek arra utalnak, hogy a kétfaktoros modellnél az információveszteség elenyészően kicsi.
+
+```{r}
+print(fa_1$scores,digits=3)
+```
+ 
+                 
+Végül, nézzük meg az egyes személyek faktorértékeit. A faktorértékeknél azt láthatjuk, hogy akik reál tárgyakból értek el jobb eredményt, azok a második faktorban kaptak magasabb pontszámot, míg akik a humán tárgyakból kaptak jobb jegyeket, azok az első faktorban kaptak magasabb pontszámokat.
+
+Összefoglalva, az adatokra jól illeszkedik a kétfaktoros modell, vagyis azonosíthatjuk a humán és a reál tárgyakat az egyes tantárgyakból nyújtott eredmények alapján. Az egyes tárgyak faktorba történő besorolása összhangban van "hétköznapi", előzetes tudásunkkal: a matek, informatika és a kémia sorolható a reál, míg az irodalom, nyelvtan és angol tárgyak a humán tárgyakhoz.
+
+![Valóban szétválasztható a reál és a humán tárgyakhoz szükséges tudás: Feltáró faktorelemzés](images/faktor_real_human_targyak_kep_01.jpg)
+
+
+## Példa: Toleranciavizsgálat egy másik aspektusból
+
+* A példa forrása: @MunnichNagyAbari2006 [3.7.2 Probléma](https://psycho.unideb.hu/statisztika/pages/p_3_12.html)
+* Kapcsolódó jamovi állomány: `faktor_munkahelyi_tolarencia.omv`
+
+A főkomponenselemzés kapcsán már volt szó a toleranciáról. Megvizsgáltuk, hogy milyen jelenségek, milyen változók tartoznak a tolerancia körébe. Most azt próbáljuk megállapítani, hogyan épül fel a tolerancia, milyen a szerkezete, vannak-e látens dimenziói, ha igen, akkor melyek ezek.
+
+Az adatok a `faktor_munkahelyi_tolarencia.xlsx` állományban találhatók.
+
+```{r}
+d <- rio::import("adat/faktor_munkahelyi_tolarencia.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+```{r}
+print(cor(d), digits = 2)
+```
+
+Vannak változók, melyek között szinte nincs is kapcsolat, olyan gyenge a korreláció (ilyen például az "alkohol" és a "harsány" változó közötti korreláció, melynek értéke 0,06), és vannak olyan változók is, melyek között szorosabb kapcsolat figyelhető meg (ilyen például az "alkohol" és a "kábítószer" változó, melyek közötti korreláció mértéke 0,73).
+
+
+Végezzünk faktorelemzést.
+
+```{r}
+fa_1 <-factanal(d, factors=6, rotation="varimax", scores="Bartlett")
+fa_1
+```
+
+A fenti hatfaktoros megoldás eredményen látható, hogy a khi-négyzet statisztika szignifikancia-szintje szerint nem jól illeszkedik az adatokra. A "Cumulative Var” sorban azt is láthatjuk, hogy a hat faktor összesen az összvariancia 68%-át magyarázza. 
+A faktorsúlyok alapján (3.17. R-eredmény) az egyes faktorok a következőképpen alakulnak. Az első faktorban olyan változók szerepelnek, mint a „lusta”, „szemtelen”, „felelőtlen”, „bosszúálló”, „durva”, „agresszív”. A második faktorban szerepel a „hiányzik”, „udvariatlan”, „rendetlen” és „pontatlan”. A harmadikban szerepel a „pletykás”, „harsány” és „tudálékos”. A negyedik faktorban következik az „alkohol” és a „kábítószer”, ötödikben a „csámcsog” és a „büfög”, míg az utolsóban a „dohányzás”.
+
+![Toleranciavizsgálat egy másik aspektusból: Feltáró faktorelemzés](images/faktor_munkahelyi_tolarencia_kep_01.jpg)
+
+## Példa: A Big Five személyiségvizsgáló eljárás faktoranalízise
+
+* A példa forrása: @MunnichNagyAbari2006 [3.7.3 Probléma](https://psycho.unideb.hu/statisztika/pages/p_3_13.html)
+* Kapcsolódó jamovi állomány: `faktor_bigfive.omv`
+
+Szinte minden pszichológus számára ismert a Big Five személyiségvizsgáló eljárás. A Big Five - ahogyan a neve is mutatja - egy olyan személyiségmodell, és arra épülő személyiségvizsgáló eljárás, amely azt feltételezi, hogy a személyiséget öt, egymástól független dimenzió, öt faktor alkotja. Az egyes dimenzióknak, faktoroknak több elnevezése is ismert, ebben a vizsgálatban a következő elnevezéseket fogjuk használni:
+
+* Extroverzió - introverzió
+* Együttműködés
+* Lelkiismeretesség
+* Stabilitás - neurocitás
+* Élményekre való nyitottság
+
+Az adatok a `faktor_bigfive.xlsx` állományban találhatók.
+
+```{r}
+d <- rio::import(file = "adat/faktor_bigfive.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+A fenti adatok egy Big Five eljárásra épülő hipotetikus vizsgálat adatait tartalmazza. Az egyes változókhoz tartozó itemeket egy 1-7 skálán jelölték meg a vizsgálati személyek attól függően, hogy mennyire illik vagy nem illik rájuk az adott állítás. A 7 jelenteti azt, hogy teljes mértékben illik, és az 1, hogy egyáltalán nem. Az egyes változókhoz tartozó itemek a következők:
+
+* v1 (extroverzió): Általában beszédes, aktív és társaságkedvelő vagyok.
+* v2 (introverzió): Jobban szeretek csendesen visszahúzódni egy sarokba, semmint a középpontban lenni.
+* v3 (együttműködés): Szívesen segítek másoknak, vagy dolgozok másokkal együtt valamilyen közös feladaton.
+* v4 (együttműködés): Gyakran viselkedem ellenségesen és kötözködően másokkal.
+* v5 (lelkiismeretesség): Általában tudom, hogy mit akarok, és céltudatosan igyekszem elérni azt.
+* v6 (lelkiismeretesség):Sokak szerint megbízhatatlan vagyok.
+* v7 (stabilitás): Érzelmileg kiegyensúlyozottnak, higgadtnak tartom magam.
+* v8 (neurocitás): Gyakran vagyok érzelmileg csapongó.
+* v9 (élményekre való nyitottság): Kíváncsi vagyok.
+* v10 (élményekre való nyitottság): Ragaszkodom a szokásaimhoz.
+
+```{r}
+print(cor(d),digits=3)
+```
+
+Láthatjuk, hogy a Big Five modellje szerint összekapcsolódó itemek nagyon szoros, ám negatív korrelációban vannak egymással (tehát a v1 a v2-vel, v3 a v4-gyel stb.) a korreláció értékek -0,98 körül mozognak. A negatív előjelű kapcsolat utal arra, hogy az összekapcsolódó itemek egy dimenzió két végpontját ragadják meg. Hogy mennyire helytálló a korrelációs mátrix által felállított elképzelésünk, arra a faktoranalízis adhat választ.
+
+```{r}
+fa_1 <-factanal(d, factors=5, rotation="varimax", scores="Bartlett")
+fa_1
+```
+
+
+A Big Five jellegéből adódik, hogy egy ötfaktoros modellt teszteltünk, amely a khi-négyzet statisztika szerint illeszkedik is az adatokra. A "Cumulative Var" sorban azt is láthatjuk, hogy a modell magyarázóértéke igen jó, hiszen az öt faktor az összvarianciának majdnem a 99%-át magyarázza. A "Loadings”-szal jelölt faktorsúlyoknál megnézhetjük, hogyan alakulnak az egyes faktorok. A faktorok szerkezete teljes mértékben összecseng előzetes várakozásunkkal: minden egyes faktorba két változó tartozik, az összetartozó változók pedig úgy kapcsolódnak össze, ahogyan azt az elmélet alapján is vártuk (vagyis a v1 a v2-vel, v3 a v4-gyel stb.). A faktorsúlyok alapján az öt faktor a következőképpen alakul:
+
+1. faktor: élményekre való nyitottság (v9, v10)
+2. faktor: stabilitás-neurocitás (v7, v8)
+3. faktor: extroverzió-introverzió (v1, v2)
+4. faktor: lelkiismeretesség (v5, v6)
+5. faktor: együttműködés (v3, v4)
+
+
+```{r}
+print(fa_1$scores,digits=3)
+```
+
+Előhívhatjuk a személyek egyes faktorbeli értékeit is.
+
+
+![A Big Five személyiségvizsgáló eljárás faktoranalízise: Feltáró faktorelemzés](images/faktor_bigfive_kep_01.jpg)
+
+## Példa: Milyen dimenziói vannak a kockázatvállalásnak és változik-e a korral a kockázatvállalás?
+
+* A példa forrása: @MunnichNagyAbari2006 [3.7.4 Probléma](https://psycho.unideb.hu/statisztika/pages/p_3_14.html)
+* Kapcsolódó jamovi állomány: `faktor_kockazat.omv`
+
+A példák is mutatják, hogy a kockázatvállalásokat csoportosíthatjuk a kockázatot jelentő tényezők alapján, ahol az egyik csoportban az emberek saját testi épségüket teszik kockára (mint az autóversenyzés esetében), de kockáztathatnak pénzt vagy valamilyen becsületbeli dolgot is (mint a kártyázás és a blöffölés esetében). Példánkban megnézzük, hogy a faktoranalízis alátámasztja-e feltevésünket, majd a faktoranalízis eredményeit felhasználva megnézzük, hogy a kockázatvállaló viselkedésre hatással van-e a kor.
 
 Az adatbázisban szereplő adatokat úgy kaptuk, hogy a vizsgálati személyeknek különböző foglalkozású, illetve különböző tevékenységet végző embereket kellett megítélniük, hogy mennyire tartják őket szimpatikusnak egy 1-7 skálán, ahol a 7 jelentette azt, hogy nagyon szimpatikus. Ily módon megkaptuk a személyek kockázat iránti attitűdjét. A változók között olyan személyek szerepelnek, mint kártyajátékosok, autóversenyzők, üzletemberek (akik sok pénzt kockáztatnak), veszélyes sportot űző emberek, nagy pénzekben fogadó emberek, blöffölők és hivatásos katonák.
 
 Ezen kívül két adat szerepel az adatbázisban: a nem és a kor.
 
+Az adatok a `faktor_kockazat.xlsx` állományban találhatók.
+
+```{r}
+d <- rio::import(file = "adat/faktor_kockazat.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+```{r}
+print(cor(d[1:7]), digits = 2)
+```
+
+A korrelációs mátrixon nem látunk kiemelkedően magas értékeket, kissé nehéz egyértelmű következtetéseket levonni a faktorokra vonatkozóan, ezért teszteljünk egy kétfaktoros faktoranalízist az adatokra.
+
+```{r}
+fa_1 <- factanal(d[1:7],factors=2, rotation="varimax", scores="Bartlett")
+fa_1
+```
+
+Láthatjuk, hogy a khi-négyzet statisztika szerint a modell illeszkedik az adatokra, ellenben a modell magyarázóértéke egy picit csekély: a két faktor az összvariancia 31%-át magyarázza ("Cumulative Var”).
+
+A faktorsúlyok alapján ("Loadings”) pedig az egyes faktorok a következőképpen alakulnak: első faktorba tartoznak a kártyajátékosok, üzletemberek, akik fogadnak, illetve a blöffölők, míg a második faktorba az autóversenyzők, veszélyes sportot űzők és a hivatásos katonák tartoznak. Az egyes faktorok szerkezete teljes mértékben összhangban van az előzetes elvárásunkkal.
+
+```{r}
+print(fa_1$scores,digits=3)
+```
+
+Végül kérjük le az egyes személyek faktorértékeit. Tehát az első faktor jelenti az anyagi/erkölcsi kockázatvállalás iránti attitűdöt, míg a második faktor a testi épséget veszélyeztető kockázatvállalás iránti attitűdöt. 
+
+Ezek után nézzük meg, hatással van-e az életkor a kockázatvállalás iránti attitűdre. A további munkát megkönnyítendő, bővítsük ki az adatbázisunkat a két faktor értékeivel.
+
+
+```{r}
+d <- cbind(d, fa_1$scores)
+```
+
+
+
+Első lépésben azt nézzük meg, hogy van-e kapcsolat az életkor és az anyagi/erkölcsi téren vállalt kockázat iránti attitűd között. Eddigi ismereteink alapján ez azt jelenti, hogy lineáris regresszió-analízissel megnézzük, hogy van-e kapcsolat a kor és az első faktor faktorértékei között.
+
+```{r}
+summary(lm(Factor1~kor, data=d))
+```
+
+A fenti output kimutatja ugyan a kapcsolatot (a t- és az F-statisztika is szignifikáns), ám az R-négyzet („Multiple R-Squared”) értéke kissé gyenge magyarázóerőre utal (a független változó a függő változó varianciájának csupán 30%-át magyarázza). A kapcsolat irányáról azt állapíthatjuk meg, hogy minél idősebb valaki, annál inkább pozitívabb az anyagi/erkölcsi téren vállalt kockázat iránti attitűdje (kor változó együtthatója 0,08).
+ 
+Ezt követően nézzük meg, hogy van-e kapcsolat az életkor és testi épség terén vállalt kockázat iránti attitűd között. Most is lineáris regresszió-analízissel nézzük meg, hogy van-e kapcsolat a kor és a második faktor faktorértékei között. 
+
+```{r}
+summary(lm(Factor2~kor, data=d))
+```
+
+Az eredmény kimutatja ugyan a kapcsolatot ( a t- és az F-statisztika is szignifikáns), ám az R-négyzet („Multiple R-Squared”) értéke kissé gyenge magyarázóerőre utal (a független változó a függő változó varianciájának csupán 20%-át magyarázza. A kapcsolat irányáról azt állapíthatjuk meg, hogy minél idősebb valaki, annál inkább kedvezőtlenebb a testi épség terén vállalt kockázat iránti attitűdje (kor változó együtthatója -0,08).
 
 Összefoglalva, sikerült a faktoranalízissel alátámasztanunk a kockázatvállalás két faktorát. Azt is megállapítottuk, hogy mindkét faktor függ a kortól: az anyagi/erkölcsi téren vállalt kockázat iránti attitűd az évek múlásával egyre kedvezőbbé válik, míg a testi épség terén vállalt kockázat iránti attitűd idővel egyre elutasítóbbá válik.
 
-## 3. Példa
+![Milyen dimenziói vannak a kockázatvállalásnak és változik-e a korral a kockázatvállalás: Feltáró faktorelemzés](images/faktor_kockazat_kep_01.jpg)
 
-Egy kérdőív szerkesztésének problémái
+## Példa: Még egyszer Big Five {#sec-bf2}
 
-Egy jó kérdőív kialakítása hosszas és nagyon alapos munkát igényel. Egyik lépése, hogy megnézzük, az itemek valóban egy dimenzióra illeszkednek-e. A nem odaillő itemeket pedig kivesszük a kérdőívből (itemszelekció). Ennek módszerei lehetnek a korábban már tárgyalt Cronbach-alfa, illetve ha főkomponens-analízist végzünk az itemekkel, akkor a Theta is. A következőkben egy főkomponens-analízisen és Cronbach-alfán alapuló itemszelekcióra nézünk példát.
+* A példa forrása: NavarroFoxcroft2022 [15.1 Exploratory Factor Analysis](https://davidfoxcroft.github.io/lsj-book/15-Factor-Analysis.html#exploratory-factor-analysis)
+* Kapcsolódó jamovi állomány: `faktor_bfi_sample.omv`
+
+A feltáró faktorlemzés (Exploratory Factor Analysis, EFA) feltár minden olyan rejtett, látens tényezőt, amelyre a megfigyelt adatainkból következtethetünk. A pszichológiában a látens tényezők olyan pszichológiai jelenségeket vagy konstruktumokat képviselnek, amelyeket nehéz közvetlenül megfigyelni vagy mérni.
+
+Ebben a példában 25 személyiségpszichológai item elemzését végezzük, amely része a Synthetic Aperture Personality Assessment [SAPA](http://sapa-project.org) webalapú rendszernek. 
+
+Az itemek a következők (az R-rel jelölt itemek fordított pontozásúak):
+
+* BARATSA_1 - (R) Közömbös vagyok mások érzései iránt.
+* BARATSA_2 - Érdeklődöm mások jólétéről.
+* BARATSA_3 - Tudom, hogyan vigasztaljak meg másokat.
+* BARATSA_4 - Szeretem a gyerekeket.
+* BARATSA_5 - Megnyugtatom az embereket.
+* LELKIIS_1 - Igényes vagyok a munkában.
+* LELKIIS_2 - Addig dolgozom, amíg minden tökéletes nem lesz.
+* LELKIIS_3 - A dolgokat terv szerint csinálom.
+* LELKIIS_4 - (R) Félgőzzel csinálom a dolgaimat..
+* LELKIIS_5 - (R) Vesztegetem az időmet.
+* EXTRAVE_1 - (R) Nem beszélek sokat.
+* EXTRAVE_2 - (R) Nehezemre esik másokhoz közeledni.
+* EXTRAVE_3 - Tudom, hogyan nyűgözzem le az embereket.
+* EXTRAVE_4 - Könnyen szerzek barátokat.
+* EXTRAVE_5 - Szeretek irányítani.
+* NEUROTI_1 - Hamar dühbe gurulok.
+* NEUROTI_2 - Könnyen felbosszantanak.
+* NEUROTI_3 - Gyakran vannak hangulat-ingadozásaim.
+* NEUROTI_4 - Gyakran vagyok szomorú.
+* NEUROTI_5 - Könnyen pánikba esem.
+* NYITOTT_1 - Tele vagyok ötletekkel.
+* NYITOTT_2 - (R) Kerülöm a nehéz olvasmányokat.
+* NYITOTT_3 - A beszélgetéseket magasabb szintre viszem.
+* NYITOTT_4 - Fordítok időt arra, hogy visszatekintve elmélkedjek a dolgokon.
+* NYITOTT_5 - (R) Nem szoktam elmélyülni egy adott témában.
+
+A fenti táblázat összeállításához felhasználtam: 
+
+* [Hungarian Translation of  the IPIP NEO Domains](https://ipip.ori.org/HungarianIPIP-NEODomains.htm)
+* [Hungarian Translation of IPIP Scales Related to Intelligence and Creativity](https://ipip.ori.org/HungarianIntelligence.htm)
+
+
+Az itemekre adott válaszok 1-6 pontos válaszskálával rendelkeztek, ahol
+
+* 1 - Nagyon nem értek egyet
+* 2 - Közepesen nem értek egyet
+* 3 - Kissé nem értek egyet
+* 4 - Kissé egyetértek
+* 5 - Közepesen egyetértek
+* 6 - Nagyon egyetértek.
+
+A válaszokat a `bfi_sample.xlsx` adatbázis tartalmazza. Kutatóként szeretnénk feltárni az adatokat, hogy megtudjuk, vannak-e olyan mögöttes látens tényezők, amelyeket ésszerűen jól mérnek a 25 megfigyelt változóval kapcsolatban.
+
+
+```{r}
+d <- rio::import(file = "adat/faktor_bfi_sample.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+**Alkalmazási feltételek.** Először ellenőrizzük az alkalmazási feltételeket:
+
+* a Bartlett-féle szférikus teszt szignifikáns, tehát ez a feltétel teljesül
+* mintavétel megfelelőségének KMO-mértéke (MSA), összességében jó mintavételi megfelelőségre utal.
+
+**Faktorok száma.** Most a párhuzamos elemzési technikával kapott faktorszámot őrizzük meg, ez jelen esetben 5. A Horn-féle szimulációs módszer lényege, hogy az adatokból kapott sajátértékeket összehasonlítjuk azokkal, amelyeket véletlenszerű adatokból kapnánk. A kinyert faktorok száma az a szám, amelynek a sajátértéke nagyobb, mint amit véletlenszerű adatokkal kapnánk.
+
+**Forgatás moódja.** A forgatásnak két fő megközelítése van: az ortogonális (például "varimax”) forgatás, amikor a kapott faktorok nem fognak korrelálni egymással, míg a hegyesszögű (ferde) (például "Oblimin") forgatás lehetővé teszi a kiválasztott tényezők korrelációját. A pszichológusok tipikusan olyan dimenziókat vizsgálnak, amelyekről nem azt feltételezzük, hogy ortogonálisak egymásra, így a ferde megoldások vitathatatlanul ésszerűbbek!
+
+Ha a ferde forgatás során a faktorok kimutatható korrelációt mutatnak (pozitív vagy negatív, és >0,3) -- mint esetünkben -- ez megerősítené megérzésünket, hogy a ferde forgatást részesítsük előnyben. Ha a tényezők valójában korrelálnak, akkor a ferde elforgatás jobb becslést ad a valódi tényezőkről és jobb egyszerű struktúrát, mint az ortogonális elforgatás. És ha a ferde elforgatás azt jelzi, hogy a tényezők közel nulla korrelációt mutatnak egymás között, akkor a kutató továbbléphet és végrehajthat egy ortogonális elforgatást (ami ekkor körülbelül ugyanazt a megoldást adja, mint a ferde elforgatás). A kinyert faktorok közötti korreláció ellenőrzésekor legalább egy korreláció nagyobb volt, mint 0,3, ezért az öt kinyert faktor ferde ("oblimin”) elforgatása előnyös. 
+
+**Magyarázott varianciahányad.** Az adatok összesített varianciájának aránya, amelyet az öt tényező magyaráz, 46%. Az első faktor a variancia körülbelül 10%-át, a 2-4 faktor egyenként körülbelül 9%-át, az ötös faktor pedig valamivel több mint 7%-át teszi ki. Ez nem öröm, jobb lett volna ha ez az arány nagyobb.
+
+**Faktorsúlyok - Faktorok értelmezése.** A faktormátrix tartalmazza a faktorsúlyokat, vagyis, hogy a 25 különböző személyiségitem, hogyan töltődik be az öt kiválasztott faktor mindegyikére.Az 1-4 faktor az előzetes elvárásoknak megfelelően tartalmazza az itemeket. Az 5. faktor is majdnem rendben van, mindössze a `NYITOTT_4` item nem az 5. faktorra, hanem a 4. faktorra illeszkedik. 
+
+Vegyük észre, hogy a fordított pontozású itemek negatív faktorterhelésűek. Például a `BARATSA_1` ("Közömbös vagyok mások érzései iránt.") és a `BARATSA_2` (" Érdeklődöm mások jólétéről.") itemek esetében láthatjuk, hogy a `BARATSA_1`-on a magas pontszám alacsony barátságosságot jelent, míg `BARATSA_2`-n a magas pontszám magas barátságosságot jelez. Emiatt `BARATSA_1` negatívan korrelál a többi "barátságosság" változóval, és ezért van negatív faktorterhelése.
+  
+A faktormátrix mellett az "egyediségét” is láthatjuk. Az egyediség a variancia azon aránya, amely "egyedi" a változóra nézve, és nem magyarázható a faktorokkal. Például `BARATSA_1` varianciájának 72%-a nem magyarázható az ötfaktoros megoldásban szereplő tényezőkkel. Ezzel szemben a `NEUROTI_1`-nek viszonylag alacsony az a varianciája, amelyet a faktormegoldás nem vesz figyelembe (35%). Minél nagyobb az „egyediség”, annál kisebb a változó relevanciája vagy hozzájárulása a faktormodellben.
+
+**Faktorértékek.** Úgy tűnik, hogy van egy elég jó öttényezős megoldásunk, bár a megfigyelt varianciahányad összességében viszonylag alacsony. Tételezzük fel, hogy elégedettek vagyunk ezzel a megoldással, és szeretnénk felhasználni tényezőinket a további elemzésekhez. Az egyszerű lehetőség az, hogy minden egyes tényezőre kiszámoljuk az összesített (átlagos) pontszámot úgy, hogy összeadjuk minden olyan változó pontszámát, amely érdemben töltődik a faktoron, majd elosztjuk a változók számával (más szóval létrehozunk egy "átlagpontszámot” minden egyes személy számára az egyes skálák elemei között). Az adatbázisunkban szereplő minden egyes személy esetében számoljuk ki a Barátságosság pontszámát.
+
+Másik megoldás a faktor pontszám meghatározása. Ehhez mentenünk kell a faktorértékeket, és öt új oszlop keletkezik az adatbázisunkban. A 4. faktor  jelenti a Barátságosság pontszámát.
+
+
+![Még egyszer Big Five: Feltáró faktorelemzés](images/faktor_bfi_sample_kep_01.jpg)

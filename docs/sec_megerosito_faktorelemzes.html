@@ -60,6 +60,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -205,7 +206,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
+  <a href="./appendix_gyakorlo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Gyakorló feladatok</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
   </div>
 </li>
       </ul>
@@ -215,7 +221,19 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tartalomjegyzék</h2>
+   
+  <ul>
+  <li><a href="#faktorstruktúra-megadása" id="toc-faktorstruktúra-megadása" class="nav-link active" data-scroll-target="#faktorstruktúra-megadása"><span class="toc-section-number">5.1</span>  Faktorstruktúra megadása</a></li>
+  <li><a href="#eredmények-értékelése" id="toc-eredmények-értékelése" class="nav-link" data-scroll-target="#eredmények-értékelése"><span class="toc-section-number">5.2</span>  Eredmények értékelése</a>
+  <ul class="collapse">
+  <li><a href="#illeszkedési-mutatók-vizsgálata" id="toc-illeszkedési-mutatók-vizsgálata" class="nav-link" data-scroll-target="#illeszkedési-mutatók-vizsgálata"><span class="toc-section-number">5.2.1</span>  Illeszkedési mutatók vizsgálata</a></li>
+  <li><a href="#faktorterhelések-és-faktorkovariancia-becslése" id="toc-faktorterhelések-és-faktorkovariancia-becslése" class="nav-link" data-scroll-target="#faktorterhelések-és-faktorkovariancia-becslése"><span class="toc-section-number">5.2.2</span>  Faktorterhelések és faktorkovariancia becslése</a></li>
+  <li><a href="#modell-javítása" id="toc-modell-javítása" class="nav-link" data-scroll-target="#modell-javítása"><span class="toc-section-number">5.2.3</span>  Modell javítása</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -237,11 +255,136 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Tehát az a kísérletünk, hogy az EFA segítségével azonosítsuk a mögöttes látens tényezőket a személyiségi elemkészletből gondosan kiválasztott kérdésekkel, meglehetősen sikeresnek tűnt. A személyiség hasznos mérőszámának kidolgozására irányuló törekvésünk következő lépése az eredeti EFA-ban azonosított látens tényezők ellenőrzése egy másik mintán. Azt akarjuk látni, hogy a tényezők helytállóak-e, meg tudjuk-e igazolni létezésüket különböző adatokkal. Ez egy szigorúbb ellenőrzés, mint látni fogjuk. És ezt Confirmatory Factor Analysisnek (CFA) hívják, mivel nem meglepő módon egy előre meghatározott látens faktorstruktúra megerősítésére törekszünk.</p>
-<p>A CFA-ban ahelyett, hogy olyan elemzést végzünk, amelyben az adatok feltáró értelemben vett együttállását látjuk, ehelyett struktúrát írunk elő, mint a 15.13. ábrán, és megnézzük, hogy az adatok mennyire illeszkednek az előre megadott struktúránkhoz. Ebben az értelemben egy megerősítő elemzést végzünk, hogy megnézzük, mennyire erősítik meg a megfigyelt adatok egy előre meghatározott modellt.</p>
-<p>A személyiségelemek egyszerű megerősítő faktoranalízise (CFA) ezért öt látens faktort határoz meg, amint azt a 15.13. ábra mutatja, mindegyiket öt megfigyelt változóval mérve. Mindegyik változó egy mögöttes látens tényező mértéke. Például az A1-et a mögöttes látens egyetértési tényező előrejelzi. És mivel A1 nem tökéletes mértéke az elfogadhatósági tényezőnek, van egy hibatag, , kapcsolódik hozzá. Más szavakkal, az A1 eltérését jelenti, amelyet az egyetértési tényező nem vesz figyelembe. Ezt néha mérési hibának nevezik.</p>
+<ul>
+<li>A fejezet forrása: NavarroFoxcroft2022 <a href="https://davidfoxcroft.github.io/lsj-book/15-Factor-Analysis.html#confirmatory-factor-analysis">15.3 Confirmatory Factor Analysis</a></li>
+<li>Kapcsolódó jamovi állomány: <code>faktor_bfi_sample2.omv</code></li>
+</ul>
+<p>A feltáró faktorelemzés segítségével könnyen azonosíthatók a mögöttes, látens faktorok. Sok esetben azonban azt szeretnénk látni, hogy az épp rendelkezésre álló faktorok helytállóak-e, tudjuk-e igazolni adatainkkal a létezésüket. Ezt a szigorúbb ellenőrzést megerősítő faktorelemzésnek (Confirmatory Factor Analysis, CFA) nevezzük. Célja egy előre meghatározott látens faktorstruktúra megerősítése: megnézzük, hogy az adatok mennyire illeszkednek az előre megadott faktorstruktúrára. Abban az értelemben megerősítő az elemzés, hogy megnézzük, mennyire erősítik meg a megfigyelt adatok az előre meghatározott modellt.</p>
+<p>A <a href="sec_feltaro_faktorelemzes.html#sec-bf2"><span>4.11</span></a> fejezetben már foglalkoztunk a személyiség 5 faktoros modelljével. Ott feltáró elemzéssel sikerült azonosítani azt az 5 faktort, amelyre a 25 személyiségitem épp a megfelelő módon töltött (egyetlen item kivételével).</p>
+<p>Most a célünk az 5 faktoros modell megerősítése lesz. A <code>bfi_sample2.xlsx</code> állományt fogjuk használni. Rendelkezésre áll 250 vizsgálati személy adata, akik a 25 személyiségitemre adtak választ. Minden item csoportosítható valamely személyiségfaktor egyikébe, méghozzá ötös csoportokban. Az adatok visszaigazolják az 5 faktoros struktúrát? A következő struktúráról van szó:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/faktor_bfi_sample2_cfa_modell.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Megerősítő faktorelemzés faktorstruktúrája</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li><p>Barátságosság faktor itemei:</p>
+<ul>
+<li>BARATSA_1</li>
+<li>BARATSA_2</li>
+<li>BARATSA_3</li>
+<li>BARATSA_4</li>
+<li>BARATSA_5</li>
+</ul></li>
+<li><p>Lelkiismeretesség</p>
+<ul>
+<li>LELKIIS_1</li>
+<li>LELKIIS_2</li>
+<li>LELKIIS_3</li>
+<li>LELKIIS_4</li>
+<li>LELKIIS_5</li>
+</ul></li>
+<li><p>Extraverzió faktor itemei:</p>
+<ul>
+<li>EXTRAVE_1</li>
+<li>EXTRAVE_2</li>
+<li>EXTRAVE_3</li>
+<li>EXTRAVE_4</li>
+<li>EXTRAVE_5</li>
+</ul></li>
+<li><p>Neuroticitás faktor itemei:</p>
+<ul>
+<li>NEUROTI_1</li>
+<li>NEUROTI_2</li>
+<li>NEUROTI_3</li>
+<li>NEUROTI_4</li>
+<li>NEUROTI_5</li>
+</ul></li>
+<li><p>Nyitottság faktor itemei:</p>
+<ul>
+<li>NYITOTT_1</li>
+<li>NYITOTT_2</li>
+<li>NYITOTT_3</li>
+<li>NYITOTT_4</li>
+<li>NYITOTT_5</li>
+</ul></li>
+</ul>
+<p>A modellünk felépítése előtt néhány tényezőt érdemes figyelembe venni:</p>
+<ul>
+<li><p><strong>A látens tényezők korrelációja.</strong> Ahogy korábban említettük, a pszichológiában a konstruktumok legtöbbször összefüggenek egymással, azaz esetünkben a személyiségfaktorok korrelálhatnak egymással. Modellünkben meg kell engednünk, hogy ezek a látens tényezők együtt változzanak.</p></li>
+<li><p><strong>Hibatagok korrelációja.</strong> A itemek értékeinek meghatározása bizonyos hibával történik a modellben. Ezek a hibák korrelálhatnak egymással? Meg kell vizsgálni, hogy van-e szisztematikus oka annak, hogy egyes hibák korrelálnak egymással. Egyelőre nincs olyan egyértelmű ok, amelyek igazolnák egyes hibák összefüggenek egymással.</p></li>
+</ul>
+<section id="faktorstruktúra-megadása" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="faktorstruktúra-megadása"><span class="header-section-number">5.1</span> Faktorstruktúra megadása</h2>
+<p>A jamovi-ban a <code>Factor / Confirmatory Factor Analysis</code> menüpontban kell felvinni a fenti struktúrát.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cfa_kep_01.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Big Five: Faktorstruktúra felépítése</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="eredmények-értékelése" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="eredmények-értékelése"><span class="header-section-number">5.2</span> Eredmények értékelése</h2>
+<p>Az elemzés elvégzése után nézzük meg az eredményeket.</p>
+<section id="illeszkedési-mutatók-vizsgálata" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="illeszkedési-mutatók-vizsgálata"><span class="header-section-number">5.2.1</span> Illeszkedési mutatók vizsgálata</h3>
+<p>Az első dolog, amit meg kell nézni, a modellillesztés, mivel ez megmutatja, hogy a modellünk mennyire illeszkedik a megfigyelt adatokra. Számos módja van a modell illeszkedésének értékelésére.</p>
+<ul>
+<li><p><strong>Khí-négyzet próba.</strong> A khí-négyzet próbastatisztika kis értéke azt jelzi, hogy a modell jól illeszkedik az adatokhoz. Ebben az esetben a próba nem szignifikáns <span class="math inline">\((p&gt;0,05)\)</span>. A modell illeszkedésének értékelésére használt khí-négyzet statisztika azonban meglehetősen érzékeny a minta méretére, azaz nagy minta esetén a modell és az adatok elég jó illeszkedése is szinte mindig szignifikáns próbastatisztikát eredményez.</p></li>
+<li><p><strong>CFI</strong> - összehasonlító illeszkedési mutató (Comparative Fit Index) - A CFI azt méri fel, hogy faktorstruktúra milyen mértékben reprodukálja a valós adatokon nyugvó kovarianciamátrixot egy független modellhez képest. A CFI mutatók értéke 0 és 1 közötti tartományba eshet, ahol az 1-hez közeli érték jelzi a szoros illeszkedést. Kezdetben a mutatók elfogadhatósági kritériumának 0,90-et adtak meg, de az utóbbi időkben inkább a 0,95-ot tekintik az elfogadhatóság alsó határának.</p></li>
+<li><p><strong>TLI</strong> - Tucker–Lewis-féle Illeszkedési mutató - A TLI a CFI-hez hasonló módon méri az illeszkedést, annyi különbséggel, hogy ez a mutató a modellben használt szabadságfokot is figyelembe veszi, így kiküszöböli a vizsgálati minta méretének befolyásoló szerepét. A TLI mutatók értéke 0 és 1 közötti tartományba eshet, ahol az 1-hez közeli érték jelzi a szoros illeszkedést. Kezdetben a mutatók elfogadhatósági kritériumának 0,90-et adtak meg, de az utóbbi időkben inkább a 0,95-ot tekintik az elfogadhatóság alsó határának.</p></li>
+<li><p><strong>RMSEA</strong> - a becslési hiba négyzetes átlagának gyöke (Root-Mean-Square Error of Approximation) - A Steiger-féle RMSEA mutatót a modell populációs kovariancia mátrixhoz viszonyított illeszkedésének becsléséhez használjuk. Az RMSEA az elemszámtól függetlenül hasonlítja össze, hogy a valós és az optimális paraméterekkel rendelkező hipotetikus modell kovarianciamátrixa milyen mértékben illeszkedik. Az RMSEA a modell takarékosságának megbízható jelzője, a komplex modellek hibás specifikálásának hatékony mutatója. Az RMSEA értéke is 0 és 1 közé eshet, itt azonban a kisebb, 0-hoz közel eső érték jelzi a jobb illeszkedést. Az RMSEA értékei 0,05-ig szoros illeszkedést jeleznek; 0,08-os értékig pedig megfelelő illeszkedést.</p></li>
+</ul>
+<p>A saját eredményeinket szemlélve azt láthatjuk, hogy a khi-négyzet értéke nagy és nagyon szignifikáns. A mintánk mérete nem túl nagy, így ez valószínűleg rossz illeszkedést jelez. A CFI 0,762 a TLI pedig 0,731, ami rossz illeszkedést jelez a modell és az adatok között. Az RMSEA 0,085 90%-kos konfidencia intervallum 0,077 és 0,092, és ez megint nem jó illeszkedést jelez.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cfa_kep_02.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Big Five: Illeszkedési mutatók</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="faktorterhelések-és-faktorkovariancia-becslése" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="faktorterhelések-és-faktorkovariancia-becslése"><span class="header-section-number">5.2.2</span> Faktorterhelések és faktorkovariancia becslése</h3>
+<p>Nézzük tovább a faktorterheléseket és a faktorkovariancia becsléseket. A táblázatokban látható a Z-statisztika és a p-érték mindegyik paraméterre azt jelzi, hogy ésszerűen járulnak hozzá a modellhez (azaz nem nullák), így úgy tűnik, nincs ok a megadott változó-faktor útvonalak, vagy faktor-faktor korrelációk eltávolítására a modellből. A standardizált becslések gyakran könnyebben értelmezhetők. Ezeket a <code>Estimates / Standardized estimate</code> opciónál lehet megadni jamovi-ban. Ezek a táblázatok könnyen beépíthetők a tudományos írásokba.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cfa_kep_03.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Big Five: Faktorterhelés becslése</figcaption><p></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cfa_kep_04.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Big Five: Faktorkovariancia becslése</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="modell-javítása" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="modell-javítása"><span class="header-section-number">5.2.3</span> Modell javítása</h3>
+<p>Hogyan javíthatnánk a modellt? Az egyik lehetőség az, hogy átírjuk az általunk kifejlesztett itemeket. Egy másik lehetőség az, hogy néhány utólagos (post-hoc) módosítást végzünk a modellen az illeszkedés javítása érdekében. Ennek egyik módja a <code>Modification indices</code> használata, amely a jamovi-ban az <code>Additional Output</code> részben jelölhető be.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cfa_kep_05.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Big Five: Faktorterhelések MI értékei</figcaption><p></p>
+</figure>
+</div>
+<p>Az első táblázatban (<code>Factor Loadings - Modification Indices</code>) a legmagasabb módosítási index (MI) értéket keressük. Eldöntjük, hogy van-e értelme ezt az itemet a modellbe bevinni. Például a táblázatban láthatjuk, hogy a modellben még nem szereplő faktorterhelések legnagyobb MI értéke 28,786, a <code>NEUROTI_4</code> (“Gyakran vagyok szomorú.”) item töltése a látens “Extraverzió” faktorra. Ez azt jelzi, hogy ha ezt az utat hozzáadjuk a modellhez, akkor a khí-négyzet értéke körülbelül ugyanennyivel csökken.</p>
+<p>De a mi modellünkben ennek az itemnek a hozzáadása sem elméleti sem módszertani szempontból nem támasztható alá, ezért nem jó ötlet (hacsak nem tud olyan meggyőző érvvel előállni, hogy a “Gyakran vagyok szomorú.” a neuroticizmust és az extraverziót is méri). A példa kedvéért tegyünk úgy, mintha lenne valami értelme, és adjuk hozzá ezt az utat a modellhez. Menjünk vissza a CFA felülethez, és adjuk hozzá <code>NEUROTI_4</code>-t az “Extraverzió” faktorhoz. A CFA eredményei most megváltoznak; a khi-négyzet 728 környékére zuhant (10 körüli esés, nagyjából az MI méretéhez hasonló, de azért annál kisebb), és a többi illeszkedési index is javult, bár csak egy kicsit. Ez nem elég: ez még mindig nem egy jól illeszkedő modell.</p>
+<p>Ha új paramétereket adunk a modellhez, akkor mindig ellenőrizzük le újra az MI-táblázatokat, mivel az MI-k minden alkalommal frissülnek.</p>
+<p>Van egy másik jamovi táblázat is (<code>Residual Covariance - Modification Indices</code>), amely a maradék kovariancia-módosítási indexeket tartalmazza. Más szavakkal, ha egymással korreláló hibatagokat adnánk a modellhez, ilyen mértékben nőne a modell illeszkedése. Esetünkben a legnagyobb MI érték a <code>NEUROTI_1</code> és <code>NEUROTI_2</code> itemek által meghatározott cellában olvasható (45), vagyis e két item kovarianciájának modellhez adása esetén nő leginkább a modell illeszkedése. Adjuk a modellhez ezt az együttjárást.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cfa_kep_06.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Big Five: Reziduálisok kovarianciája</figcaption><p></p>
+</figure>
+</div>
+<p>Célszerű egyszerre vizsgálni mindkét MI táblát, és úgy meghatározni a legnagyobb MI-t, majd átgondolni, hogy a javasolt paraméter hozzáadása ésszerűen-e, és ha lehet, akkor hozzáadjuk a modellhez. Ezután újra megkeressük a legnagyobb MI-t a már újraszámolt táblázatokban.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

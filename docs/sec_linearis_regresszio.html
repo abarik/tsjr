@@ -288,7 +288,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
+  <a href="./appendix_gyakorlo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Gyakorló feladatok</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
   </div>
 </li>
       </ul>
@@ -311,8 +316,8 @@ div.csl-indent {
   </ul></li>
   <li><a href="#modellválasztás" id="toc-modellválasztás" class="nav-link" data-scroll-target="#modellválasztás"><span class="toc-section-number">1.5</span>  Modellválasztás</a></li>
   <li><a href="#alkalmazási-feltételek" id="toc-alkalmazási-feltételek" class="nav-link" data-scroll-target="#alkalmazási-feltételek"><span class="toc-section-number">1.6</span>  Alkalmazási feltételek</a></li>
-  <li><a href="#példa" id="toc-példa" class="nav-link" data-scroll-target="#példa"><span class="toc-section-number">1.7</span>  1. Példa</a></li>
-  <li><a href="#példa-1" id="toc-példa-1" class="nav-link" data-scroll-target="#példa-1"><span class="toc-section-number">1.8</span>  2. Példa</a></li>
+  <li><a href="#példa-befolyásolja-e-a-munkahellyel-való-elégedettséget-a-fizetés-nagysága-és-az-életkor" id="toc-példa-befolyásolja-e-a-munkahellyel-való-elégedettséget-a-fizetés-nagysága-és-az-életkor" class="nav-link" data-scroll-target="#példa-befolyásolja-e-a-munkahellyel-való-elégedettséget-a-fizetés-nagysága-és-az-életkor"><span class="toc-section-number">1.7</span>  Példa: Befolyásolja-e a munkahellyel való elégedettséget a fizetés nagysága és az életkor?</a></li>
+  <li><a href="#példa-befolyásolja-e-a-kalandvágy-a-hivatásos-katonai-szolgálatnál-eltöltött-időt" id="toc-példa-befolyásolja-e-a-kalandvágy-a-hivatásos-katonai-szolgálatnál-eltöltött-időt" class="nav-link" data-scroll-target="#példa-befolyásolja-e-a-kalandvágy-a-hivatásos-katonai-szolgálatnál-eltöltött-időt"><span class="toc-section-number">1.8</span>  Példa: Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt?</a></li>
   </ul>
 </nav>
     </div>
@@ -834,16 +839,58 @@ div.csl-indent {
 <h2 data-number="1.6" class="anchored" data-anchor-id="alkalmazási-feltételek"><span class="header-section-number">1.6</span> Alkalmazási feltételek</h2>
 <p>A regressziós modellt ne használjuk, ha az alkalmazási feltételek valamelyike nem teljesül. Melyek ezek?</p>
 <ul>
-<li>Multikollinearitás: a független változók közötti korreláció. Multikollinearitás esetén elképzelhető, hogy a regressziós számítást el sem lehet végezni. Van mérőszám, amelynek a segítségével ki lehet szűrni az érintett változókat:
-<ul>
-<li>VIF (variancia infláció faktor): a nagy érték kollinearitást jelez az érintett változókat kihagyhatjuk, vagy származtatott adatokkal dolgozunk tovább (például főkomponenselemzéssel nyert adatokat)</li>
-</ul></li>
-<li>Autokorreláció: a hibatagok együttmozgása szignifikáns.</li>
+<li><strong>Kiugró értékek.</strong> A kiugró értékek torzítják a regresszió eredményét, így lehetőség szerint az ilyen eseteket ki kell szűrnünk. Szűrésük történhet a Cook-féle távolság segítégével. A Cook-féle távolság egy eset általános hatását méri a modellre. A Cook-féle távolságnál a 4/N-nél nagyobb értékek jelenthetnek problémát. A megjelölt esetek így kiszűrésre kerülnek az adatbázisból.</li>
 </ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_06.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): kiugró értékek vizsgálata</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li><strong>Multikollinearitás.</strong> A multikollinearitás a független változók közötti erős korrelációra utal. Multikollinearitás bizonytalanná teszi és korlátozza a modell magyarázó erejét, bizonyos esetekben a regressziós számítást el sem lehet végezni. Ki lehet szűrni a multikollinearitásban érintett változókat a variancianövelő tényezők (variance inflation factor, VIF) és a tolerancia értékek elemzésével. Ha legnagyobb VIF érték tíznél nagyobb, illetve ha az átlagos VIF érték jelentősen nagyobb, mint egy, akkor az problémát jelenthet. A tolerancia értékek gyakorlatilag a VIF értékek reciprok értékei (1/VIF). Az érintett változókat kihagyhatjuk a modellből, vagy származtatott adatokkal dolgozunk tovább (például főkomponens elemzéssel nyert adatokkal).</li>
+</ul>
+<p>A VIF megmutatja a becsült regressziós együttható varianciája „felfújódásának” mértékét a hibatag varianciájához viszonyítva. A mutató értéke bármilyen nagy lehet. A tolerancia mutató megmutatja, hogy a magyarázóváltozó szórásnégyzetének mekkora része nem magyarázható együttesen a többi magyarázó változóval. Ennek értéke nulla és egy közé esik. Minél nagyobb a multikollinearitás mértéke annál közelebb van a mutató értéke a nullához.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_07.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): multikollinearitás vizsgálata</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li><strong>Homoszkedaszticitás.</strong> A homoszkedaszticitás azt jelenti, hogy az eltérésváltozók varianciája állandó és független kell legyen, tehát a függő változó szórásának minden esetben ugyanannyinak kell lennie, függetlenül a független változóktól. Ha a Breusch-Pagan próba nem szignifikáns, akkor a homoszkedaszticitási előfeltétel teljesül.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_08.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): homoszkedaszticitás vizsgálata</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li><strong>Autokorreláció.</strong> A hibatagok szignifikáns együttmozgása az autokorreláció.A lineáris regresszió szempontjából fontos, hogy a hibatagok (reziduálisok) (vagyis a függő változó azon része, amit a független változók nem magyaráznak) ne korreláljanak egymással. Az autokorrelációt a Durbin-Watson próbával lehet ellenőrizni. A próba nullhipotézisének megtartása zat jelenti, hogy a hibatagokat nem tekintjük autokorreláltnak. (A Durbin-Watson próba esetében az egynél kisebb, illetve a háromnál nagyobb DW próbastatisztika értékek jelenthetnek problémát, a kettő közeli értékek kívánatosak.)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_09.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): autokorreláció vizsgálata</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li><strong>Reziduálisok normális eloszlása.</strong> A reziduális normális eloszlását a szokásos próbákkal és a QQ-ábrával is ellenőrizhetjük.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lin_reg_fizetes_eletkor_elegedettseg_01_kep_10.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Elégedettség kapcsolata a fizetéssel és az élekorral (N=5): reziduális normális eloszlása</figcaption><p></p>
+</figure>
+</div>
 </section>
-<section id="példa" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="példa"><span class="header-section-number">1.7</span> 1. Példa</h2>
-<p>Befolyásolja-e a munkahellyel való elégedettséget a fizetés nagysága és az életkor? <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [1.6.1 probléma]</p>
+<section id="példa-befolyásolja-e-a-munkahellyel-való-elégedettséget-a-fizetés-nagysága-és-az-életkor" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="példa-befolyásolja-e-a-munkahellyel-való-elégedettséget-a-fizetés-nagysága-és-az-életkor"><span class="header-section-number">1.7</span> Példa: Befolyásolja-e a munkahellyel való elégedettséget a fizetés nagysága és az életkor?</h2>
+<ul>
+<li>A példa forrása: <span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006, o. 1.6.1</a> probléma)</span></li>
+<li>Kapcsolódó jamovi állomány: <code>lin_reg_elegedettseg.omv</code></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_elegedettseg.xlsx"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
@@ -903,9 +950,12 @@ div.csl-indent {
 <p>Mivel a többszörös regresszió esetében a független változók hatása csak a standardizált együtthatók mentén hasonlítható össze, így kiszámoltuk a standardizált együtthatókat is. Az adatok jól példázzák, hogy miért fontos a standardizált együtthatókat is vizsgálni, hiszen a nem standardizált együtthatók esetén a kor változó együtthatójának értéke a magasabb, míg a standardizált értékeknél fordítva. Vagyis, ha az egyes változók relatív fontosságának vizsgálatakor nem nézzük a dimenziómentes értékeket, akkor könnyen téves következtetésre juthatunk.</p>
 <p>A négyzetes korrelációs együttható értéke 0,9, ami arra utal, hogy a független változók igen jól magyarázzák a függő változót.</p>
 </section>
-<section id="példa-1" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="példa-1"><span class="header-section-number">1.8</span> 2. Példa</h2>
-<p>Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt? <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [1.6.2 probléma]</p>
+<section id="példa-befolyásolja-e-a-kalandvágy-a-hivatásos-katonai-szolgálatnál-eltöltött-időt" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="példa-befolyásolja-e-a-kalandvágy-a-hivatásos-katonai-szolgálatnál-eltöltött-időt"><span class="header-section-number">1.8</span> Példa: Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt?</h2>
+<ul>
+<li>A példa forrása: <span class="citation" data-cites="MunnichNagyAbari2006">Münnich és mtsai. (<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">2006, o. 1.6.2</a> probléma)</span></li>
+<li>Kapcsolódó jamovi állomány: <code>lin_reg_katonasag.omv</code></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/lin_reg_katonasag.xlsx"</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>

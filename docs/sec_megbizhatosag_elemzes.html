@@ -288,7 +288,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
+  <a href="./appendix_gyakorlo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Gyakorló feladatok</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></a>
   </div>
 </li>
       </ul>
@@ -349,7 +354,7 @@ div.csl-indent {
 </section>
 <section id="példa-real-tárgyak-iránti-fogékonyság" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="példa-real-tárgyak-iránti-fogékonyság"><span class="header-section-number">3.2</span> Példa: Real tárgyak iránti fogékonyság</h2>
-<p>Egy fiktív adatbázis 9 tanuló iskolai jegyeit tartalamzza reál tantárgyakból (matematika, fizika, kémia, informatika) (<code>megbizhatosag_tantargyak.xlsx</code>). Vizsgáljuk meg, ha a reál tantárgyak iránti fogékonyságot ezzel a 4 érdemjeggyel mérnénk, akkor ez megbízhatóság szempontjából alkalmas mérőeszköz lenne.</p>
+<p>Egy fiktív adatbázis 9 tanuló iskolai jegyeit tartalmazza reál tantárgyakból (matematika, fizika, kémia, informatika) (<code>megbizhatosag_tantargyak.xlsx</code>). Vizsgáljuk meg, ha a reál tantárgyak iránti fogékonyságot ezzel a 4 érdemjeggyel mérnénk, akkor ez megbízhatóság szempontjából alkalmas mérőeszköz lenne.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>real <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/megbizhatosag_tantargyak.xlsx"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(real)</span>

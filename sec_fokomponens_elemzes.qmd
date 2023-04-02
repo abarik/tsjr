@@ -53,12 +53,14 @@ A rotáláson belül két típust különböztetünk meg: a derékszögű (ortog
 A derékszögű esetében a tengelyek merőlegesen állnak egymásra, ezáltal a faktorok nem korrelálnak egymással, míg a hegyesszögű esetében ezek tetszőleges szöget zárnak be egymással, vagyis a faktorok korrelálni fognak egymással.
 
 
-## 1. Példa
+## Példa: Négy tantárgy osztályzata
 
-A példa @MunnichNagyAbari2006 2.3.1. alfejezet alapján készült és a kapcsolódó jamovi állomány: `fokomp_elemzes_tantargyak.omv`.
+* A példa forrása: @MunnichNagyAbari2006 [2.3.1 fejezettől Probléma](https://psycho.unideb.hu/statisztika/pages/p_2_4.html)
+* Kapcsolódó jamovi állomány: `fokomp_elemzes_tantargyak.omv`.
 
 **1. Határozzuk meg a korrelációs mátrixot (jamovi-ban: `Regression / Correlation matrix`)**
 
+Az adatok a `fokomp_elemzes_tantargyak.xlsx` állományban találhatók.
 
 ```{r}
 d <- rio::import(file = "adat/fokomp_elemzes_tantargyak.xlsx")
@@ -132,7 +134,7 @@ A kezdő sajátértékek táblázat a sajátértékeket adja meg. A komponensek 
 
 A komponensek összegzése táblázat tartalmazza a megtartott komponenseket, a magyarázott varianciát, illetve utóbbit százalékosan is kifejezve. Vegyük észre, hogy ez a sor teljesen megegyezik a kezdő sajátértékek táblázat első sorával. Az `SS Loadings` felirat magyarázata, hogy magyarázott variancia a komponenshez tartozó faktorsúlyok négyzetösszege (sum of square).
 
-![Komponensek összegzése    ](images/fokomponens_kep_04.jpg)
+![Komponensek összegzése](images/fokomponens_kep_04.jpg)
  
 **6. Főkomponens értékek kiszámítása**
 
@@ -177,16 +179,253 @@ corrplot::corrplot(pca_1$var$cos2, is.corr=FALSE)
 ```
 
 
-2. Példa
+## Példa: Létezik a reál tárgyak iránti fogékonyság?
 
-Létezik a reál tárgyak iránti fogékonyság?
+* A példa forrása: @MunnichNagyAbari2006 [2.5.1 Probléma](https://psycho.unideb.hu/statisztika/pages/p_2_11.html)
+* Kapcsolódó jamovi állomány: `fokomp_real_targyak.omv`
 
-Korábban már foglalkoztunk azzal a felvetéssel, hogy néhány tantárgy eredményeit egyetlen mérőszámmal reprezentáljuk. Korábbi példánkban a matematika, fizika, informatika és kémia jegyek közötti összefüggéseket vizsgáltuk egy kisebb adatbázison, most egy sokkal nagyobb adatbázis segítségével mutatjuk be, hogyan végezhetünk főkomponens-analízist.
+Korábban már foglalkoztunk azzal a felvetéssel, hogy néhány tantárgy eredményeit egyetlen mérőszámmal reprezentáljuk. Korábbi példánkban a matematika, fizika, informatika és kémia jegyek közötti összefüggéseket vizsgáltuk egy kisebb adatbázison, most egy sokkal nagyobb adatbázis segítségével mutatjuk be, hogyan végezhetünk főkomponens-analízist. Az adatok a `fokomp_real_targyak.xlsx` állományban találhatók.
+
+```{r}
+d <- rio::import(file = "adat/fokomp_real_targyak.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+Hozzuk létre a korrelációs mátrixot!
+
+```{r}
+cor(d)
+```
+
+Látható, hogy a négy tantárgy jegyei viszonylag összhangban vannak egymással abban az értelemben, hogy azok a diákok, akik az egyik tárgyból jól teljesítenek, azok a másik három tárgyból is. 
+
+Ezek alapján van egy olyan sejtésünk, hogy egy úgynevezett reál tárgyak iránti fogékonyság mutatóval reprezentálhatjuk a négy tantárgy eredményeit. Vagyis főkomponens-analízis segítségével ellenőrizhetjük, hogy az adatok valóban jól sűríthetőek-e egyetlen dimenzióba vagy mérőszámba, és ha igen, akkor ezt a dimenziót elnevezhetjük reál tárgyak iránti fogékonyságnak.
+
+```{r}
+psych::pca(d, rotate = "varimax")
+```
+
+![Főkomponens elemzés - Reál tantárgyak iránti fogékonyság](images/fokomponens_kep_07.jpg)
 
 Összességében az adatok jól sűríthetők egyetlen mérőszámba, minimális információveszteséggel, ezt a mutatót pedig hívhatjuk a reál tárgyak iránti fogékonyság mutatójának.
 
-3. Példa
 
-Egy kérdőív szerkesztésének problémái
+
+## Példa: Egy kérdőív szerkesztésének problémái
+
+* A példa forrása: @MunnichNagyAbari2006 [2.5.2 Probléma](https://psycho.unideb.hu/statisztika/pages/p_2_12.html)
+* Kapcsolódó jamovi állomány: `fokomp_kerdoivtervezet.omv`
+
+Kérdőívek kialakításkor gyakran előfordul az a probléma, hogy egy dimenzió mérésére nem áll rendelkezésünkre valamilyen bevált mérőeszköz, hanem magunknak kell egyet kialakítani. Egy jó kérdőív kialakítása hosszas és nagyon alapos munkát igényel. Ez a folyamat nagyvonalakban úgy néz ki, hogy az összeállított itemeket először egy kisebb mintán teszteljük (elővizsgálat), majd megnézzük, hogy az itemek valóban úgy „működnek-e”, ahogyan azt mi feltételeztük. Ez jelenti egyrészt a teszt megbízhatóságának, másrészt érvényességének vizsgálatát.
+
+A megbízhatóság vizsgálatának egyik módszere, hogy megnézzük, az itemek valóban egy dimenzióra illeszkednek-e. A nem odaillő itemeket pedig kivesszük a kérdőívből (itemszelekció). Ennek módszerei lehetnek a 
+
+* főkomponens-analízis
+* Cronbach-alfán lapuló  
+
+Az adatok a `fokomp_kerdoivtervezet.xlsx` állományban találhatók.
+
+```{r}
+d <- rio::import(file = "adat/fokomp_kerdoivtervezet.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+
+Először végezzünk főkomponens elemzést a változókra, hogy képet kaphassunk az adatok egymáshoz való viszonyáról. Kezdjük a korrelációs mátrixszal.
+
+```{r}
+print(cor(d), digits=2)
+```
+
+
+```{r}
+psych::pca(d, rotate = "varimax")
+```
+
+Látható, hogy a 6, 7,9 és 10 -es itemek nem nagy súllyal vesznek részt az első főkomponensben, az egyediségük (nem magyarázott varianciájuk) nekik a legnagyobb. Az 1. főkomponens az összes variancia 53%-át magyarázza.
+
+Ha elhagyjuk ezeket az itemeket, jelentősen javul a főkomponens elemzés eredménye:
+
+```{r}
+psych::pca(d[-c(6, 7, 9, 10)], rotate = "varimax")
+```
+
+A magyarázott variancia felmegy 84%-ra, és mindegyik változónak szoros a kapcsolata az 1. főkomponenssel. Az itemek igen jól illeszkednek egyetlen dimenzióra.
+
+A fenti vizsgálatot a Cronbach-alfa alapján is elvégezhetjük.
+
+```{r}
+psych::alpha(d)
+```
+
+Látható, hogy a Cronbach-alfa értéke 0,77, de javítható a 7. item eldobásával.
+
+
+```{r}
+psych::alpha(d[c(-7)])
+```
+
+Látható, hogy a Cronbach-alfa értéke 0,82, de javítható a 6. item eldobásával.
+
+```{r}
+psych::alpha(d[c(-7, -6)])
+```
+
+Látható, hogy a Cronbach-alfa értéke 0,86, de javítható a 9. item eldobásával.
+
+
+```{r}
+psych::alpha(d[-c(7, 6, 9)])
+```
+
+Látható, hogy a Cronbach-alfa értéke 0,91, de javítható a 10. item eldobásával.
+
+```{r}
+psych::alpha(d[-c(7, 6, 9, 10)])
+```
+
+
+Látható, hogy a Cronbach-alfa értéke 0,96.
 
 A kapott eredmények alapján az itemszelekciót ennél a lépésnél befejezhetjük. Az így kapott hat itemünk a statisztikai eredmények alapján egészen jól lefednek egy dimenziót, ezáltal használhatóak egy jelenség kérdőíves vizsgálatára.
+
+
+![Egy kérdőív szerkesztésének problémái: főkomponens elemzés](images/fokomp_kerdoivtervezet_kep_01.jpg)
+
+## Példa: Mi is az a munkahelyi tolerancia?
+
+* A példa forrása: @MunnichNagyAbari2006 [2.5.3 Probléma](https://psycho.unideb.hu/statisztika/pages/p_2_13.html)
+* Kapcsolódó jamovi állomány: `fokomp_kerdoivtervezet.omv`
+
+Ebben a példában azt vizsgáljuk meg, hogy ha a toleranciát munkahelyen vizsgáljuk, akkor mely jelenségeket, viselkedéseket kell figyelembe vennünk. Az adatok a `fokomp_munkahelyi_tolarencia.xlsx` állományban találhatók.
+
+```{r}
+d <- rio::import("adat/fokomp_munkahelyi_tolarencia.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+A fenti outputban látható, hogy adatokat találunk arról, hogy egyes viselkedéseket (pl. agresszivitás, dohányzás, durva beszéd stb.) mennyire tartanak zavarónak az emberek. Az adatokból a főkomponens analízis és a Cronbach-alfa segítségével pedig megnézhetjük, hogy az adatok összegezhetőek-e egy általános munkahelyi tolerancia főkomponensbe.
+
+```{r}
+psych::pca(d, rotate = "varimax")
+```
+
+Az első főkomponens csupán az összvariancia 43%-át magyarázza. A fentiek alapján főleg a "dohányzás", a "harsány" és a "pletykás" változó az, amely valamennyire „kilóg” a modellből, hiszen a hozzájuk tartozó súlyok a legkisebbek a fenti outputban.
+
+```{r}
+library(tidyverse)
+psych::pca(d %>% select(-dohanyzas, -harsany, -pletykas), rotate = "varimax")
+```
+
+Így az első főkomponens által magyarázott összvariancia már elérte az 50%-ot.
+
+Vizsgáljuk meg a Cronbach-alfa értékét is.
+
+```{r}
+RcmdrMisc::reliability(cov(d))
+```
+
+A fenti output alapján már viszonylag magas a Cronbach-alfa értéke (0,915), de látható, hogy a "dohányzás" eltávolításával tovább növelhető.
+
+```{r}
+RcmdrMisc::reliability(cov(d %>% select(-dohanyzas)))
+```
+
+A fenti output alapján a Cronbach-alfa értéke (0,923), de látható, hogy a "harsany" eltávolításával tovább növelhető.
+
+```{r}
+RcmdrMisc::reliability(cov(d %>% select(-dohanyzas, -harsany)))
+```
+
+A fenti output alapján a Cronbach-alfa értéke (0,925), de látható, hogy a "pletykas" eltávolításával tovább növelhető.
+
+```{r}
+RcmdrMisc::reliability(cov(d %>% select(-dohanyzas, -harsany, -pletykas)))
+```
+
+Az eredmények alapján az adatredukciót ezzel a lépéssel be is fejezhetjük. A modellben maradt változókat tekinthetjük az általános munkahelyi toleranciát lefedő viselkedéseknek.
+
+![Mi is az a munkahelyi tolerancia: főkomponens elemzés](images/fokomp_munkahelyi_tolarencia_kep_01.jpg)
+
+
+## Példa: Egy elégedettségvizsgálat tanulságai
+
+* A példa forrása: @MunnichNagyAbari2006 [2.5.4 Probléma](https://psycho.unideb.hu/statisztika/pages/p_2_14.html)
+* Kapcsolódó jamovi állomány: `fokomp_munkahelyi_elegedettseg.omv`
+
+
+Ebben a példánkban azt a kérdést járjuk körbe, hogy mely tényezők befolyásolják azt, hogy elégedett-e valaki az egyetemi oktatással, mely tényezők kerülhetnének be egy tolerancia kérdőív itemei közé.
+
+A `fokomp_munkahelyi_elegedettseg.xlsx` adatbázis a következő kérdésekre adott válaszokat tartalmazza:
+
+Mennyire vagy elégedett...
+
+* az egyetemen szerzett ismeretek felhasználhatóságával? (`DK210`)
+* az egyetem ösztönző, fejlesztő tevékenységével? (`DK212`)
+* az egyetemen az információ áramlással? (`DK214`)
+* a szakodon tanított tárgyakkal? (`DK215`)
+* a tanárok előadókészségével? (`DK219`)
+* a tanárok szakmai felkészültségével? (`DK220`)
+* az oktatóid tanítási módszereivel? (`DK221`)
+* a kutatási lehetőségekkel? (`DK217`)     
+* a szakod által adott elhelyezkedési lehetőségekkel? (`DK218`)  
+
+
+
+```{r}
+d <- rio::import(file = "adat/fokomp_munkahelyi_elegedettseg.xlsx")
+str(d)
+psych::headTail(d)
+```
+
+
+
+```{r}
+psych::pca(d, rotate = "varimax")
+```
+
+
+Az első főkomponens által magyarázott variancia az összvariancia 46%-át teszi ki. Vizsgáljuk meg mely változók járulnak kevésbé hozzá az első főkomponens kialakításához. A `DK214`, `DK217` és a `DK218`-as kérdés „lóg ki” a sorból, hiszen a hozzájuk tartozó főkomponenssúlyok rendre alacsonyak.
+
+
+```{r}
+psych::pca(d %>% select(-DK214, -DK217, -DK218), rotate = "varimax")
+```
+
+az első főkomponens által magyarázott variancia immár elérte az 50%-ot (pontosan 59%), vagyis magyarázóértéke ezen mutató alapján elégséges. A komponens mátrixban szereplő korrelációs értékek megfelelőek.
+
+Vizsgáljuk meg a Cronbach-alfa értékét is.
+
+```{r}
+RcmdrMisc::reliability(cov(d))
+```
+
+A fenti output alapján a Cronbach-alfa értéke (0,841), de látható, hogy a "DK218" eltávolításával tovább növelhető.
+
+```{r}
+RcmdrMisc::reliability(cov(d %>% select(-DK218)))
+```
+
+A fenti output alapján a Cronbach-alfa értéke (0,851), de látható, hogy a "DK214" eltávolításával tovább növelhető.
+
+```{r}
+RcmdrMisc::reliability(cov(d %>% select(-DK218, -DK214)))
+```
+
+A fenti output alapján a Cronbach-alfa értéke (0,853), de látható, hogy a "DK217" eltávolításával tovább növelhető.
+
+```{r}
+RcmdrMisc::reliability(cov(d %>% select(-DK218, -DK214, -DK217)))
+```
+
+A Cronbach-alfa értékét már nem tudjuk tovább növelni a változók eltávolításával.
+
+Összegezve, az eredmények alapján csupán a szak által adott elhelyezkedési lehetőségek, az információáramlás és a kutatási lehetőségek nem kerülnek be az egyetemi oktatással való elégedettség mérőszámába, míg a többi változó eredményei igen.
+
+
+![Egy elégedettségvizsgálat tanulságai: főkomponens elemzés](images/fokomponens_munkahelyi_elegedettseg_kep_01.jpg)
+
+
