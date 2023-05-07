@@ -308,13 +308,13 @@ div.csl-indent {
    
   <ul>
   <li><a href="#az-mds-algoritmusok-típusai" id="toc-az-mds-algoritmusok-típusai" class="nav-link active" data-scroll-target="#az-mds-algoritmusok-típusai"><span class="toc-section-number">11.1</span>  Az MDS algoritmusok típusai</a></li>
-  <li><a href="#példa" id="toc-példa" class="nav-link" data-scroll-target="#példa"><span class="toc-section-number">11.2</span>  1. Példa</a></li>
+  <li><a href="#példa-svájci-tartományok" id="toc-példa-svájci-tartományok" class="nav-link" data-scroll-target="#példa-svájci-tartományok"><span class="toc-section-number">11.2</span>  Példa: Svájci tartományok</a></li>
   <li><a href="#korrelációs-mátrix-megjelenítése-többdimenziós-skálázással" id="toc-korrelációs-mátrix-megjelenítése-többdimenziós-skálázással" class="nav-link" data-scroll-target="#korrelációs-mátrix-megjelenítése-többdimenziós-skálázással"><span class="toc-section-number">11.3</span>  Korrelációs mátrix megjelenítése többdimenziós skálázással</a></li>
   <li><a href="#az-mds-és-a-pca-összehasonlítása" id="toc-az-mds-és-a-pca-összehasonlítása" class="nav-link" data-scroll-target="#az-mds-és-a-pca-összehasonlítása"><span class="toc-section-number">11.4</span>  Az MDS és a PCA összehasonlítása</a></li>
-  <li><a href="#példa-1" id="toc-példa-1" class="nav-link" data-scroll-target="#példa-1"><span class="toc-section-number">11.5</span>  2. Példa</a></li>
-  <li><a href="#példa-2" id="toc-példa-2" class="nav-link" data-scroll-target="#példa-2"><span class="toc-section-number">11.6</span>  3. Példa</a></li>
-  <li><a href="#példa-3" id="toc-példa-3" class="nav-link" data-scroll-target="#példa-3"><span class="toc-section-number">11.7</span>  4. Példa</a></li>
-  <li><a href="#példa-unnumbered" id="toc-példa-unnumbered" class="nav-link" data-scroll-target="#példa-unnumbered"><span class="toc-section-number">11.8</span>  5. Példa {unnumbered}</a></li>
+  <li><a href="#példa-magyar-városok" id="toc-példa-magyar-városok" class="nav-link" data-scroll-target="#példa-magyar-városok"><span class="toc-section-number">11.5</span>  Példa: Magyar városok</a></li>
+  <li><a href="#példa-üdítő-italok" id="toc-példa-üdítő-italok" class="nav-link" data-scroll-target="#példa-üdítő-italok"><span class="toc-section-number">11.6</span>  Példa: Üdítő italok</a></li>
+  <li><a href="#példa-autómárkák" id="toc-példa-autómárkák" class="nav-link" data-scroll-target="#példa-autómárkák"><span class="toc-section-number">11.7</span>  Példa: Autómárkák</a></li>
+  <li><a href="#példa-vállalatok" id="toc-példa-vállalatok" class="nav-link" data-scroll-target="#példa-vállalatok"><span class="toc-section-number">11.8</span>  Példa: Vállalatok</a></li>
   </ul>
 </nav>
     </div>
@@ -349,9 +349,9 @@ div.csl-indent {
 <li><p><strong>Nem metrikus többdimenziós skálázás.</strong> Ordinális MDS néven is ismert. Itt nem a távolságérték mérőszáma a fontos vagy értelmes, hanem az, hogy a többi objektumpár közötti távolságokhoz képes ez kisebb vagy nagyobb. Az ordinális MDS olyan illesztett távolságokat konstruál, amelyek az eredeti távolságokkal azonos rangsorrendben helyednek el. Például, ha az 1. és 5. objektumok távolsága az ötödik helyen áll az eredeti távolságadatokban, akkor az MDS-konfigurációban is az ötödik helyen kell szerepelniük. Ezt az algoritmust általában kategorikus adatokra alkalmazzuk.</p></li>
 </ul>
 </section>
-<section id="példa" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="példa"><span class="header-section-number">11.2</span> 1. Példa</h2>
-<p>A <code>swiss</code> adatbázis 47 francia nyelvű tartományának termékenységi és társadalmi-gazdasági adatait tartalmazza. Az adatbázis a <code>{datasets}</code> csomagból származik, további információ: <code>?swiss</code>. A példa ötlete <a href="http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/122-multidimensional-scaling-essentials-algorithms-and-r-code/">innen</a> származik.</p>
+<section id="példa-svájci-tartományok" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="példa-svájci-tartományok"><span class="header-section-number">11.2</span> Példa: Svájci tartományok</h2>
+<p>A <code>swiss</code> adatbázis Svájc 47 francia nyelvű tartományának termékenységi és társadalmi-gazdasági adatait tartalmazza. Az adatbázis a <code>{datasets}</code> csomagból származik, további információ: <code>?swiss</code>. A példa ötlete <a href="http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/122-multidimensional-scaling-essentials-algorithms-and-r-code/">innen</a> származik.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_swiss.xlsx"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span>
@@ -472,8 +472,8 @@ div.csl-indent {
 <p>A PCA inkább magukra a dimenziókra összpontosít, és a megmagyarázott variancia maximalizálására törekszik, míg az MDS inkább a skálázott objektumok közötti kapcsolatokra összpontosít.</p>
 <p>Az MDS n-dimenziós adatpontokat vetít ki egy (általában) 2-dimenziós síkba úgy, hogy az n-dimenziós térben lévő hasonló objektumok közel lesznek egymáshoz a kétdimenziós diagramon is, míg a PCA többdimenziós teret vetít a maximális variancia irányába a korrelációs/kovariancia mátrix elemzésével.</p>
 </section>
-<section id="példa-1" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="példa-1"><span class="header-section-number">11.5</span> 2. Példa</h2>
+<section id="példa-magyar-városok" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="példa-magyar-városok"><span class="header-section-number">11.5</span> Példa: Magyar városok</h2>
 <p>A példa a magyar városokat elhelyezkedését vizsgálja a térképen <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [6.1. R-forráskód]. Az adatok már eleve távolságmátrixban vannak reprezentálva (<code>mds_varos_tavolsagmatrix.xlsx</code>), ahol az egyes cellák a városok közti légvonalbeli távolságot listázzák. Mivel a többdimenziós skálázást eredetileg a térképészetben használták térképek rajzolására, ebben a példában Magyarország nagyobb városait jelenítjük meg egy kétdimenziós térképen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_varos_tavolsagmatrix.xlsx"</span>)</span>
@@ -598,8 +598,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="példa-2" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="példa-2"><span class="header-section-number">11.6</span> 3. Példa</h2>
+<section id="példa-üdítő-italok" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="példa-üdítő-italok"><span class="header-section-number">11.6</span> Példa: Üdítő italok</h2>
 <p>Ebben a példában különböző üdítőitalokat vizsgálunk meg a többdimenziós skálázás segítségével <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [6.5.1 probléma]. Az adatbázis a különböző üdítőitalok távolságmátrixát tartalmazza (<code>mds_uditok_tavolsagmatrix.xlsx</code>). Az embereknek azt kellett megítélni, hogy az egyes üdítők mennyire különböznek egymástól. A 0 érték azt jelenti, hogy teljesen egyformák az italok, míg az 1 a lehető legnagyobb mértékű különbözőséget jelzi.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_uditok_tavolsagmatrix.xlsx"</span>)</span>
@@ -692,8 +692,8 @@ div.csl-indent {
 </div>
 <p>A Magyarország városait bemutató példában egyértelmű volt az egyes koordinátatengelyek, dimenziók elnevezése. Ám egy ilyen példánál már nagyobb gondot okozhat. A fenti eredmények alapján láthatjuk, hogy az első dimenzióban az ásványvíz és a Fanta Narancs szerepel magas értékekkel, viszonylag kis értéke van a Szobi gyümölcslének és a szörpnek. A második dimenzióiban is magas értékkel szerepel a Fanta és a Hohes C, viszont extrém alacsonnyal az ásványvíz. Ezek alapján az első dimenzió képviselheti a szénsavtartalmat, míg a második a gyümölcstartalmat. A feladatban szereplő emberek fejében ez a két szempont tűnt fontosnak az üdítőitalok különbözőségének megítélése során.</p>
 </section>
-<section id="példa-3" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="példa-3"><span class="header-section-number">11.7</span> 4. Példa</h2>
+<section id="példa-autómárkák" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="példa-autómárkák"><span class="header-section-number">11.7</span> Példa: Autómárkák</h2>
 <p>Ebben a példában autómárkák közötti hasonlóságokat ítéltetünk meg a személyekkel <span class="citation" data-cites="MunnichNagyAbari2006">(<a href="references.html#ref-MunnichNagyAbari2006" role="doc-biblioref">Münnich és mtsai., 2006</a>)</span> [6.5.2 probléma]. Az 1 érték jelenti a márkák teljes hasonlóságát, míg a 0 a hasonlóság hiányát.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_autok_tavolsagmatrix.xlsx"</span>)</span>
@@ -997,8 +997,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="példa-unnumbered" class="level2" data-number="11.8">
-<h2 data-number="11.8" class="anchored" data-anchor-id="példa-unnumbered"><span class="header-section-number">11.8</span> 5. Példa {unnumbered}</h2>
+<section id="példa-vállalatok" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="példa-vállalatok"><span class="header-section-number">11.8</span> Példa: Vállalatok</h2>
 <p>A vállalatokat számtalan jellemző mentén mérhetjük, most a vállalat nagyságát, a hatalmi távolságot és a vállalat szemléletében jelen levő konzervativizmus mértékét választottuk.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/mds_vallalatok.xlsx"</span>)</span>

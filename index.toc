@@ -1,0 +1,106 @@
+\babel@toc {magyar}{}\relax 
+\contentsline {fm}{Ábrák jegyzéke}{v}{chapter*.1}%
+\contentsline {fm}{Táblázatok jegyzéke}{vii}{chapter*.2}%
+\contentsline {fm}{Előszó}{ix}{chapter*.3}%
+\contentsline {chapter}{Előszó}{ix}{chapter*.3}%
+\contentsline {chapter}{\numberline {1}Lineáris regresszió}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Egyszerű lineáris regresszió}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Többszörös lineáris regresszió}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Parciális korrelációs együttható}{9}{section.1.3}%
+\contentsline {section}{\numberline {1.4}A többszörös lineáris regresszió esetei}{12}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Egyetlen dichotóm magyarázó változó}{12}{subsection.1.4.1}%
+\contentsline {section}{\numberline {1.5}Modellválasztás}{14}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Alkalmazási feltételek}{17}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Példa: Befolyásolja-e a munkahellyel való elégedettséget a fizetés nagysága és az életkor?}{20}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Példa: Befolyásolja-e a kalandvágy a hivatásos katonai szolgálatnál eltöltött időt?}{23}{section.1.8}%
+\contentsline {chapter}{\numberline {2}Főkomponens elemzés}{27}{chapter.2}%
+\contentsline {section}{\numberline {2.1}A főkomponens elemzés menete}{27}{section.2.1}%
+\contentsline {section}{\numberline {2.2}A főkomponens elemzés alkalmazási feltételei}{28}{section.2.2}%
+\contentsline {section}{\numberline {2.3}A főkomponensek forgatása (rotáció)}{29}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Példa: Négy tantárgy osztályzata}{29}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Példa: Létezik a reál tárgyak iránti fogékonyság?}{41}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Példa: Egy kérdőív szerkesztésének problémái}{43}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Példa: Mi is az a munkahelyi tolerancia?}{54}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Példa: Egy elégedettségvizsgálat tanulságai}{61}{section.2.8}%
+\contentsline {chapter}{\numberline {3}Megbízhatóság elemzés}{67}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Cronbach-alfa -- belső konzisztencia mérése}{68}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Példa: Real tárgyak iránti fogékonyság}{68}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Feltáró faktorelemzés}{73}{chapter.4}%
+\contentsline {section}{\numberline {4.1}A főkomponens elemzés és a faktorelemzés összehasonlítása}{73}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Fogalmak}{74}{section.4.2}%
+\contentsline {section}{\numberline {4.3}A faktormodell}{74}{section.4.3}%
+\contentsline {section}{\numberline {4.4}A faktorelmzés menete}{75}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Illeszkedési mutatók}{80}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Példa: Vonás- és állapot-szorongás}{82}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Példa: Valóban szétválasztható a reál és a humán tárgyakhoz szükséges tudás?}{86}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Példa: Toleranciavizsgálat egy másik aspektusból}{90}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Példa: A Big Five személyiségvizsgáló eljárás faktoranalízise}{96}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Példa: Milyen dimenziói vannak a kockázatvállalásnak és változik-e a korral a kockázatvállalás?}{100}{section.4.10}%
+\contentsline {section}{\numberline {4.11}Példa: Még egyszer Big Five}{110}{section.4.11}%
+\contentsline {chapter}{\numberline {5}Megerősítő faktorelemzés}{117}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Faktorstruktúra megadása}{119}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Eredmények értékelése}{120}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Illeszkedési mutatók vizsgálata}{120}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Faktorterhelések és faktorkovariancia becslése}{122}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Modell javítása}{122}{subsection.5.2.3}%
+\contentsline {chapter}{\numberline {6}Többszempontos varianciaelemzés}{125}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Klaszterelemzés}{127}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Példa: Fogyasztók vásárlással kapcsolatos attitűdjei}{128}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}1. A probléma megfogalmazása}{128}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}2. Távolsági vagy hasonlósági mérték kiválasztása}{129}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.3}3. A klasztermódszer kiválasztása}{131}{subsection.7.1.3}%
+\contentsline {subsubsection}{\numberline {7.1.3.1}Könyök módszer}{139}{subsubsection.7.1.3.1}%
+\contentsline {subsubsection}{\numberline {7.1.3.2}Átlagos sziluett módszer}{140}{subsubsection.7.1.3.2}%
+\contentsline {subsubsection}{\numberline {7.1.3.3}A gap-statisztika módszer}{140}{subsubsection.7.1.3.3}%
+\contentsline {subsection}{\numberline {7.1.4}5. A klaszterek értelmezése és jellemzése}{143}{subsection.7.1.4}%
+\contentsline {subsection}{\numberline {7.1.5}6. A klaszterelemzés megbízhatóságának és érvényességének ellenőrzése}{144}{subsection.7.1.5}%
+\contentsline {section}{\numberline {7.2}Példa: Vállalatok vizsgálata}{144}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Példa: Étteremlátogatással kapcsolatos attitűdök vizsgálata}{147}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Példa: Vásárlói attitűdök vizsgálata}{152}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Példa: Csokoládémárkák vizsgálata}{155}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Diszkriminancia elemzés}{161}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Példa: Kikből lesznek a balesetezők?}{165}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Példa: A szülés utáni depresszió vizsgálata}{168}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Példa: Pszichoszomatikus megbetegedésekre hajlamosító tényezők}{171}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Példa: Kik vásárolnak gyakran bio termékeket?}{174}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Példa: Vezetési programok}{177}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Megjegyzések}{181}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Az alkalmazási feltételek}{181}{section.8.7}%
+\contentsline {chapter}{\numberline {9}Többváltozós varianciaelemzés}{185}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Elméleti háttér}{185}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Példa: Vezetési programok}{185}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Post-hoc teszt: LDA}{189}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Post-hoc test: egyváltozós vizsgálatok}{191}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Elemzés jamovi-ban}{193}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Alkalmazási feltételek vizsgálata}{193}{section.9.6}%
+\contentsline {chapter}{\numberline {10}Logisztikus regresszió}{203}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Többdimenziós skálázás}{207}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Az MDS algoritmusok típusai}{207}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Példa: Svájci tartományok}{208}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Korrelációs mátrix megjelenítése többdimenziós skálázással}{210}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Az MDS és a PCA összehasonlítása}{212}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Példa: Magyar városok}{213}{section.11.5}%
+\contentsline {section}{\numberline {11.6}Példa: Üdítő italok}{217}{section.11.6}%
+\contentsline {section}{\numberline {11.7}Példa: Autómárkák}{220}{section.11.7}%
+\contentsline {section}{\numberline {11.8}Példa: Vállalatok}{228}{section.11.8}%
+\contentsline {part}{Függelék}{231}{figure.caption.91}%
+\contentsline {chapter}{\numberline {A}Elérhető videók}{233}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Adatbázisok}{235}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Megbízhatóság elemzés}{235}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Többváltozós varianciaelemzés}{235}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Diszkriminancia elemzés}{236}{section.B.3}%
+\contentsline {section}{\numberline {B.4}Lineáris regresszió}{238}{section.B.4}%
+\contentsline {section}{\numberline {B.5}Főkomponens elemzés}{239}{section.B.5}%
+\contentsline {section}{\numberline {B.6}Faktorelemzés}{239}{section.B.6}%
+\contentsline {section}{\numberline {B.7}Feltáró faktorelemzés}{240}{section.B.7}%
+\contentsline {chapter}{\numberline {C}Gyakorló feladatok}{241}{appendix.C}%
+\contentsline {chapter}{\numberline {D}Lineáris regresszió}{243}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Feladat: A reklám hatása}{243}{section.D.1}%
+\contentsline {section}{\numberline {D.2}Feladat: Illatszerboltok}{243}{section.D.2}%
+\contentsline {chapter}{\numberline {E}Főkomponens elemzés}{245}{appendix.E}%
+\contentsline {chapter}{\numberline {F}Megbízhatóság vizsgálat}{247}{appendix.F}%
+\contentsline {chapter}{\numberline {G}Feltáró faktorelemzés}{249}{appendix.G}%
+\contentsline {chapter}{\numberline {H}Megerősítő faktorelemzés}{251}{appendix.H}%
+\contentsline {chapter}{\numberline {I}Klaszterelemzés}{253}{appendix.I}%
+\contentsline {chapter}{\numberline {J}Diszkriminancia elemzés és többváltozós varianciaelemzést}{255}{appendix.J}%
+\contentsline {chapter}{\numberline {K}Irodalomjegyzék}{257}{appendix.K}%

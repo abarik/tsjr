@@ -6,7 +6,7 @@
 source("_common.R")
 ```
 
-# Lineáris regresszió 
+# Lineáris regresszió
 
 ## Feladat: A reklám hatása
 
@@ -14,7 +14,7 @@ A feladat forrása: @MalhotraSimon2008 [579]
 
 Egy nagy szupermarketlánc meg akarja határozni a reklám hatását az egymáshoz viszonyított versenyképességre. 15 állam reklámköltség- (versenytárs költsége = 100) és értékesítési adatait (versenytárs értékesítése = 100) kaptuk meg a fő versenytárshoz viszonyítva. Ön azt a feladatot kapta, hogy választ kell adnia a menedzser kérdésére, van-e összefüggés a reklámköltségek és az értékesítés között. Az adatok a `lin_reg_reklam_hatasa.sav` állományban találhatók.
 
-1. Ábrázolja pontdiagramon a relatív értékesítést (y tengely) és a relatív reklámköltséget (x tengely), és értelmezze a diagramot!
+1.  Ábrázolja pontdiagramon a relatív értékesítést (y tengely) és a relatív reklámköltséget (x tengely), és értelmezze a diagramot!
 
 ```{r}
 #| include: false
@@ -25,18 +25,17 @@ str(d)
 psych::headTail(d)
 ```
 
-2. Milyen mutatószámot használna annak megállapítására, hogy van-e összefüggés a két változó között? Miért?
+2.  Milyen mutatószámot használna annak megállapítására, hogy van-e összefüggés a két változó között? Miért?
 
-3. Készítsen egyszerű lineáris regressziót a relatív értékesítés és a relatív reklámköltség között!
+3.  Készítsen egyszerű lineáris regressziót a relatív értékesítés és a relatív reklámköltség között!
 
-4. Értelmezze a regressziós együtthatókat!
+4.  Értelmezze a regressziós együtthatókat!
 
-5. Szignifikáns a regressziós összefüggés?
+5.  Szignifikáns a regressziós összefüggés?
 
-6. Ha a vállalat a versenytárshoz viszonyítva ugyanannyi pénzt költene reklámra (ha a relatív reklámköltség 100 volt), mekkora lenne a vállalat relatív értékesítési szintje?
+6.  Ha a vállalat a versenytárshoz viszonyítva ugyanannyi pénzt költene reklámra (ha a relatív reklámköltség 100 volt), mekkora lenne a vállalat relatív értékesítési szintje?
 
-7. Értelmezze a kapott $R^2$-et?
-
+7.  Értelmezze a kapott $R^2$-et?
 
 ## Feladat: Illatszerboltok
 
@@ -44,49 +43,46 @@ A feladat forrása: @MalhotraSimon2008 [579]
 
 Annak megértése érdekében, hogy a minőség és az ár hogyan befolyásolja az illatszerboltok törzsvásárlóit, a válaszadókat arra kértük, hogy egy nagyváros 14 üzletét értékeljék a következő szempontok szerint:
 
-* a bolt iránti preferencia
-* az áru minősége és az 
-* elfogadható ár.
+-   a bolt iránti preferencia
+-   az áru minősége és az
+-   elfogadható ár.
 
 Minden értékelést 11 fokozatú skálán végeztek, ahol a magasabb számok pozitívabb értékítéletet jelentettek. Az adatok a `lin_reg_illatszerbolt.sav` állományban vannak.
 
-1. Futtasson többváltozós regressziót a bolt iránti preferencia vizsgálatára az áru minősége és ára tekintetében!
+1.  Futtasson többváltozós regressziót a bolt iránti preferencia vizsgálatára az áru minősége és ára tekintetében!
 
-2. Értelmezze a parciális regressziós együtthatót!
+2.  Értelmezze a parciális regressziós együtthatót!
 
-3. Határozza meg a teljes regresszió szignifikanciáját!
+3.  Határozza meg a teljes regresszió szignifikanciáját!
 
-4. Határozza meg a parciális regressziós együttható szignifikanciáját!
+4.  Határozza meg a parciális regressziós együttható szignifikanciáját!
 
-5. A multikollinearitás probléma lehet ebben az esetben? Miért vagy miért nem?
+5.  A multikollinearitás probléma lehet ebben az esetben? Miért vagy miért nem?
 
-6. Az egy vagy a két magyarázó változót tartalmazó modell az optimális? Miért?
-
+6.  Az egy vagy a két magyarázó változót tartalmazó modell az optimális? Miért?
 
 # Főkomponens elemzés
-
 
 A feladat forrása: @MalhotraSimon2008 [579]
 
 Egy kutatásban, amely háztartások fogyasztói magatartását vizsgálta, a következő életstílus-állításokat értékelték hétfokú skálán (1 = egyetért, 7 = nem ért egyet).
 
-* V1: Inkább eltöltök csendben egy estét otthon, mint hogy szórakozni menjek.
-* V2: Mindig megnézem az árakat, még a kis értékű árucikkeknél is.
-* V3: A magazinok érdekesebbek, mint a mozi.
-* V4: Nem vásárolok plakáton hirdetett termékeket.
-* V5: Otthon ülő típus vagyok.
-* V6: A kuponokat beváltom.
-* V7: A vállalatok sok pénzt kidobnak a reklámmal.
+-   V1: Inkább eltöltök csendben egy estét otthon, mint hogy szórakozni menjek.
+-   V2: Mindig megnézem az árakat, még a kis értékű árucikkeknél is.
+-   V3: A magazinok érdekesebbek, mint a mozi.
+-   V4: Nem vásárolok plakáton hirdetett termékeket.
+-   V5: Otthon ülő típus vagyok.
+-   V6: A kuponokat beváltom.
+-   V7: A vállalatok sok pénzt kidobnak a reklámmal.
 
 Egy előtesztben 25 fogyasztót kérdeztek meg, ennek adatai láthatók a `faktor_eletstilus.sav` adatbázisban.
 
-1. Elemezze az adatokat varimax forgatáson alapuló főkomponens elemzéssel. 
-2. Értelmezze a kapott fakort/faktorokat!
-3. Számítsa ki a faktorértéket minden egyes válaszadóra!
-4. Ha helyettesítő változókat kellene választanunk, melyek lennének azok?
-5. Vizsgálja meg a modell illeszkedését?
-6. Vizsgálja meg az alkalmazási feltételeket!
-
+1.  Elemezze az adatokat varimax forgatáson alapuló főkomponens elemzéssel.
+2.  Értelmezze a kapott fakort/faktorokat!
+3.  Számítsa ki a faktorértéket minden egyes válaszadóra!
+4.  Ha helyettesítő változókat kellene választanunk, melyek lennének azok?
+5.  Vizsgálja meg a modell illeszkedését?
+6.  Vizsgálja meg az alkalmazási feltételeket!
 
 # Megbízhatóság vizsgálat
 
@@ -94,17 +90,26 @@ A feladat forrása: [Statistics By Jim](https://statisticsbyjim.com/basics/cronb
 
 A HERTDAQ Bank felméri, hogy az ügyfelei mennyire elégedettek a szolgáltatások gyorsaságával. A következő négy kérdést dolgozza ki:
 
-* 1. item: Telefonos, e-mailes vagy leveles megkeresésemre ésszerű időn belül válaszoltak.
-* 2. item: Elégedett vagyok a nyújtott szolgáltatás gyorsaságával.
-* 3. item: A szolgáltatásokra való várakozás ideje ésszerű volt.
-* 4. item: Elégedett vagyok a kapott szolgáltatásokkal.
+-   
 
+    1.  item: Telefonos, e-mailes vagy leveles megkeresésemre ésszerű időn belül válaszoltak.
 
-A fenti itemekre egy 5 fokozatú Likert-skála segítségével lehetett válaszolni, amelyen 1-től (nagyon nem értek egyet) és 5-ig (nagyon egyetértek) tartó értékek közül lehet választani. Összesen 60 ügyfelet kértek fel a felmérés kitöltésére az előzetes vizsgálati szakaszban, még mielőtt a felmérést szélesebb körben elkezdenék terjeszteni. 
+-   
 
-1. Végezze el a "szolgáltatás gyorsasága" skála megbízhatóság vizsgálatát Cronbach-alfa és főkomponens analízis segítségével! 
-2. Javasolja tételek kihagyását? Miért?
+    2.  item: Elégedett vagyok a nyújtott szolgáltatás gyorsaságával.
 
+-   
+
+    3.  item: A szolgáltatásokra való várakozás ideje ésszerű volt.
+
+-   
+
+    4.  item: Elégedett vagyok a kapott szolgáltatásokkal.
+
+A fenti itemekre egy 5 fokozatú Likert-skála segítségével lehetett válaszolni, amelyen 1-től (nagyon nem értek egyet) és 5-ig (nagyon egyetértek) tartó értékek közül lehet választani. Összesen 60 ügyfelet kértek fel a felmérés kitöltésére az előzetes vizsgálati szakaszban, még mielőtt a felmérést szélesebb körben elkezdenék terjeszteni.
+
+1.  Végezze el a "szolgáltatás gyorsasága" skála megbízhatóság vizsgálatát Cronbach-alfa és főkomponens analízis segítségével!
+2.  Javasolja tételek kihagyását? Miért?
 
 # Feltáró faktorelemzés
 
@@ -112,23 +117,22 @@ A feladat forrása: @MalhotraSimon2008 [579]
 
 Egy kutatásban, amely háztartások fogyasztói magatartását vizsgálta, a következő életstílus-állításokat értékelték hétfokú skálán (1 = egyetért, 7 = nem ért egyet).
 
-* V1: Inkább eltöltök csendben egy estét otthon, mint hogy szórakozni menjek.
-* V2: Mindig megnézem az árakat, még a kis értékű árucikkeknél is.
-* V3: A magazinok érdekesebbek, mint a mozi.
-* V4: Nem vásárolok plakáton hirdetett termékeket.
-* V5: Otthon ülő típus vagyok.
-* V6: A kuponokat beváltom.
-* V7: A vállalatok sok pénzt kidobnak a reklámmal.
+-   V1: Inkább eltöltök csendben egy estét otthon, mint hogy szórakozni menjek.
+-   V2: Mindig megnézem az árakat, még a kis értékű árucikkeknél is.
+-   V3: A magazinok érdekesebbek, mint a mozi.
+-   V4: Nem vásárolok plakáton hirdetett termékeket.
+-   V5: Otthon ülő típus vagyok.
+-   V6: A kuponokat beváltom.
+-   V7: A vállalatok sok pénzt kidobnak a reklámmal.
 
 Egy előtesztben 25 fogyasztót kérdeztek meg, ennek adatai láthatók a `faktor_eletstilus.sav` adatbázisban.
 
-1. Elemezze az adatokat Oblimin forgatáson alapuló feltáró faktorelemzéssel. 
-2. Értelmezze a kapott fakort/faktorokat!
-3. Számítsa ki a faktorértéket minden egyes válaszadóra!
-4. Ha helyettesítő változókat kellene választanunk, melyek lennének azok?
-5. Vizsgálja meg a modell illeszkedését?
-6. Vizsgálja meg az alkalmazási feltételeket!
-
+1.  Elemezze az adatokat Oblimin forgatáson alapuló feltáró faktorelemzéssel.
+2.  Értelmezze a kapott fakort/faktorokat!
+3.  Számítsa ki a faktorértéket minden egyes válaszadóra!
+4.  Ha helyettesítő változókat kellene választanunk, melyek lennének azok?
+5.  Vizsgálja meg a modell illeszkedését?
+6.  Vizsgálja meg az alkalmazási feltételeket!
 
 # Megerősítő faktorelemzés
 
@@ -136,24 +140,61 @@ A feladat forrása: @Abrahametal2020. Az eredeti [kérdőív](https://ars.els-cd
 
 A kutatók indonéz fiatalok körében szeretnék vizsgálni a digitális írástudást. Összeállítanak egy kérdőívet, amely összesen 40 kérdést (itemet) tartalmaz. A kutatók szerint az itemek 6 skála (faktor) köré csoportosíthatók. A következő listában először a 6 skálát, majd a hozzá tartozó itemeket nevezzük meg:
 
-			
-* SF skála -  A szükséges információk hatékony keresése és megtalálása
-    * Itemek: SF1	SF2	SF3
-* PC A rosszindulatú és redundáns tartalom elleni védekezés
-    * Itemek: PC1	PC2	PC3	PC4	PC5	PC6	PC7	PC8	PC9
-* VI Az információk ellenőrzése és kritikus értékelése alternatív információforrások felhasználásával
-    * Itemek: VI1	VI2	VI3
-* PU Az információ megfelelő észlelése és hatékony felhasználása
-    * Itemek: PU1	PU2	PU3	PU4	PU5	PU6	PU7	PU8	PU9	
-* CD Az információ hatékony és helyes terjesztése
-    * Itemek: CD1	CD2	CD3	CD4	CD5	
-* SS Speciális készségek, képesség új média használatára, internet szolgáltatások és technikai eszközök használatára
-    * Itemek: SS1	SS2	SS3	SS4	SS5	SS6	SS7	SS8	SS9	SS10	SS11
+-   SF skála - A szükséges információk hatékony keresése és megtalálása
+    -   Itemek: SF1 SF2 SF3
+-   PC A rosszindulatú és redundáns tartalom elleni védekezés
+    -   Itemek: PC1 PC2 PC3 PC4 PC5 PC6 PC7 PC8 PC9
+-   VI Az információk ellenőrzése és kritikus értékelése alternatív információforrások felhasználásával
+    -   Itemek: VI1 VI2 VI3
+-   PU Az információ megfelelő észlelése és hatékony felhasználása
+    -   Itemek: PU1 PU2 PU3 PU4 PU5 PU6 PU7 PU8 PU9
+-   CD Az információ hatékony és helyes terjesztése
+    -   Itemek: CD1 CD2 CD3 CD4 CD5
+-   SS Speciális készségek, képesség új média használatára, internet szolgáltatások és technikai eszközök használatára
+    -   Itemek: SS1 SS2 SS3 SS4 SS5 SS6 SS7 SS8 SS9 SS10 SS11
 
 Végezzünk megerősítő faktorelemzést, ellenőrizzük le, hogy az adataink jól illeszkednek a fenti faktorstruktúrára! Az adatok a `faktor_digitalis_irastudas.xlsx` állományban találhatók.
 
-1. Értékeljük az egyes itemek illeszkedését a faktorokra!
-2. Értékeljük a faktorok kapcsolatát!
-3. Értékeljük az illeszkedési mutatókat!
+1.  Értékeljük az egyes itemek illeszkedését a faktorokra!
+2.  Értékeljük a faktorok kapcsolatát!
+3.  Értékeljük az illeszkedési mutatókat!
+
+# Klaszterelemzés
+
+A `nike.xlsx` adatain végezze el a következő elemzéseket. Csak a következő változókat vegye figyelembe: tudatosság, attitúd, preferencia, cél és a Nike iránti hűség.
+
+1.  Hierarchikus klaszterelemzés segítségével rendezze a válaszadókat klaszterekbe a feltárt változók alapján! Használja a Ward-féle eljárást és az euklideszi távolságot. Hány klasztert javasol és miért?\
+2.  Rendezze a válaszadókat klaszterekbe a feltárt változók alapján a következő hierarchikus módszerekkel, majd határozza meg a klasztereket az egyes eljárások során és hasonlítsa össze a kapott klaszterstruktúrákat az 1. feladat klaszterstruktúrájával:
+    -   legközelebbi szomszéd (egyszerű lánc)
+    -   legtávolabbi szomszéd (teljes lánc)
+    -   átlagos lánc.
 
 
+3.  K-középérték klasztereljárás és valamely optimális klaszterszámmeghatározó eljárással kapott klaszterszám segítségével rendezze a válaszadókat klaszterekbe a feltárt változók alapján. Hasonlítsa össze az eredményt az 1. feladatban kapott eredménnyel is.
+
+# Diszkriminancia elemzés és többváltozós varianciaelemzést
+
+A `nike.xlsx` adatain végezze el a következő elemzéseket. A használt oszlopok a következőek:
+
+-   `termekhasznalat` - kategorikus változó 3 csoporttal: 1 = ritkán használja; 2 = közepes; 3 = gyakran használja a terméket.
+-   `tudatossag` - tudatosság (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)
+-   `attitud` - attitűd (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)
+-   `preferencia` - preferencia (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)
+-   `cel` - szandék, cél (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)
+-   `huseg` - Nike iránti lojalitás (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)
+
+Van különbség a három fogyasztói csoport (`termekhasznalat`) között a tudatosság, attitűd, preferencia, szándék és a Nike iránti lojalitás szempontjából?
+
+1.  Végezzünk többváltozós varianciaelemzést a numerikus változók várható-érték vektorainak szétválasztására a 3 csoport mentén. Szignifikáns a próba? Ha kell végezzünk utóvizsgálatot egy tetszőlegesen választott módszerrel.
+
+2.  A termékhasználat 3 csoportját az 5 numerikus változó milyen lineáris kombinációja segítségével tudjuk a legjobban szétválasztani? Adjuk meg ezeket az együtthatókat, valamint validáljuk az eljárás! Adjunk egy tetszőleges értékkombinációra előrejelzést!
+
+```{r}
+#| include: false
+#| eval: false
+
+d <- rio::import(file = "adat/nike.xlsx")
+str(d)
+psych::headTail(d)
+summary(d)
+```

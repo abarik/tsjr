@@ -6,39 +6,492 @@
 source("_common.R")
 ```
 
-Az klaszterelemzés segítségével vizsgált probléma a következő: egy $n$ elemű adatbázisban minden egyes elemhez $p$ darab változó értékei kapcsolódnak; alakítsunk az elemekből csoportokat úgy, hogy a "hasonlóak" egy csoportba kerüljenek. Minden klaszter elemei viszonylag hasonlóak legyenek egymáshoz, de különbözzenek más klaszterek elemeitől. 
+A klaszteranalízis célja, hogy értelmes és használható csoportokba (klaszterekbe) sorolja az adatokat. Úgy alakíthatunk ki csoportokat az $n$ elemű mintánkban, hogy a "hasonlóak" egy csoportba kerülnek. Minden klaszter elemei viszonylag hasonlóak legyenek egymáshoz, de különbözzenek más klaszterek elemeitől. 
+
+Fogalmak:
+
+- **Összevonási séma:** Megmutatja, hogy a hierarchikus klaszterelemzés egyes lépéseinél mely megfigyelési egységek vagy esetek kerültek összevonásra. 
+- **Klaszterközép:** Az összes megfigyelési egységet alapul véve a változók átlaga egy adott klaszterben.
+- **Klaszterközéppont:** A nem hierarchikus klaszterelemzés kiindulópontjai. A klasztereket ezen középpontok vagy magok köré építi az eljárás.
+- **Dendrogram:** Fadiagramnak is szokás nevezni, amely a klaszterelemzés eredményeinek grafikus ábrázolása. A függőleges vonalak az összetartozó klasztereket jelölik. A vonalak skálán való elhelyezkedése megmutatja az összevont klaszterek közötti távolságot.
+- **A klaszterközéppontok közötti távolságok.** Megmutatják, mennyire különböznek a klaszterek egymástól. Kívánatos, hogy a klaszterek egymástól jól elkülönüljenek  és jól jellemezhetőek legyenek. 
+- **Hasonlósági/távolsági együtthatók mátrixa:** A hasonlósági/távolsági együtthatók mátrixa egy alsó/felső háromszögmátrix, amely a megfigyelési egységek vagy esetek közötti páronkénti távolságot tartalmazza.
+
+
+A klaszterelemzés több lépésből áll:
+
+1. A probléma megfogalmazása
+1. Távolságmérték kiválasztása
+1. Klasztermódszer kiválasztása
+1. Döntés klaszterek számáról
+1. A klaszterek értelmezése és jellemzése
+1. A klaszterelemzés érvényességének ellenőrzése
+
+A fenti folyamatot egy példán mutatjuk be: @MalhotraSimon2008 [642]. 
+
+## Példa: Fogyasztók vásárlással kapcsolatos attitűdjei
+
+### 1. A probléma megfogalmazása
+
+Ebben a példában fogyasztókat vásárlással kapcsolatos attitűdjeik alapján szeretnénk csoportosítani. Összesen hat, attitűdváltozót vettek figyelembe: megkérték őket, hogy fejezzék ki a következő állításokkal kapcsolatban egy hétfokozatú skálán az egyetértésüket:
+
+- v1: A vásárlás szórakozás.
+- v2: A vásárlás nem tesz jót a pénztárcának.
+- v3: A vásárlást gyakran összekötöm étteremlátogatással.
+- v4: Vásárláskor megpróbálom a legjobb vételt csinálni.
+- v5: Nem érdekel a vásárlás.
+- v6: Az árak összehasonlításával rengeteg pénzt lehet megtakarítani.
+
+
+Az adatok a `klaszter_fogyaszto.xlsx` Excel állományban találhatók.
+
+
+```{r}
+# adatok beolvasása R-ben
+fogyaszto <- rio::import(file = "adat/klaszter_fogyaszto.xlsx")
+str(fogyaszto)
+psych::headTail(fogyaszto)
+```
+
+### 2. Távolsági vagy hasonlósági mérték kiválasztása
+
+Mivel a klaszterelemzés célja, hogy a hasonló megfigyelési egységek egy csoportba kerüljenek, szükségünk van egy mérőszámra, azaz a hasonlóság vagy különbség számszerűsítésére.
+
+A klaszteranalízis kiindulópontja tehát az elemek közötti hasonlóság vagy távolság. Ezzel kapcsolatban általában rendelkezünk előzetes információkkal, amelyek alapján kiszámítjuk ezeket a hasonlóságokat vagy távolságokat. Más esetekben csak a hasonlóságok vagy távolságok mértékéről rendelkezünk információkkal.
+
+A legelterjedtebb módszer a hasonlóság mérésére a megfigyelési egységek páronkénti távolsága. Azok a megfigyelési egységek, amelyek között kisebb a távolság hasonlóbbak egymáshoz, mint azok, amelyek között nagyobb. Megjegyezzük, hogy a hasonlóság és a távolság egymással ellentétes fogalmak. Ebből a kapcsolatból adódik, hogy a hasonlóság és a távolság mérőszáma egymásba átalakítható. Ennek képlete a következő:
+
+$$h_{ij}=100\frac{d_{max}−d_{ij}}{d_{max}}$$
+A képletben a $h_{ij}$ jelöli az $i$-edik és a $j$-edik objektum közötti hasonlóságot, míg a $d_{ij}$ a távolságot, a $d_{max}$  pedig a távolságmátrix legnagyobb elemét jelöli.
+
+A legelterjedtebb távolsági mérték az euklideszi távolság: az egyes változók értékei közötti különbség négyzetösszegének a négyzetgyöke. [További](https://psycho.unideb.hu/statisztika/pages/p_5_10.html) távolságmértékek is léteznek.
+
+Ebben a példában az Euklideszi távolságot használjuk.
+
+```{r}
+# Euklideszi távolság kiszámítása a 
+tavolsagmatrix <- dist(fogyaszto, method = "euclidean")
+tavolsagmatrix
+```
+
+### 3. A klasztermódszer kiválasztása
+
 
 Számos eljárás született a klaszteranalízis módszerén belül. Ebben a könyvben két eljárással foglalkozunk részletesen: 
 
-* a hierarchikus eljárásokkal és a 
-* K-középpontú klaszteranalízissel.
+- a hierarchikus eljárások: hierarchikus, faszerű felépítéssel jellemezhetők
+    - összevonó: kiinduláskor minden elem külön klasztert alkot. A klaszterek képzése úgy történik, hogy a klasztereket egyre nagyobb klaszterekbe vonják össze.
+        - láncmódszerek: az elemeket a köztük lévő távolság kiszámíása alapján csoportosítjuk
+            - egyszerű lánc: a minimális távolság, vagyis a legközelebbi szomszéd elvén alapul
+            - teljes lánc: a maximális távolság, vagyis a legtávolabb szomszéd elvén alapul
+            - átlagos lánc: két klaszter távolságát az összes elem páronkénti távolságának átlagából számítja ki.
+        - variancia-módszer: ahol a klasztereket oly módon képzik, hogy a klasztereken belül a szórásnégyzetet minimalizálják
+            - Ward-féle eljárás: a klaszterátlagoktól való négyzetes euklideszi távolságot minimalizálják 
+            - centroidmódszer: a klaszeterek közötti távolságot az összes változó átlagaként számított centroidok közötti távolságként határozzák meg.
+    - felosztó: kiinduláskor az összes elem egyetlen egy klasztert alkot. A klaszterek képzése úgy történik, hogy a klasztereket egyre kisebb klaszterekre osztják fel.
+* K-középpontú klaszteranalízis: olyan eljárás, amely előre meghatározott klaszterközéppontból indul ki, és úgy csoportosítja az elemeket, hogy a középponttól számított küszöbértéken belül essenek.
+    - szekvenciális küszöbértékek: kiválasztanak egy klaszterközéppontot, és minden megfigyelési egység, amely a középponttól az előre meghatározott küszöbértéken belül esik, azonos csoportba kerül. Ezután új küszöbértéket választanak és a folyamatot megismétlik a még nem csoportosított pontokra. Egy korábban már csoportosított megfigyelési egységet nem fognak újra csoportosítani.
+    - párhuzamos küszöbértékek: az előző módszertől annyiban tér el, hogy a klaszterközéppontokat egyidejűleg választják ki és a küszöbértékeken belüli megfigyelési egységeket a legközelebb eső középponthoz rendelik.
+    - az optimális felosztás módszere: abban különbözik a két fenti módszertől, hogy a megfigyelési egységeket újra hozzárendelik a klaszterhez, hogy egy általános kritériumot (például adott számú klaszterre a klaszteren belüli távolságok átlagát) optimalizáljanak.
 
-## Hierarchikus eljárások
+A K-középpontú klaszterelemzés hátránya, hogy a klaszterek számát előre meg kell adni, és a klaszterközéppontok kiválasztása esetleges. Azonban ez az eljárás gyorsabb, mint a hierarchikus eljárás és főképp nagy mintaelemszám esetén javasolt a használata.
 
-A hierarchikus eljárások az egyes személyek, objektumok, esetek közötti távolság meghatározásával kezdődnek. A csoportok, klaszterek kialakítása történhet összevonáson vagy felosztáson alapuló módszerekkel. Az összevonó módszerek abból indulnak ki, hogy minden egyes elem egy önálló csoportot alkot, majd fokozatosan vonják össze az egyelemes csoportokat egyetlen nagy csoportba. Ezzel szemben a lebontó módszerben az összes elem egyetlen csoportba tartozik, és ezt a csoportot osztjuk fel kettő, majd egyre több csoportra addig, amíg minden elem egy önálló csoportot nem alkot. Az összevonó módszernél kezdetben minden egyes elem külön klasztert alkot. A klaszterek a megfigyelési egységek egyre nagyobb klaszeterekbe csoportosításával alakulnak ki. A folyamat addig folytatódik, amíg egyetlen klaszter lesz az egész. A következőkben a legelterjedtebb klaszteralkotó módszereket soroljuk fel:
+Célszerű a hierarchikus és nem hierarchikus módszereket egymásra építve alkalmazni. Először a hierarchikus klaszterelemzéssel, az átlagos lánc vagy Ward-féle módszert felhasználva egy kiinduló klasztermegoldáshoz jutunk. A kapott klaszterszámot és a klaszterközéppontokat inputként felhasználhatjuk az optimális felosztás módszeréhez.
 
-* Egyszerű lánc, avagy a legközelebbi szomszéd elve
-* Teljes lánc, avagy a legtávolabbi szomszéd elve
-* Átlagos távolság
-* Variancia-módszerek
-* Ward-féle eljárás
-* Centroidmódszerek
-* Szekvenciális küszöbérték módszer
-* Párhuzamos küszöbérték módszer
-* Optimális felosztás módszere
+Most a hierarchikus klaszterelemzést szemléltetjük Ward-féle eljárással.  
 
-Jamovi-ban a `snowCluster` csomag segítségével végethetünk klaszterelemzéseket. A csomag telepítése után a `snowCluster / Hiearchical Clustering` vagy `snowCluster / Clustering Dendogram` menüpontokat használjuk.
+```{r}
+# hierarchikus klaszterelemzés R-ben
+klaszter <- hclust(tavolsagmatrix, method="ward.D2")
+plot(klaszter)
+```
 
-A jamovi a következő módszereket ismeri:
+A klaszterelemzés eredményének értékes ábrája a dendrogram. A fenti ábrán a vízszintes vonalak az összevont klasztereket ábrázolják. A vonal skálán való elhelyezkedése azt a távolságot mutatja meg, ahol a klasztereket összevonták. Mivel a kezdeti lépésekben a távolságok hasonló méretűek, nehéz megmondani, milyen sorrendben alakultak ki a klaszterek. Erről a pontosabb információt a következő parancsokkal kaphatunk.
 
-* ward.D
-* ward.D2
-* single
-* complete
-* average
+```{r}
+klaszter$merge # az összevonások lépései: az egyes lépésekben miket vont össze: negatív szám elem, pozitív klaszter
+klaszter$height # az egyes összevonások milyen távolság esetén történtek meg
+cbind(klaszter$merge, klaszter$height) # együtt a két fenti információ
+```
+
+A fenti outputból kiolvasható, hogy 19 lépésben jutottunk el az 1 klaszteres struktúrához. Az első két oszlopban az összevont elemek vagy más kialakított klaszterek azonosítója szerepel. Negatív azonosító az objektum adatbázisban elfoglalt helyét mutatja, a pozitív azonosító pedig azt a klasztert, amelyet a hivatkozott lépésben alakítottunk ki. A 3.oszlopban azt a távolságot láthatjuk, amelyen az összevonás történt.  
+
+Világos, hogy az utolsó két lépésben az összevont klaszterek közötti távolság nagy. Ez az információ hasznos lehet a klaszterek számának eldöntésénél.
+
+A fenti elemzés jamovi-ban a `snowCluster / Hierarchical Clustering` vagy `snowCluster / Clustering Dendrogram` menüpontjaival is elvégezhető.
+
+![Fogyasztók hierarchikus klaszterelemzése: snowCluster / Hierarchical Clustering](images/klaszter_fogyaszto_01.jpg)
 
 
-## K-középpontú klaszterelemzés
+![Fogyasztók hierarchikus klaszterelemzése: snowCluster / Clustering Dendrogram](images/klaszter_fogyaszto_02.jpg)
+
+Amennyiben K-középpontú klaszterelemzést szeretnénk végrehajtani, akkor ismerettel kell rendelkezünk a klaszterek számáról. A korábbi hierarchikus klaszterelemzés eredménye alapján a 3 klaszteres megoldás mellett döntünk. A kiinduló klaszterközéppontokat az első három véletlenszerűen választott eset értéke adja. A csoportosítás középpontjai ideiglenes középpontok, amelyekhez eseteket rendel hozzá az algoritmus. Mindegyik esetet a legközelebbi középponthoz rendeli. A klasszifikációs középpontokat mindig módosítják, amíg egy határértéket el nem érnek. A végső klaszterközéppontok a változók átlagait tükrözik a végleges megoldásban.
+
+```{r}
+kkozep <- kmeans(x = tavolsagmatrix, centers = 3)
+kkozep
+kkozep$totss
+fogyaszto$group_2 <- kkozep$cluster # a kapott csoportváltozó beszúrása
+table(fogyaszto$group_2)
+```
 
 
-JÖN.
+A fenti eredmény a klaszteranalízis eredményét mutatja. Az első sor (`K-means clustering with 3 clusters of sizes 8, 6, 6`) arról ad információt, hogy háromklaszteres megoldásunk van, melyek mérete 8, illetve 6 és 6 elemszám. Hogy az egyes elemek melyik klaszterbe esnek, arról a `Clustering vector` ad információt. Az első sor az egyes elemeket, a második pedig a csoporttagságot mutatja.
+
+A `Cluster means` az egyes klaszterek átlagos tagjának, centroidjának a jellemzőit mutatják. 
+A `Within cluster sum of squares by cluster` értékei a klaszteren belüli eltérések négyzetösszegét mutatja.
+
+A fenti K-közép klaszterelemzés jamovi-ban is elvégezhető a `snowCluster / K-means Clustering` menüponttal.
+
+![Fogyasztók K-középpontú klaszterelemzés - snowCluster / K-means Clustering](images/klaszter_fogyaszto_03.jpg)
+### 4. Döntés a klaszterek számáról
+
+A klaszterelemzés egyik legfontosabb kérdése a klaszterek számának eldöntése. Milyen általános szabályok alapján dönthetünk:
+
+- Elméleti vagy gyakorlati megfontolások alapján dönthetünk a klaszterek számáról.
+- Hierarchikus klaszterelemzés során a klaszterek összevonására alkalmazott távolságok felhasználhatók kritériumként. A dendrogramból kiolvasható ez az információ. Az utolsó lépésnél az összevont klaszterek között nagy a távolság. Ebből következően a háromklaszteres megoldás tűnik megfelelőnek.
+- A nem hierarchikus klaszterelemzésénél a belső és a külső variancia hányadosát ábrázolják a klaszterek számának függvényében. Az a pont, ahol egy könyök vagy éles törés látható, a megfelelő klaszterek számára utal. E ponton túl nem érdemes a klaszterek számát növelni.
+- A klaszterek relatív méretét is érdemes figyelembe venni. Az egyelemű vagy túl kicsi gyakoriságú csoportoknak nincs értelme.
+
+Amennyiben a klaszterek összevonásánál használt távolságokat használjuk, akkor egy 10-es távolságot beállítva 3 csoportot képezhetünk:
+
+```{r}
+fogyaszto$group_1 <- cutree(tree = klaszter, h = 10)
+table(fogyaszto$group_1)
+```
+
+Látható, hogy az egyes csoportok 8, 6 és 6 elemet tartalmaznak.
+
+A fenti 3 csoportnak megfelelő dendrogramot a `{factoextra}` csomaggal is megjeleníthetjük.
+
+```{r}
+hc <- factoextra::hcut(fogyaszto, 3, stand = FALSE, hc_method = "ward.D2", hc_metric = "euclidean")
+factoextra:: fviz_dend(hc, repel = TRUE, lwd = 1, horiz= TRUE, cex=0.9,color_labels_by_k = TRUE)
+```
+
+Kassambara összefoglalja az optimális klaszterszám meghatározásának 3 leggyakoribb módszerét ([Determining The Optimal Number Of Clusters: 3 Must Know Methods](https://www.datanovia.com/en/lessons/determining-the-optimal-number-of-clusters-3-must-know-methods/)). A jamovi `snowCluster / K-means Clustering` menüpontja alatt az egyik eljárás, a gap-módszer elérhető.
+
+A három módszer a
+
+- könyök módszer (elbow method),
+- sziluett módszer (silhouette method) és a
+- gap-statisztika módszer (gap statistic method).
+
+#### Könyök módszer
+
+Ismert, hogy a K-közép klaszterezési eljárás mögötti alapötlet az, hogy a klasztereket úgy határozzuk meg, hogy a teljes klaszteren belüli variabilitás (a teljes klaszteren belüli négyzetösszeg, WSS) minimális legyen. A teljes WSS a klaszterezés tömörségét méri, és azt szeretnénk, hogy az a lehető legkisebb legyen.
+
+A könyök módszer a teljes WSS-t a klaszterek számának függvényében vizsgálja: az az optimális klaszterszám, amikor már egy újabb klaszter hozzáadása nem javítja számottevően a teljes WSS-t.
+
+A klaszterek optimális száma a következőképpen határozható meg:
+
+1. Valamely klaszterezési algoritmust (például K-közép klaszterezés) futtatása $k$ különböző értékeire. Például $k$ értéke 1-től 10-ig fut.
+1. Minden $k$ esetében kiszámítjuk a teljes WSS értéket.
+1. Ábrázoljuk a WSS görbéjét a $k$ klaszterek számának megfelelően.
+1. A könyök elhelyezkedését az ábrán általában a klaszterek megfelelő számát jelenti.
+
+
+#### Átlagos sziluett módszer
+
+Az átlagos sziluett megközelítés a klaszterezés minőségét méri. Minden egyes $i$ megfigyelési egységre kiszámítható a sziluett szélessége, amely az $S_i=(b_i−a_i)/max(a_i,b_i)$ képlettel számolható.
+A fenti képletben 
+
+- $a_i$ az $i$-t tartalmazó klaszteren belül az átlagos klaszteren belüli távolság, azaz a klaszteren belüli egyes pontok közötti átlagos távolság
+- $b_i$ az $i$ és a tőle minimális távolságra lévő (szomszédos) klaszter távolsága ($i$ és egy másik klaszter távolsága: $i$ és másik klaszterben lévő pontok átlagos távolsága).
+
+Az $S_i$ értéke -1 és +1 közötti lehet:
+
+- A nagy $S_i$-értékkel (majdnem 1) végzett megfigyelések nagyon jól klaszterezettek.
+- A kis $S_i$ (körülbelül 0) azt jelenti, hogy a megfigyelés két klaszter között van.
+- A negatív $S_i$ értékkel rendelkező megfigyelések valószínűleg rossz klaszterbe kerültek.
+
+Az átlagos sziluett módszer a megfigyelések átlagos sziluettjét számítja ki különböző $k$ értékeihez. A $k$ klaszterek optimális száma az, amely maximalizálja az átlagos sziluettet a $k$ lehetséges értékeinek tartományában.
+
+Az algoritmus hasonló a könyök módszerhez, és a következőképpen számítható ki:
+
+1. Valamely klaszterezési algoritmust (például K-közép klaszterezés) futtatása $k$ különböző értékeire. Például $k$ értéke 1-től 10-ig fut.
+1. Minden $k$ esetében kiszámítjuk a megfigyelések átlagos sziluettjét (`avg.sil`).
+1. Ábrázoljuk az `avg.sil` görbéjét a klaszterek száma szerint ($k$).
+1. A görbe maximum helyét tekintjük megfelelő számú klaszternek.
+
+#### A gap-statisztika módszer
+
+A gap-statisztikát R. Tibshirani, G. Walther és T. Hastie tette közzé 2001-ben. A megközelítés bármely klaszterezési módszerre alkalmazható.
+
+A gap-statisztika összehasonlítja a klaszteren belüli összesített variabilitást az adatok null referenciaeloszlása mellett várt értékévek, különböző $k$-értékeknél. Az optimális klaszterek becslése olyan érték lesz, amely maximalizálja a gap-statisztikát (azaz a legnagyobb gap-statisztikát eredményezi). Ilyenkor a klaszterezési struktúra messze van a pontok véletlenszerű egyenletes eloszlásától.
+
+Az algoritmus a következőképpen működik:
+
+1. Klaszterezzük a megfigyelt adatokat úgy, hogy a klaszterek számát $k=1, \dots, k_{max}$ értékkel változtatjuk, és számítsuk ki a $W_k$ klasztereken belüli összvariabilitást.
+1. Generáljunk B referencia adatkészletet véletlenszerű egyenletes eloszlással. Végezzünk klaszterezést ezen a referenciaadatkészleten változó számú klaszterrel $k=1, \dots, k_{max}$ és számítsuk ki a megfelelő teljes klasztereken belüli összvariabilitást ($W_{kb}$).
+1. Számítsuk ki a becsült gap-statisztikát: $Gap(k)=\frac{1}{B}\sum_{b=1}^Blog(W_{kb})−log(W_k)$. Számítsuk ki a statisztika szórását is.  
+1.Válasszuk meg a klaszterek számát a legkisebb olyan $k$-ra, amely kielégíti a következő feltételt: $Gap(k)\geq Gap(k+1)−s_{k+1}$.
+
+A fenti 3 módszerhez tartozó ábra a `{factoextra}` csomag `fviz_nbclust()` függvényével is megjeleníthető.
+
+```{r}
+library(factoextra)
+# Elbow method
+fviz_nbclust(x = fogyaszto, kmeans, method = "wss") +
+    geom_vline(xintercept = 4, linetype = 2)+
+  labs(subtitle = "Elbow method")
+
+# Silhouette method
+fviz_nbclust(x=fogyaszto, kmeans, method = "silhouette")+
+  labs(subtitle = "Silhouette method")
+
+# Gap statistic
+# nboot = 50 to keep the function speedy. 
+# recommended value: nboot= 500 for your analysis.
+# Use verbose = FALSE to hide computing progression.
+set.seed(123)
+fviz_nbclust(x = fogyaszto, kmeans, nstart = 25,  method = "gap_stat", nboot = 50)+
+  labs(subtitle = "Gap statistic method")
+```
+
+A könyök módszer 4, a sziluett módszer és a gap-statisztikán alapuló módszer 3 klasztert tart optimálisnak.
+
+### 5. A klaszterek értelmezése és jellemzése
+
+A klaszterek értelmezését és jellemzését a klasztercentroidok (átlagok) értelmezésével végezzük. A centroidokon a klaszterekbe tartozó megfigyelési egységeknek a az összes változó alapján számított átlagát értjük. A centroidok lehetővé teszik, hogy mindegyik klaszterhez egy nevet vagy címkét rendeljünk.
+
+Az 1. klaszteren viszonylag magas az értéke az 1. változónak (a vásárlás szórakozás) és a 3. változónak (a vásárlást étteremlátogatással köti össze). Alacsony az értéke az 5. változónak (nem érdekel a vásárlás). Az 1. klaszter a "Szórakozáskedvelő, érdeklődő vásárlók" névvel jelölhető. Ez a klaszter az 1, 3, 6, 7, 8, 12, 15 és a 17 eseteket tartalmazza. A 2. klaszter éppen az előző klaszter ellentettje, mivel alacsony az 1. és a 3. változó értéke, és magas az 5. változó átlaga, ezért "Apatikus vásárlónak" nevezhetjük el. A 2. klaszter tagjait a 2, 5, 9, 11, 13 és 20 elemek alkotják. A 3. klaszternél a 2. változó (a vásárlás megterheli a pénztárcát), a 4. változó (vásárláskor a legjobb vételt akarom csinálni) és a 6. változó (az árak összehasonlításával sokat lehet megtakarítani) értéke magas. Ennek következtében ez a klaszter a "Takarékos vásárlók" nevet kapta. A klasztereket a 4, 10, 14, 16, 18 és 19 eseteket foglalja magában.
+
+Gyakran segít a klaszterek értelmezésében és jellemzésében olyan változók bevonása, amelyeket nem használtunk fel a klaszterelemzésben. Ezek lehetnek például demográfiai adatok.
+
+### 6. A klaszterelemzés megbízhatóságának és érvényességének ellenőrzése
+
+A klasztermegoldás megbízhatóságát és érvényességét is ellenőrizni kell. Ezek igen komplex eljárások, és teljes mértékben nem igazolhatók. A következő eljárások jól használhatók a klasztereredmények minőségének értékelésére.
+
+- A klaszterelemzést elvégezzük ugyanazokkal az adatokkal, de más távolságmértéket használunk. A két mérték alapján kapott eredményeket összehasonlítjuk. 
+- Különböző klasztereljárásokat alkalmazunk, és összehasonlítjuk az eredményeket.
+- Az adatokat véletlenszerűen két csoportra osztjuk. Mindkét részre elvégezzük a klaszterelemzést. Összehasonlítjuk a a két alminta klaszterátlagait.
+Véletlenszerűen elhagyunk változókat, és a klaszterelemzést a csökkentett számú változók alapján végezzük el. Hasonlítsuk össze az eredményeket a teljes változókészlettel kapott eredménnyel.
+- A nem hierarchikus klaszterelemzésnél a megoldás az esetek adatbázisban elfoglalt sorrendjétől is függhet. Futtassuk az elemzést az esetek különböző sorrendjével, amíg a megoldás nem stabilizálódik.
+
+
+```{r}
+table(fogyaszto$group_1, fogyaszto$group_2)
+```
+
+A fenti kétdimenziós gyakorisági táblázatból kiolvasható, hogy a hierarchikus klaszterelemzés és a K-középpontú klaszterelemzés ugyanazt az eredményt szolgáltatja (kivéve a csoportok elnevezését).
+
+## Példa: Vállalatok vizsgálata
+
+A következő problémában különböző vállalatokat próbálunk meg klaszterezni. A vállalatokat számtalan jellemző mentén mérhetjük, vizsgálhatjuk, ezáltal többféleképpen is csoportosíthatjuk őket. A csoportosítás alapjául mi most a vállalat nagyságát, a hatalmi távolságot és a vállalat szemléletében jelen levő konzervativizmus mértékét választottuk. Az adatok, ahogyan az az 5.27. R-forráskódon is látható.
+
+
+```{r}
+vallalat <- rio::import(file = "adat/klaszter_vallalatok.xlsx")
+str(vallalat)
+psych::headTail(vallalat)
+```
+
+Végezzünk hierarchikus klaszterelemzést. Ehhez először a távolságmátrixot határozzuk meg. Ehhez első lépésként másoljuk a sornevekbe a vállalatok nevét, mert akkor a kapott dendrogram levelein a vállalatok neveit fogjuk látni és így sokkal áttekinthetőbb ábrát fogunk kapni és könnyebben tudjuk azonosítani az egyes klasztereket. 
+
+```{r}
+# a vállalatnevek a sornevekbe íródnak
+rownames(vallalat) <- vallalat$NEV
+```
+
+Számítsuk ki a távolságmátrixot, használjunk Euklideszi távolságot.
+
+```{r}
+tavolsagmatrix <- dist(vallalat[2:4], method = "euclidean")
+print(tavolsagmatrix, digits = 1)
+```
+
+A távolságmátrix birtokában már futtathatunk egy klaszteranalízist, az egyszerű lánc módszert használjuk a klaszterképzéshez.
+
+```{r}
+klaszter <- hclust(tavolsagmatrix, method="single")
+plot(klaszter)
+```
+
+A fenti dendrogramon látható, hogy alapvetően két nagy csoportja van a vizsgált vállalatoknak. Az egyikbe tartoznak a `D`, `H`, `A`, `I` és a `J` vállalatok, míg a másikba az `F`, `E`, `G` és egy kicsit távolabb a `B` és a `C`. A `B` és a `C` vállalat akár önálló klasztert is alkothat.
+
+```{r}
+klaszter$merge # az összevonások lépései: az egyes lépésekben miket vont össze: negatív szám elem, pozitív klaszter
+klaszter$height # az egyes összevonások milyen távolság esetén történtek meg
+cbind(klaszter$merge, klaszter$height) # együtt a két fenti információ
+```
+
+A fenti elemzés jamovi-ban a `snowCluster / Hierarchical Clustering` vagy `snowCluster / Clustering Dendrogram` menüpontjaival is elvégezhető.
+
+![Vállalatok hierarchikus klaszterelemzése: snowCluster / Hierarchical Clustering](images/klaszter_vallalat_01.jpg)
+
+
+![Vállalatok hierarchikus klaszterelemzése: snowCluster / Clustering Dendrogram](images/klaszter_vallalat_02.jpg)
+
+
+## Példa: Étteremlátogatással kapcsolatos attitűdök vizsgálata
+
+A vásárláshoz hasonlóan az étteremlátogatás is viszonylag megosztja az embereket. Vannak, akik felesleges kiadásnak tartják, és inkább otthon, saját maguk főznek. Vannak, akik igyekeznek kímélni magukat az ilyesfajta házimunkáktól - vagy egyszerűen nem tudnak főzni - és ebből kifolyólag az éttermek rendszeres látogatói. Megint mások csupán praktikus okokból járnak étterembe: ünnepek alkalmával, baráti összejövetelekkor stb. A következőkben a klaszteranalízis segítségével az étteremlátogatással kapcsolatos attitűdöket fogjuk szemügyre venni.
+
+A vizsgálathoz szükséges adatok a `klaszter_etteremlatogatas.xlsx` állományban találhatok.
+
+```{r}
+etterem <- rio::import(file = "adat/klaszter_etteremlatogatas.xlsx")
+str(etterem)
+psych::headTail(etterem)
+```
+
+
+Az egyes itemek a következők:
+
+- V1: Ha csak tehetem, étteremben ebédelek.
+- V2: Munkahelyemen szívesen választom a munkahelyi étkezdét.
+- V3: Szerintem éttermek nélkül nem is lenne kerek a világ.
+- V4: Családi alkalmak, ünnepek esetén szívesen étkezem étteremben.
+- V5: Szerintem étteremben étkezni merő pénzpocséklás.
+- V6: Időnként szívesen étkezem házon kívül.
+- V7: Előnyben részesítem a saját főztömet.
+- V8: Szívesen járok korrekt árakkal dolgozó éttermekbe.
+
+Végezzünk K-közép klaszterelemzést! 
+
+Első lépésként most is a csoporton belüli négyzetösszegeket ábrázoljuk a lehetséges klaszterszámok függvényében, hogy el tudjuk dönteni, hány klaszteres megoldás lenne a megfelelő az adatokra.
+
+```{r}
+n <- length(etterem$V1)
+wss1 <- (n-1)*sum(apply(etterem,2,var)) # teljes variabilitás
+wss <- numeric(0)
+# 2-6 klaszteres megoldás kipróbálása
+for(i in 2:6) {
+  W <- sum(kmeans(etterem,i)$withinss)
+  wss <- c(wss,W)
+}
+wss <- c(wss1, wss)
+plot(1:6, wss,type="l",xlab="Csoportok száma",ylab="Csoporton belüli
+négyzetösszegek",lwd=2)
+```
+
+A fenti ábrán láthatjuk, hogy a hármas értéknél van éles törés a görbén, ez alapján a háromklaszteres megoldást fogjuk vizsgálni K-középpontú klaszteranalízissel.
+
+
+```{r}
+kkozep <- kmeans(x = etterem, centers = 3)
+kkozep
+kkozep$betweenss
+```
+
+
+A fenti eredmény a klaszteranalízis eredményét mutatja. Az első sor (`K-means clustering with 3 clusters of sizes 7,5,8`) arról ad információt, hogy háromklaszteres megoldásunk van, melyek mérete 7, illetve 5 és 8 elemszám. Hogy az egyes elemek melyik klaszterbe esnek, arról a `Clustering vector` ad információt. Az első sor az egyes elemeket, a második pedig a csoporttagságot mutatja.
+
+A `Cluster means` az egyes klaszterek átlagos tagjának, centroidjának a jellemzőit mutatják. Az első klaszter átlagos tagja kiválóan érzi magát éttermek nélkül is, csak pénzpocséklásnak tartja azokat és inkább saját maga főz. A második klaszter átlagos alkalomadtán jár éttermekben (családi ünnepek esetén például), esetleg a munkahelyi étkezdét használja, előnyben részesíti a mérsékeltebb árakat. Míg a harmadik klaszter átlagos tagja szívesen jár éttermekbe, nem is nagyon szeret főzni.
+
+A `Within cluster sum of squares by cluster` értékei a klaszteren belüli eltérések négyzetösszegét mutatja.
+
+Az eredmények alapján vannak olyan emberek, akik szeretnek étterembe járni, az számukra egy életforma, s vannak olyanok, akik az otthoni konyhát részesítik előnyben. Ugyanakkor vannak megfontoltabb emberek is, akik igyekeznek energiájukkal takarékoskodni, ezért munkahelyen vagy valamilyen nagyobb összejövetel esetén szívesen étkeznek házon kívül.
+
+A fenti K-közép klaszterelemzés jamovi-ban is elvégezhető a `snowCluster / K-means Clustering` menüponttal.
+
+![Étteremlátogatás - snowCluster / K-means Clustering](images/klaszter_etterem_01.jpg)
+
+## Példa: Vásárlói attitűdök vizsgálata
+
+Vásárolni mindenki szokott. Van, akinek szenvedélye a vásárlás, mások, pedig ha csak lehet, kerülik az üzleteket. Ebben a példában annak fogunk utánajárni, hogy milyen tipikus vásárlási attitűdök vannak. A vizsgálathoz szükséges adatokat a `klaszter_vasarloi_attitudok.xlsx` tartalmazza.
+
+```{r}
+vasarlok <- rio::import(file = "adat/klaszter_vasarloi_attitudok.xlsx")
+str(vasarlok)
+psych::headTail(vasarlok)
+```
+
+
+A fenti outputban lévő változók jelentése a következő:
+
+- V1: Általában igyekszem diszkont áruházakban vásárolni.
+- V2: Imádok vásárolgatni.
+- V3: Mindig figyelem az árleszállításokat.
+- V4: A vásárlás számomra szinte egy hobbi.
+- V5: Ha csak tehetem, nem én vásárolok.
+- V6: Szívesen járom az üzleteket baráti társaságban.
+
+Első lépésként a csoporton belüli négyzetösszegeket ábrázoljuk a lehetséges klaszterszámok függvényében, hogy el tudjuk dönteni, hány klaszteres megoldás lenne a megfelelő az adatokra.
+
+```{r}
+n <- length(vasarlok$V1)
+wss1 <- (n-1)*sum(apply(vasarlok,2,var))
+wss <- numeric(0)
+for(i in 2:6) {
+  W <- sum(kmeans(vasarlok,i)$withinss)
+  wss <- c(wss,W)
+}
+wss <- c(wss1, wss)
+plot(1:6, wss, type="l", xlab="Csoportok száma", ylab="Csoporton belüli
+négyzetösszegek", lwd=2)
+```
+
+A fenti képen láthatjuk, hogy a hármas értéknél van törés a görbén, ez alapján  a háromklaszteres megoldást fogjuk vizsgálni K-középpontú klaszteranalízissel.
+
+```{r}
+kkozep <- kmeans(vasarlok, 3)
+kkozep
+kkozep$totss
+```
+
+A fenti output a klaszteranalízis eredményét mutatja. Az első sor (`K-means clustering with 3 clusters of sizes 8,6,6`) arról ad információt, hogy háromklaszteres megoldásunk van, melyek mérete 8, illetve 6, 6 elemszám. Hogy az egyes elemek melyik klaszterbe esnek, arról a `Clustering vector` ad információt. Az első sor az egyes elemeket, a második pedig a csoporttagságot mutatja.
+
+A `Cluster means` az egyes klaszterek átlagos tagjának, centroidjának a jellemzőit mutatják. Az első klaszter átlagos tagja igyekszik diszkontáruházakban és árleszállításokon vásárolni, minél több pénzt megtakarítani. A második klaszter átlagos tagja ha csak teheti, másokkal vásároltat be. Míg a harmadik klaszter átlagos tagja szenvedélyes vásárló, baráti társaságokkal is szívesen járja az üzleteket.
+
+A `Within cluster sum of squares by cluster` értékei a klaszteren belüli eltérések négyzetösszegét mutatja.
+
+Az eredmények alapján vannak olyan emberek, akik nem szeretnek vásárolni, s vannak olyanok, akiknek egyfajta hobbi a vásárlás. Ugyanakkor vannak megfontoltabb emberek is, akik igyekeznek takarékossági szempontokat is figyelembe venni, és minél olcsóbban elintézni a bevásárlásokat.
+
+A fenti K-közép klaszterelemzés jamovi-ban is elvégezhető a `snowCluster / K-means Clustering` menüponttal.
+
+![Vásárlói attitűdök - snowCluster / K-means Clustering](images/klaszter_vasarloi_attitudok_01.jpg)
+
+## Példa: Csokoládémárkák vizsgálata
+
+A klaszteranalízissel elemzett jelen problémában csokoládémárkákat vizsgálunk. Összesen tíz csokimárkát ítéltek meg a személyek a csoki nagysága, krémességének és töménységének tekintetében. Azt fogjuk megvizsgálni, hogy mely csokoládék állnak a vizsgálati személyek szerint közel egymáshoz. Ennek ismerete hasznos lehet marketing szempontból - például mely csokoládékat érdemes közel tenni egymáshoz a polcon.
+
+Az adatokat a `klaszter_csokolademarkak.xlsx` tartalmazza.
+
+```{r}
+csokolade <- rio::import(file = "adat/klaszter_csokolademarkak.xlsx")
+str(csokolade)
+psych::headTail(csokolade)
+```
+
+Most sem távolságmátrixszal dolgozunk, hanem az „eredeti” változókkal. Az adatokból számított távolságmátrixot természetesen elkészíthetjük az R segítségével is. Ehhez első lépésként a `CSOKI` változót másoljuk át az adatbázis sorneveibe, mert így a kapott dendrogram levelein a csokoládék neveit fogjuk látni, nem pedig számokat. Ezáltal sokkal áttekinthetőbb ábrát fogunk kapni és könnyebben tudjuk azonosítani az egyes klasztereket. 
+
+```{r}
+rownames(csokolade) <- csokolade$CSOKI
+```
+
+Ezután kiszámíttathatjuk a távolságmátrixot az adatokra, használjuk az Euklideszi távolságot.
+
+```{r}
+tavolsagmatrix <- dist(csokolade[2:4])
+print(tavolsagmatrix, digits=1)
+```
+
+A távolságmátrix birtokában már futtathatunk egy klaszteranalízist, az egyszerű lánc módszert használva a klaszterképzéshez.
+
+```{r}
+klaszter <- hclust(tavolsagmatrix, method="single")
+plot(klaszter)
+```
+
+
+```{r}
+klaszter$merge
+klaszter$height
+```
+
+
+Láthatjuk, hogy a klaszterek kialakítása 9 lépésben történt és legutolsó elemet 4,58-as távolságnál vontuk be a klaszterbe.
+
+A dendrogram látható, hogy alapvetően két nagy csoportja van a vizsgált csokoládéknak. Az egyikbe tartoznak a táblás csokoládék (Tibi, Milka és a Boci), míg a másikba a szeletes csokik. Az utóbbiba vonta be a módszer a müzliszeletet is, bár meglehetősen távol van a többi csokoládétól.
+
+
+A fenti elemzés jamovi-ban a `snowCluster / Hierarchical Clustering` vagy `snowCluster / Clustering Dendrogram` menüpontjaival is elvégezhető.
+
+![Csokoládémárkák hierarchikus klaszterelemzése: snowCluster / Hierarchical Clustering](images/klaszter_csokolade_01.jpg)
+
+
+![Csokoládémárkák hierarchikus klaszterelemzése: snowCluster / Clustering Dendrogram](images/klaszter_csokolade_02.jpg)
+
+

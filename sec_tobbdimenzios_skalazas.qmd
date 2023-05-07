@@ -21,9 +21,9 @@ Különféle MDS-algoritmusok léteznek:
 
 * **Nem metrikus többdimenziós skálázás.** Ordinális MDS néven is ismert. Itt nem a távolságérték mérőszáma a fontos vagy értelmes, hanem az, hogy a többi objektumpár közötti távolságokhoz képes ez kisebb vagy nagyobb. Az ordinális MDS olyan illesztett távolságokat konstruál, amelyek az eredeti távolságokkal azonos rangsorrendben helyednek el. Például, ha az 1. és 5. objektumok távolsága az ötödik helyen áll az eredeti távolságadatokban, akkor az MDS-konfigurációban is az ötödik helyen kell szerepelniük. Ezt az algoritmust általában kategorikus adatokra alkalmazzuk.
 
-## 1. Példa
+## Példa: Svájci tartományok
 
-A `swiss` adatbázis 47 francia nyelvű tartományának termékenységi és társadalmi-gazdasági adatait tartalmazza. Az adatbázis a `{datasets}` csomagból származik, további információ: `?swiss`. A példa ötlete [innen](http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/122-multidimensional-scaling-essentials-algorithms-and-r-code/) származik.
+A `swiss` adatbázis Svájc 47 francia nyelvű tartományának termékenységi és társadalmi-gazdasági adatait tartalmazza. Az adatbázis a `{datasets}` csomagból származik, további információ: `?swiss`. A példa ötlete [innen](http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/122-multidimensional-scaling-essentials-algorithms-and-r-code/) származik.
 
 ```{r}
 d <- rio::import(file = "adat/mds_swiss.xlsx")
@@ -112,7 +112,7 @@ A PCA inkább magukra a dimenziókra összpontosít, és a megmagyarázott varia
 
 Az MDS n-dimenziós adatpontokat vetít ki egy (általában) 2-dimenziós síkba úgy, hogy az n-dimenziós térben lévő hasonló objektumok közel lesznek egymáshoz a kétdimenziós diagramon is, míg a PCA többdimenziós teret vetít a maximális variancia irányába a korrelációs/kovariancia mátrix elemzésével.
 
-## 2. Példa
+## Példa: Magyar városok
 
 A példa a magyar városokat elhelyezkedését vizsgálja a térképen [@MunnichNagyAbari2006] [6.1. R-forráskód].
 Az adatok már eleve távolságmátrixban vannak reprezentálva (`mds_varos_tavolsagmatrix.xlsx`), ahol az egyes cellák a városok közti légvonalbeli távolságot listázzák. Mivel a többdimenziós skálázást eredetileg a térképészetben használták térképek rajzolására, ebben a példában Magyarország nagyobb városait jelenítjük meg egy kétdimenziós térképen.
@@ -176,7 +176,7 @@ plot(delta,dist)
 ```
 
 
-## 3. Példa
+## Példa: Üdítő italok
 
 Ebben a példában különböző üdítőitalokat vizsgálunk meg a többdimenziós skálázás segítségével [@MunnichNagyAbari2006] [6.5.1 probléma]. Az adatbázis a különböző üdítőitalok távolságmátrixát tartalmazza (`mds_uditok_tavolsagmatrix.xlsx`). Az embereknek azt kellett megítélni, hogy az egyes üdítők mennyire különböznek egymástól. A 0 érték azt jelenti, hogy teljesen egyformák az italok, míg az 1 a lehető legnagyobb mértékű különbözőséget jelzi.
 
@@ -218,7 +218,7 @@ mds_1$stress
 
 A Magyarország városait bemutató példában egyértelmű volt az egyes koordinátatengelyek, dimenziók elnevezése. Ám egy ilyen példánál már nagyobb gondot okozhat. A fenti eredmények alapján láthatjuk, hogy az első dimenzióban az ásványvíz és a Fanta Narancs szerepel magas értékekkel, viszonylag kis értéke van a Szobi gyümölcslének és a szörpnek. A második dimenzióiban is magas értékkel szerepel a Fanta és a Hohes C, viszont extrém alacsonnyal az ásványvíz. Ezek alapján az első dimenzió képviselheti a szénsavtartalmat, míg a második a gyümölcstartalmat. A feladatban szereplő emberek fejében ez a két szempont tűnt fontosnak az üdítőitalok különbözőségének megítélése során.
 
-## 4. Példa
+## Példa: Autómárkák
 
 Ebben a példában autómárkák közötti hasonlóságokat ítéltetünk meg a személyekkel [@MunnichNagyAbari2006] [6.5.2 probléma]. Az 1 érték jelenti a márkák teljes hasonlóságát, míg a 0 a hasonlóság hiányát.
 
@@ -356,7 +356,7 @@ ggplot(d, aes(x=x, y=y, color=szamitas, group=szamitas)) + geom_line(linewidth=1
 
 
 
-## 5. Példa {unnumbered} 
+## Példa: Vállalatok 
 
 A vállalatokat számtalan jellemző mentén mérhetjük, most a vállalat nagyságát, a hatalmi távolságot és a vállalat szemléletében jelen levő konzervativizmus mértékét választottuk.
 

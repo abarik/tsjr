@@ -253,6 +253,8 @@ div.csl-indent {
   <li><a href="#megbízhatóság-vizsgálat" id="toc-megbízhatóság-vizsgálat" class="nav-link" data-scroll-target="#megbízhatóság-vizsgálat"><span class="toc-section-number">F</span>  Megbízhatóság vizsgálat</a></li>
   <li><a href="#feltáró-faktorelemzés" id="toc-feltáró-faktorelemzés" class="nav-link" data-scroll-target="#feltáró-faktorelemzés"><span class="toc-section-number">G</span>  Feltáró faktorelemzés</a></li>
   <li><a href="#megerősítő-faktorelemzés" id="toc-megerősítő-faktorelemzés" class="nav-link" data-scroll-target="#megerősítő-faktorelemzés"><span class="toc-section-number">H</span>  Megerősítő faktorelemzés</a></li>
+  <li><a href="#klaszterelemzés" id="toc-klaszterelemzés" class="nav-link" data-scroll-target="#klaszterelemzés"><span class="toc-section-number">I</span>  Klaszterelemzés</a></li>
+  <li><a href="#diszkriminancia-elemzés-és-többváltozós-varianciaelemzést" id="toc-diszkriminancia-elemzés-és-többváltozós-varianciaelemzést" class="nav-link" data-scroll-target="#diszkriminancia-elemzés-és-többváltozós-varianciaelemzést"><span class="toc-section-number">J</span>  Diszkriminancia elemzés és többváltozós varianciaelemzést</a></li>
   </ul>
 </nav>
     </div>
@@ -417,6 +419,38 @@ div.csl-indent {
 <li>Értékeljük az egyes itemek illeszkedését a faktorokra!</li>
 <li>Értékeljük a faktorok kapcsolatát!</li>
 <li>Értékeljük az illeszkedési mutatókat!</li>
+</ol>
+</section>
+<section id="klaszterelemzés" class="level1" data-number="I">
+<h1 data-number="I"><span class="header-section-number">I</span> Klaszterelemzés</h1>
+<p>A <code>nike.xlsx</code> adatain végezze el a következő elemzéseket. Csak a következő változókat vegye figyelembe: tudatosság, attitúd, preferencia, cél és a Nike iránti hűség.</p>
+<ol type="1">
+<li>Hierarchikus klaszterelemzés segítségével rendezze a válaszadókat klaszterekbe a feltárt változók alapján! Használja a Ward-féle eljárást és az euklideszi távolságot. Hány klasztert javasol és miért?<br>
+</li>
+<li>Rendezze a válaszadókat klaszterekbe a feltárt változók alapján a következő hierarchikus módszerekkel, majd határozza meg a klasztereket az egyes eljárások során és hasonlítsa össze a kapott klaszterstruktúrákat az 1. feladat klaszterstruktúrájával:
+<ul>
+<li>legközelebbi szomszéd (egyszerű lánc)</li>
+<li>legtávolabbi szomszéd (teljes lánc)</li>
+<li>átlagos lánc.</li>
+</ul></li>
+<li>K-középérték klasztereljárás és valamely optimális klaszterszámmeghatározó eljárással kapott klaszterszám segítségével rendezze a válaszadókat klaszterekbe a feltárt változók alapján. Hasonlítsa össze az eredményt az 1. feladatban kapott eredménnyel is.</li>
+</ol>
+</section>
+<section id="diszkriminancia-elemzés-és-többváltozós-varianciaelemzést" class="level1" data-number="J">
+<h1 data-number="J"><span class="header-section-number">J</span> Diszkriminancia elemzés és többváltozós varianciaelemzést</h1>
+<p>A <code>nike.xlsx</code> adatain végezze el a következő elemzéseket. A használt oszlopok a következőek:</p>
+<ul>
+<li><code>termekhasznalat</code> - kategorikus változó 3 csoporttal: 1 = ritkán használja; 2 = közepes; 3 = gyakran használja a terméket.</li>
+<li><code>tudatossag</code> - tudatosság (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)</li>
+<li><code>attitud</code> - attitűd (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)</li>
+<li><code>preferencia</code> - preferencia (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)</li>
+<li><code>cel</code> - szandék, cél (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)</li>
+<li><code>huseg</code> - Nike iránti lojalitás (1-7 skálán: 1 = nagyon kedvezőtlen, 7 = nagyon kedvező)</li>
+</ul>
+<p>Van különbség a három fogyasztói csoport (<code>termekhasznalat</code>) között a tudatosság, attitűd, preferencia, szándék és a Nike iránti lojalitás szempontjából?</p>
+<ol type="1">
+<li><p>Végezzünk többváltozós varianciaelemzést a numerikus változók várható-érték vektorainak szétválasztására a 3 csoport mentén. Szignifikáns a próba? Ha kell végezzünk utóvizsgálatot egy tetszőlegesen választott módszerrel.</p></li>
+<li><p>A termékhasználat 3 csoportját az 5 numerikus változó milyen lineáris kombinációja segítségével tudjuk a legjobban szétválasztani? Adjuk meg ezeket az együtthatókat, valamint validáljuk az eljárás! Adjunk egy tetszőleges értékkombinációra előrejelzést!</p></li>
 </ol>
 
 
