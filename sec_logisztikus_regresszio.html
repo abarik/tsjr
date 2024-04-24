@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Többváltozós statisztika jamovi-ban és R-ben - 10&nbsp; Logisztikus regresszió</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./sec_tobbdimenzios_skalazas.html" rel="next">
+<link href="./sec_tobbvaltozos_variancia.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "egyező dokumentumok",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "OK",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sec_logisztikus_regresszio.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logisztikus regresszió</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Többváltozós statisztika jamovi-ban és R-ben</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/abarik/tsjr/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Többváltozós-statisztika-jamovi-ban-és-R-ben.pdf">
+              <i class="bi bi-bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Többváltozós-statisztika-jamovi-ban-és-R-ben.epub">
+              <i class="bi bi-bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_linearis_regresszio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Lineáris regresszió</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_fokomponens_elemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Főkomponens elemzés</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_megbizhatosag_elemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Megbízhatóság elemzés</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_feltaro_faktorelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Feltáró faktorelemzés</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_megerosito_faktorelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Megerősítő faktorelemzés</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbszempontos_variancielemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Többszempontos varianciaelemzés</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_klaszter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Klaszterelemzés</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_diszkrimninancia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Diszkriminancia elemzés</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbvaltozos_variancia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Többváltozós varianciaelemzés</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_logisztikus_regresszio.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logisztikus regresszió</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sec_tobbdimenzios_skalazas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Többdimenziós skálázás</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Függelék</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_linkek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Elérhető videók</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_adatbazisok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Adatbázisok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix_gyakorlo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Gyakorló feladatok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Irodalomjegyzék</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tartalomjegyzék</h2>
+   
+  <ul>
+  <li><a href="#binomiális-logisztikus-regresszió" id="toc-binomiális-logisztikus-regresszió" class="nav-link active" data-scroll-target="#binomiális-logisztikus-regresszió"><span class="header-section-number">10.1</span> Binomiális logisztikus regresszió</a>
+  <ul class="collapse">
+  <li><a href="#példa-ügyfelek-elvándorlása" id="toc-példa-ügyfelek-elvándorlása" class="nav-link" data-scroll-target="#példa-ügyfelek-elvándorlása"><span class="header-section-number">10.1.1</span> Példa: ügyfelek elvándorlása</a></li>
+  <li><a href="#miért-van-szükésg-logisztikus-regresszióra" id="toc-miért-van-szükésg-logisztikus-regresszióra" class="nav-link" data-scroll-target="#miért-van-szükésg-logisztikus-regresszióra"><span class="header-section-number">10.1.2</span> Miért van szükésg logisztikus regresszióra?</a></li>
+  <li><a href="#előrejelzés-a-logisztikus-modell-segítségével" id="toc-előrejelzés-a-logisztikus-modell-segítségével" class="nav-link" data-scroll-target="#előrejelzés-a-logisztikus-modell-segítségével"><span class="header-section-number">10.1.3</span> Előrejelzés a logisztikus modell segítségével</a></li>
+  <li><a href="#a-logisztikus-regresszió-illeszkedésének-mérésére" id="toc-a-logisztikus-regresszió-illeszkedésének-mérésére" class="nav-link" data-scroll-target="#a-logisztikus-regresszió-illeszkedésének-mérésére"><span class="header-section-number">10.1.4</span> A logisztikus regresszió illeszkedésének mérésére</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-logisztikus-regresszio" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Logisztikus regresszió</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>A logisztikus regresszió céljait tekintve megegyezik a diszkriminancia elemzéssel, de sokkal robusztusabb, azaz kevesebb alkalmazási feltétellel rendelkezik. Használható a logisztikus regresszió akkor is, ha a független változók között kategorikus változók is előfordulnak, illetve a normalitásra és homoszkedaszticitásra vonatkozó feltétel megsértésre sem érzékeny a módszer.</p>
+<p>A logisztikus regressziónak 3 típusa van:</p>
+<ul>
+<li>binomiális logisztikus regresszió: a függő változónk dichotóm, csak két értéke van,</li>
+<li>multinominális logisztikus regresszió: a függő változónk olyan kategorikus változó, amelynek kettőnél több értéke van,</li>
+<li>ordinális logisztikus regresszió: a függő változó ordinális skálán mért (a jegyzetben ez az eset nem szerepel).</li>
+</ul>
+<section id="binomiális-logisztikus-regresszió" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="binomiális-logisztikus-regresszió"><span class="header-section-number">10.1</span> Binomiális logisztikus regresszió</h2>
+<p>A korábban megismert lineáris regresszió során numerikus változókkal dolgoztunk. Mind a függő, mind a független változóink numerikusak voltak. A binomiális logisztikus regresszió során a függő változónk dichotóm, azaz csak két értéke lehet. A független változóink lehetnek numerikusak és kategorikusak is. Tekinthetjük úgy, hogy a logisztikus regresszió során a függő változó értékei 0 vagy 1 lehet, és a logisztikus modellünk a független változók segítségével becsüli meg azz az esélyt, hogy az adott esemény bekövetkezik-e vagy sem (illetve, hogy milyen eséllyel következik be).</p>
+<section id="példa-ügyfelek-elvándorlása" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="példa-ügyfelek-elvándorlása"><span class="header-section-number">10.1.1</span> Példa: ügyfelek elvándorlása</h3>
+<p>Példa adatbázisunk egy európai pénzügyi szolgáltató vállalat 2006-os ügyfél elvándorlásáról szól. Összesen 400 sorunk van, amelyek mindegyike egy-egy ügyfelet képvisel. Ha az ügyfél az adott időszak alatt az összes számláját lezárta, akkor úgy tekintetjük, hogy elvándorolt, és az adott oszlopban (<code>has_churned</code>) ezt egy 1-sel jelölték. Ha az ügyfélnek az időszak végén még mindig volt nyitott számlája, a <code>has_churned</code> oszlop 0-t tartalmaz. Látni fogjuk, hogy az elsőre kézenfekvőnek számító logikai változó használata helyett az 1 és a 0 használata sokkal praktikusabb lesz az ábrák megjelenítése és a teljes eljárás során. A két magyarázó változó az az idő, amióta az ügyfél először vásárolt szolgáltatást (<code>time_since_first_purchase</code>), és az az idő, amióta utoljára vásárolt szolgáltatást (<code>time_since_last_purchase</code>). Ezek jelentése rendre: az ügyféllel való kapcsolat hossza, illetve az ügyfél tevékenységének frissessége. E két idő oszlopok valójában negatív értékeket is tartalmaz, mivel azokat titoktartási okokból standardizálták. Bővebb információt itt találunk: <a href="https://www.rdocumentation.org/packages/bayesQR/topics/Churn" class="uri">https://www.rdocumentation.org/packages/bayesQR/topics/Churn</a></p>
+<p>Nyissuk meg az adatbázist:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>churn <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="at">file =</span> <span class="st">"adat/churn.fst"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(churn)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "has_churned"               "time_since_first_purchase"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] "time_since_last_purchase"</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="miért-van-szükésg-logisztikus-regresszióra" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="miért-van-szükésg-logisztikus-regresszióra"><span class="header-section-number">10.1.2</span> Miért van szükésg logisztikus regresszióra?</h3>
+<section id="a-magyarázó-változó-megismerése" class="level4" data-number="10.1.2.1">
+<h4 data-number="10.1.2.1" class="anchored" data-anchor-id="a-magyarázó-változó-megismerése"><span class="header-section-number">10.1.2.1</span> A magyarázó változó megismerése</h4>
+<p>Amikor a függő változó logikai típusú (dichotóm, azaz 0 vagy 1), a vizsgált változó összes pontja az <span class="math inline">\(y=0\)</span> és az <span class="math inline">\(y=1\)</span> egyeneseken helyezkedik el, ami sokszor megnehezíti a helyzet megértését.</p>
+<p>Tekintsük meg kétdimenziós pontdiagramon két magyarázó változó értékeinek függvényében a függő változó eloszlását. Első esetben azt vizsgáljuk meg, hogyan függ az ügyfél elvándorlása (<code>has_churned</code>) attól az időtől, amióta az ügyfél először vásárolt szolgáltatást (<code>time_since_first_purchase</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kétdimenziós pontdiagramon x tengely: time_since_first_purchase y</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tengely: has_churned</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_first_purchase, has_churned)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Vizsgáljuk meg a másik magyarázó változó hatását. Azaz azt, hogy az ügyfél elvándorlása hogyan függ az attól az időtől, amióta utoljára vásárolt szolgáltatást (<code>time_since_last_purchase</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kétdimenziós pontdiagramon x tengely: time_since_last_purchase y</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tengely: has_churned</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_last_purchase, has_churned)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A fenti két kétdimenziós pontdiagramon látható, hogy az ügyfelek elvándorlása hogyan függ az ügyféllel való kapcsolat hosszától és az ügyfél tevékenységének frissességétől. Valójában a fenti ábrákról nehéz lenne bármilyen következtetést levonni. Ezért most a numerikus magyarázó változók eloszlását vizsgáljuk meg a függő változó két csoportjában (0 vagy 1). Először rajzoljunk a <code>time_since_last_purchase</code> magyarázó változóra hisztogramot, amelyet a függő változó két értéke (0 és 1) alapján osztunk fel.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hisztogramm rajzolása</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_last_purchase, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># hisztogrammá alakítjuk, a binwidth 0.25</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.25</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># a has_churned változó alapján felosztjuk a hisztogramokat</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(has_churned)) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Rajzoljuk meg a hisztogramot a másik magyarázó változóra is (<code>time_since_first_purchase</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hisztogramm rajzolása</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_first_purchase, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.25</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(has_churned)) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A <code>time_since_last_purchase</code> ábrán az elvándorolt ügyfelek eloszlása jobbra tolódott (az elvándorlók általában hosszabb ideje nem vásároltak). A <code>time_since_first_purchase</code> esetében az ellenkező igaz: az elvándorlók rövidebb kapcsolati idővel rendelkeznek.</p>
+<p>A magyarázó változók eloszlásának megjelenítéséve kicsit jobban megismertük az adatainkat. Most már készen állunk a logisztikus regresszió megismerésére.</p>
+</section>
+<section id="a-lineáris-és-a-logisztikus-modell-ábrázolása" class="level4" data-number="10.1.2.2">
+<h4 data-number="10.1.2.2" class="anchored" data-anchor-id="a-lineáris-és-a-logisztikus-modell-ábrázolása"><span class="header-section-number">10.1.2.2</span> A lineáris és a logisztikus modell ábrázolása</h4>
+<p>Mielőtt belemerülünk a részletekbe, egyszerűen grafikusan hasonlítsuk össze a lineáris és a logisztikus regresszió használatával kapott előrejelzést. Használjunk egyetlen magyarázó változót (<code>time_since_first_purchase</code>) és a függő változónk természetesen a dichotóm <code>has_churned</code> változó lesz. Tudjuk, a lineáris regresszió a függő változó átlagos értékét becsüli meg a független változók segítségével. A logisztikus regresszió során a függő változó dichotóm, és a modellünk a független változók segítségével becsüli meg az az esélyt, hogy az adott esemény bekövetkezik-e vagy sem.</p>
+<p>A lineáris regresszió során az ábrán egy egyenes vonal fog megjelenni (kék vonal), míg logisztikus regressziónál egy S-alakú görbe (kék görbe).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lineáris regressziós egyenes és logisztikus regressziós S-görbe</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_first_purchase, has_churned)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># lineáris regresszió</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással geom_smooth(method</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással =</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással "lm",</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással se</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással =</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással FALSE,</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással color</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással =</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással "red")</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással +</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással #</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással logisztikus</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással regresszió,</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással binomiális</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># logisztikus regresszió, binomiális eloszlással eloszlással</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> binomial)) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Látható, hogy a két modell hasonló előrejelzéseket ad több helyen is helyen, de vegyük észre a logisztikus modell trendjében van egy kis görbületet.</p>
+<p>Azt gondolhatnánk első pillanatban, hogy a lineáris modell használata megfelelő lehet az egyes értékek előrejelzésére. Futtassuk is le a lineráris modellt, és tekintsük a paramétereit.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lineáris modell</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(has_churned <span class="sc">~</span> time_since_first_purchase, <span class="at">data =</span> churn)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm<span class="fl">.1</span>)  <span class="co"># csak az együtthatók</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               (Intercept) time_since_first_purchase </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                0.49706212               -0.08547789</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A <code>coef()</code> függvény csak a becsült együtthatókat szolgáltatja, a tengelymetszetet és a meredekséget. Ezek alapján könnyen kiszámolhatjuk bármelyik x értékhez a modell előrejelző értékeit, amelyek természetesen törtértékűek lesznek, annak ellenére, hogy a függő változó lehetséges értéke csak 0 vagy 1 lesz. Ezeket az előrejelzéseket úgy is felfoghatjuk, mint annak valószínűségét, hogy az ügyfél el fog vándorolni.</p>
+<p>A lineáris modell azonban nem nem alkalmas a valószínűségek kezelésére, a modell előrejelzései nem lesznek helyesek. Az <code>xlim=</code> és <code>ylim=</code> tengelyhatárok beállítása (a rajzterület kicsinyítésével) megmutatja a lineáris modell használatának problémáját. A grafikon bal alsó részén a modell negatív valószínűségeket jósol. A jobb felső részen a modell egynél nagyobb valószínűségeket jósol. Mindkét helyzet lehetetlen.</p>
+<p>A megoldás a logisztikus regressziós modellek használata, amelyek az általánosított lineáris modellek egy fajtája, és akkor használatosak, ha a válaszváltozó logikai. Míg a lineáris modellek egyenes vonalat követő előrejelzéseket eredményeznek, addig a logisztikus modellek egy logisztikus görbét követő, S alakú előrejelzéseket eredményeznek.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lineáris modell és logisztikus modell összehasonlítása</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># kiterjesztett x és y tengelyhatárok</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_first_purchase, has_churned)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># xlim(-10, 10) + ylim(-0.2, 1.2) + geom_smooth(method = 'lm', se</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># = FALSE, col = 'red', fullrange=T) + logisztikus regresszió,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># binomiális eloszlással</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> binomial),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fullrange =</span> T) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A fenti kinagyított ábrán látható, hogy a logisztikus regressziós görbe soha nem megy nulla alá vagy egy fölé. Ezt a görbét úgy kell értelmezni, hogy ha a legelső vásárlás óta eltelt standardizált idő nagyon kicsi, akkor az elvándorlás valószínűsége közel van az 1-hez. Amikor az első vásárlás óta eltelt idő nagyon magas, a valószínűség közel van a 0-hoz. Vagyis azok az ügyfelek, akik régen vaásroltak először vásároltak, kisebb valószínűséggel vándorolnak el.</p>
+</section>
+<section id="logiszikus-regresszió-a-glm-segítségével" class="level4" data-number="10.1.2.3">
+<h4 data-number="10.1.2.3" class="anchored" data-anchor-id="logiszikus-regresszió-a-glm-segítségével"><span class="header-section-number">10.1.2.3</span> Logiszikus regresszió a <code>glm()</code> segítségével</h4>
+<p>A grafikus ábrázolás után építsünk modellt, amely leírja, hogy az ügyféllel való kapcsolat hossza hogyan befolyásolja az elvándorlást.</p>
+<p>A lineáris regresszió és a logisztikus regresszió az általánosított lineáris modellek (GLM, Generalised Linear Modell) speciális esetei. A lineáris regresszió azt feltételezi, hogy a reziduumok normális (Gauss) eloszlást követnek. Ezzel szemben a logisztikus regresszió azt feltételezi, hogy a reziduumok binomiális eloszlást követnek.</p>
+<p>Futtassunk le egy logisztikus regressziót a <code>has_churned</code> és <code>time_since_first_purchase</code> változókra a <code>churn</code> adatbázison. A kapott modellt <code>mdl_churn_vs_relationship</code>-nek nevezzük el.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># modell illesztése a logisztikus regresszióval a `churn` adatbázison</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a `time_since_first_purchase` változóra</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>mdl_churn_vs_relationship <span class="ot">&lt;-</span> <span class="fu">glm</span>(has_churned <span class="sc">~</span> time_since_first_purchase,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> churn, <span class="at">family =</span> binomial)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># eredmények megtekintése</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>mdl_churn_vs_relationship</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:  glm(formula = has_churned ~ time_since_first_purchase,...</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = churn)</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               (Intercept)  time_since_first_purchase  </span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  -0.01518                   -0.35479  </span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Degrees of Freedom: 399 Total (i.e. Null);  398 Residual</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Null Deviance:       554.5 </span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual Deviance: 543.7     AIC: 547.7</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Mint korábban lineáris regresszió esetén, most is két együtthatót kapunk, egy tengelymetszetet és egy másik értéket a numerikus magyarázó változóra. Az értelmezés egy kicsit más, erre később térünk vissza.</p>
+<p>Megjegyezzük, hogy korábban végrehajtott lineáris regresszió is végrehajtható a <code>glm()</code> függvény segítségével.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lineáris regresszió a glm() segítségével</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(has_churned <span class="sc">~</span> time_since_first_purchase, <span class="at">data =</span> churn, <span class="at">family =</span> gaussian)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ereedmények megtekintése</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:  glm(formula = has_churned ~ time_since_first_purchase,...</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = churn)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               (Intercept)  time_since_first_purchase  </span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   0.49706                   -0.08548  </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Degrees of Freedom: 399 Total (i.e. Null);  398 Residual</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Null Deviance:       100 </span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual Deviance: 97.35     AIC: 575.9</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A fenti outputban a <code>family</code> argumentum értéke <code>gaussian</code>, ami azt jelenti, hogy a lineáris regresszióra kerül sor. A <code>family</code> argumentum értéke <code>binomial</code>, ha logisztikus regressziót szeretnénk illeszteni.</p>
+</section>
+</section>
+<section id="előrejelzés-a-logisztikus-modell-segítségével" class="level3" data-number="10.1.3">
+<h3 data-number="10.1.3" class="anchored" data-anchor-id="előrejelzés-a-logisztikus-modell-segítségével"><span class="header-section-number">10.1.3</span> Előrejelzés a logisztikus modell segítségével</h3>
+<p>Végezzünk előrejelzést a logisztikus modell segítségével. Négy fő módszer van a logisztikus regressziós modell előrejelzésének kifejezésére. Előrejelzés</p>
+<ul>
+<li>valószínűségel</li>
+<li>legvalószínűbb kimenettel</li>
+<li>esélyaránnyal</li>
+<li>log esélyaránnyal.</li>
+</ul>
+<section id="valószínűségek" class="level4" data-number="10.1.3.1">
+<h4 data-number="10.1.3.1" class="anchored" data-anchor-id="valószínűségek"><span class="header-section-number">10.1.3.1</span> Valószínűségek</h4>
+<p>Mivel a válaszváltozó vagy “igen” (1) vagy “nem” (0), előrejelzést készíthetünk az “igen” valószínűségéről. Könnyen kiszámolhatjuk és Itt kiszámíthatjuk és ábrázolod ezeket a valószínűségeket.</p>
+<p>Tegyük fel, hogy a logisztikus modell rendelkezésre áll:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># az illesztett logisztikus modell</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mdl_churn_vs_relationship <span class="ot">&lt;-</span> <span class="fu">glm</span>(has_churned <span class="sc">~</span> time_since_first_purchase,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> churn, <span class="at">family =</span> binomial)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Szükségünk van a magyarázó változó néhány lehetséges értékére, amelyet a modell előrejelzésére használunk. Az <code>explanatory_data</code> adatbázisban a <code>time_since_first_purchase</code> változó néhány elképzelt értéke található.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a magyarázó változó ezen értékeire végzünk előrejelzést</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>explanatory_data <span class="ot">&lt;-</span> <span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">time_since_first_purchase =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">1.25</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.75</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.25</span>, <span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>, <span class="fl">1.25</span>, <span class="fl">1.5</span>, <span class="fl">1.75</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>, <span class="fl">2.25</span>, <span class="fl">2.5</span>, <span class="fl">2.75</span>, <span class="dv">3</span>, <span class="fl">3.25</span>, <span class="fl">3.5</span>, <span class="fl">3.75</span>, <span class="dv">4</span>)), <span class="at">class =</span> <span class="fu">c</span>(<span class="st">"tbl_df"</span>, <span class="st">"tbl"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data.frame"</span>), <span class="at">row.names =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="sc">-</span>23L))</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Szükség van egy kiinduló ábrára, amely a <code>has_churned</code> és a <code>time_since_first_purchase</code> változókat tartalmazza, egy sima <code>glm</code> vonallal.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kiinduló ábra</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt_churn_vs_relationship <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_first_purchase,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    has_churned)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> binomial)) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt_churn_vs_relationship</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A következő lépésekhez tehát ez a három változó áll rendelkezésre:</p>
+<ul>
+<li>a <code>mdl_churn_vs_relationship</code> változó, amely a <code>has_churned</code> és <code>time_since_first_purchase</code> logisztikus regresszió modellje,</li>
+<li>az <code>explanatory_data</code> változó, amely egy, a magyarázó változó lehetséges értékeit tartalmazó adattbázis,</li>
+<li>a <code>plt_churn_vs_relationship</code> pontdiagram, amely y tengeleyen a <code>has_churned</code> változót, x tengelyen a <code>time_since_first_purchase</code> változót jeleníti meg, egy illesztett <code>glm</code> görbe segítségével.</li>
+</ul>
+<p>Ahhoz, hogy előrejelzést készítsünk logisztikus modellel, ugyanazt a technikát használjuk, mint a lineáris modellek esetében. Már rendelkezésre áll a az <code>explanatory_data</code> adattábla, a magyarázó változó lehetséges értékeivel, ezek alapján hozzunk létre gey új p<code>rediction_data</code> adatbázist, amely már az előrejelezett értékeket is tartalmazza. Ezt a <code>predict()</code> segítségével számítjuk ki, de modellobjektum és a magyarázó adatok átadása mellett a predikcióhoz a <code>type="response"</code> argumentumot is használnunk kell, mert így kapjuk meg a válószínűségeket.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># hozzunk létre egy adatbázist a becsült valószínűségekkel</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>prediction_data <span class="ot">&lt;-</span> explanatory_data <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">has_churned =</span> <span class="fu">predict</span>(<span class="at">object =</span> mdl_churn_vs_relationship, <span class="at">newdata =</span> explanatory_data,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">"response"</span>))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># nézzük meg az első néhány sort</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>prediction_data</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 23 × 2</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   time_since_first_purchase has_churned</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                       &lt;dbl&gt;       &lt;dbl&gt;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                     -1.5        0.626</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                     -1.25       0.605</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3                     -1          0.584</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4                     -0.75       0.562</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                     -0.5        0.540</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6                     -0.25       0.518</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 17 more rows</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Az előrejelzett valószínűségeket hozzáadhatjuk a grafikonhoz. A várakozásoknak megfelelően ezek a pontok követik a trendvonalat. Módosítsuk a <code>plt_churn_vs_relationship</code> ábrát, hogy hozzáadjuk ezeket a pontokat az ábrához, piros színnel és 3-as méretben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># az ábra frissítése</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_first_purchase, has_churned)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> binomial)) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben theme_bw()</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben +</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben #</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben előrejelzések</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben hozzáadása</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben a</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben grafikonhoz,</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben piros</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben színnel</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben és</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben 3-as</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># előrejelzések hozzáadása a grafikonhoz, piros színnel és 3-as méretben méretben</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">data =</span> prediction_data, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Láthatjuk, hogy a pozitív válasz valószínűsége (az ügyfél elvándorlásának valószínűsége) a jóslatok természetes módja.</p>
+</section>
+<section id="legvalószínűbb-kimenet" class="level4" data-number="10.1.3.2">
+<h4 data-number="10.1.3.2" class="anchored" data-anchor-id="legvalószínűbb-kimenet"><span class="header-section-number">10.1.3.2</span> Legvalószínűbb kimenet</h4>
+<p>Amikor az eredményeket egy kevésbé szakmai közönségnek magyarázzuk, elképzelhető, hogy el szeretnénk kerülni a valószínűségek említését, és egyszerűen a legvalószínűbb kimenetet szeretnénk csupán publikálni. Azaz, ahelyett, hogy azt mondanánk, hogy egy ügyfél 60%-os valószínűséggel fog elvándorolni, azt mondjuk, hogy a legvalószínűbb kimenet az, hogy az ügyfél el fog vándorolni. Nyilván az egyszerűbb értelmezésnek megvan a maga költsége.</p>
+<p>A legvalószínűbb kimenet egy egyszerűbb előrejelzés a válasz valószínűségeinek kiszámítása helyett. Ha az elvándorlás valószínűsége kisebb, mint 0,5, akkor a legvalószínűbb kimenetel az, hogy nem fognak elvándorolni. Ha a valószínűségük nagyobb, mint 0,5, akkor valószínűbb, hogy elvándorolnak. Ennek kiszámításához egyszerűen kerekítenünk kell a korábban előrejelzett valószínűségeket.</p>
+<p>Frissítsük a <code>prediction_data</code> adatbázist úgy, hogy hozzáadjuk a legvalószínűbb elvándorlási kimenet oszlopát, vagyis a legvalószínűbb kimenetet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># frissítsük az adatbázist</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>prediction_data <span class="ot">&lt;-</span> explanatory_data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjuk hozzá az elvándorlási valószínűséget</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_churned =</span> <span class="fu">predict</span>(mdl_churn_vs_relationship, explanatory_data, <span class="at">type =</span> <span class="st">"response"</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjuk hozzá a legvalószínűbb elvándorlási kimenet oszlopot</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">most_likely_outcome =</span> <span class="fu">round</span>(has_churned)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A legvalószínűbb kimenetet úgy ábrázolhatjuk, hogy felhasználjuk az előrejelzési adatokat (<code>most_likely_outcome</code>). A régen belépett ügyfelek esetében a legvalószínűbb kimenetel az, hogy nem vándorolnak el. Ellenkező esetben a legvalószínűbb eredmény az, hogy elvándorolnak.</p>
+<p>Módosítsuk a <code>plt_churn_vs_relationship</code> ábrát, és adjunk hozzá piros pontokat 3-as méretben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># frissítsük az ábrát</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(churn, <span class="fu">aes</span>(time_since_first_purchase, has_churned)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> binomial)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben theme_bw()</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben +</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben #</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben Legvalószínűbb</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben kimenet</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben pontok</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben hozzáadása</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben a</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben prediction_data-ból,</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben piros</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben színnel</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben és</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben 3-as</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Legvalószínűbb kimenet pontok hozzáadása a prediction_data-ból, piros színnel és 3-as méretben méretben</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> most_likely_outcome), <span class="at">data =</span> prediction_data, <span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A legvalószínűbb válaszadás nagyszerű módja annak, hogy a modell eredményeit egy nem szakmai közönséggel megosszuk.</p>
+</section>
+<section id="esélyarány" class="level4" data-number="10.1.3.3">
+<h4 data-number="10.1.3.3" class="anchored" data-anchor-id="esélyarány"><span class="header-section-number">10.1.3.3</span> Esélyarány</h4>
+<p>Van egy másik módja is a bináris válaszokról való beszélgetésnek, amelyet a szerencsejátékokban szoktak használni. Az esélyarány annak a valószínűsége, hogy valami megtörténik, osztva annak a valószínűségével, hogy nem történik meg.</p>
+<p><span class="math display">\[Esélyhányados = \frac{P}{1-P}\]</span></p>
+<p><span class="math display">\[Esélyhányados = \frac{0,25}{1-0,25} = \frac{1}{3}\]</span></p>
+<p>Például a 0,25-ös valószínűség megegyezik a “három az egy ellen” esélyével, mert annak a valószínűsége, hogy az esemény nem következik be, 0,75, ami háromszor annyi.</p>
+<p>Az esélyarányok tehát összehasonlítják valaminek a bekövetkezésének valószínűségét a be nem következés valószínűségével. Néha ezzel könnyebb érvelni, mint a valószínűségekkel, különösen akkor, amikor döntéseket kell hozni. Például, ha egy ügyfélnek 20%-os esélye van arra, hogy elvándoroljon, talán intuitívabb azt mondani, hogy “a nem elvándorlás esélye négyszer magasabb, mint az elvándorlás esélye”.</p>
+<p>Frissítsük a <code>prediction_data</code> adatbázist, adjuk hozzá az esélyarány oszlopot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># frissítsük az adatbázist</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>prediction_data <span class="ot">&lt;-</span> explanatory_data <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjuk hozzá az elvándorlási valószínűséget</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_churned =</span> <span class="fu">predict</span>(mdl_churn_vs_relationship, explanatory_data, <span class="at">type =</span> <span class="st">"response"</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjuk hozzá a legvalószínűbb elvándorlási kimenet oszlopot</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">most_likely_outcome =</span> <span class="fu">round</span>(has_churned),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Esélyarány hozzáadása</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">odds_ratio =</span> has_churned <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> has_churned)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Az esélyarány vizualizálásának az eredeti adatpontokkal nincs értelme, ezért új ábrára van szükségünk. A prediction_data használatával rajzoljon egy vonaldiagramot az <code>odds_ratio</code> és <code>time_since_first_purchase</code> változók alapján. Adjunk hozzá egy pontozott vízszintes vonalat az <code>odds_ratio</code> egyenlő 1-hez.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Predikciók ábrázolása, az esélyarány és a</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># time_since_first_purchase változók alapján ggplot(data =</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prediction_data, aes(x = time_since_first_purchase, y =</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># odds_ratio)) + # Vonal diagram geom_line() + # Egy szaggatott</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># vízszintes vonal hozzáadása y = 1-hez geom_hline(yintercept = 1,</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># linetype = 'dotted', linewidth=2) + theme_bw()</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Itt a szaggatott vonal, ahol az esélyhányados épp 1, azt jelzi, hogy hol ugyanolyan valószínűségű az elvándorlás, mint a nem elvándorlás. A jobb alsó sarokban az előrejelzések 1 alatt vannak, tehát az elvándorlás esélye kisebb, mint a nem elvándorlás esélye. A bal felső sarokban az elvándorlás esélye körülbelül másfélszer nagyobb, mint a nem elvándorlás esélye.</p>
+<p>Az esélyarányok alternatívát jelentenek a valószínűségekhez képest, amelyek lehetővé teszik a pozitív és negatív válaszok összehasonlítását.</p>
+</section>
+<section id="log-esélyarány" class="level4" data-number="10.1.3.4">
+<h4 data-number="10.1.3.4" class="anchored" data-anchor-id="log-esélyarány"><span class="header-section-number">10.1.3.4</span> Log esélyarány</h4>
+<p>A valószínűségek és az esélyarányok egyik hátránya a logisztikus regressziós előrejelzések esetében az, hogy a jóslatok vonalai mindkét esetben görbültek. Ez megnehezíti annak a magyarázatát, hogy mi történik az előre jelzett értékkel, amikor változtatást hajtunk végre a magyarázó változón. Az esélyarányok logaritmusát (a “log esélyarányt”) lineáris kapcsolat jellemzi a jósolt válasz és a magyarázó változó között. Ez azt jelenti, hogy amikor a magyarázó változó megváltozik, nem látunk drámai változásokat a célváltozóban - csak lineáris változásokat.</p>
+<p>Mivel a log esélyarány tényleges értékei kevésbé intuitívak, mint a (lineáris, nem logaritmikus) esélyarány, a megjelenítési célokra általában jobb az esélyarányt ábrázolni, és log-transzformációt alkalmazni az y-tengely skálájára.</p>
+<p>Először frissítsük a <code>prediction_data</code> adatbázist, hogy hozzáadjuk a két módon kiszámított log esélyarányt. Számítsuk ki az esélyarányból, majd közvetlenül a <code>predict()</code> használatával.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># frissítsük az adatbázist</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>prediction_data <span class="ot">&lt;-</span> explanatory_data <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjuk hozzá az elvándorlási valószínűséget</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_churned =</span> <span class="fu">predict</span>(mdl_churn_vs_relationship, explanatory_data, <span class="at">type =</span> <span class="st">"response"</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjuk hozzá a legvalószínűbb elvándorlási kimenet oszlopot</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">most_likely_outcome =</span> <span class="fu">round</span>(has_churned),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Esélyarány hozzáadása</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">odds_ratio =</span> has_churned <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> has_churned),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjuk hozzá a log esélyarányt az odds_ratio-ból</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_odds_ratio =</span> <span class="fu">log</span>(odds_ratio),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjuk hozzá a log esélyarányt a predict() segítségével</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_odds_ratio2 =</span> <span class="fu">predict</span>(mdl_churn_vs_relationship, explanatory_data)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ereedmények megtekintése</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>prediction_data</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 23 × 6</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   time_since_first_pur…¹ has_churned most_likely_outcome odds...</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    &lt;dbl&gt;       &lt;dbl&gt;               &lt;dbl&gt;     ...</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                  -1.5        0.626                   1     ...</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                  -1.25       0.605                   1     ...</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3                  -1          0.584                   1     ...</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4                  -0.75       0.562                   1     ...</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                  -0.5        0.540                   1     ...</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6                  -0.25       0.518                   1     ...</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 17 more rows</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​time_since_first_purchase</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: log_odds_ratio &lt;dbl&gt;, log_odds_ratio2 &lt;...</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Valójában a <code>predict()</code> a log esélyhányadost adja vissza, ha nem adjuk meg a <code>type=</code> argumentumot. Hasonlítsuk össze a log esélyhányados kiszámításának két különböző módját, és győződjünk meg róla, hogy világos a fenti kód.</p>
+<p>A logisztikus regressziós esélyhányadosok egyik szép tulajdonsága, hogy logaritmikus skálán lineárisan változnak a magyarázó változóval. Az ábrán ehhez a <code>scale_y_log10</code>-et kall használnunk. Módosítsuk a diagramot úgy, hogy logaritmikus y-skálát használunk.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # frissítsük az ábrát ggplot(prediction_data,</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># aes(time_since_first_purchase, odds_ratio)) + geom_line() +</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># geom_hline(yintercept = 1, linetype = 'dotted', linewidth=2) + #</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Logaritmikus y-skála használata scale_y_log10() + theme_bw()</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A becsült log esélyarány és a magyarázó változó közötti lineáris kapcsolat megkönnyíti a magyarázó változó változásáról szóló érvelésünket.</p>
+<p>Összefoglalva azt mondhatjuk, hogy a becslés fenti 4 módjának mindegyik módja különböző előnyökkel jár. A legvalószínűbb kimenet a legkönnyebben érthető, mert a válasz mindig “igen” vagy “nem”, de ebből hiányzik a pontosság. A valószínűségek és az esélyhányadosok még mindig meglehetősen könnyen érthetőek az adatokban jártas közönség számára. A nem lineáris előrejelzések azonban megnehezítik a következtetést arról, hogy a magyarázó változó változásai hogyan változtatják meg a választ. A log esélyhányados nehezen értelmezhető az egyedi értékek esetében, de a magyarázó változókkal való lineáris kapcsolat megkönnyíti a változásokkal kapcsolatos érvelést.</p>
+</section>
+</section>
+<section id="a-logisztikus-regresszió-illeszkedésének-mérésére" class="level3" data-number="10.1.4">
+<h3 data-number="10.1.4" class="anchored" data-anchor-id="a-logisztikus-regresszió-illeszkedésének-mérésére"><span class="header-section-number">10.1.4</span> A logisztikus regresszió illeszkedésének mérésére</h3>
+<p>Most a logisztikus regressziós modellek teljesítményét értékeljük. A lineáris modellekhez rajzolt diagnosztikai ábrák kevésbé hasznosak a logisztikus esetben. Ehelyett a konfúziós mátrixokat fogjuk megvizsgálni.</p>
+<section id="a-konfúziós-mátrix" class="level4" data-number="10.1.4.1">
+<h4 data-number="10.1.4.1" class="anchored" data-anchor-id="a-konfúziós-mátrix"><span class="header-section-number">10.1.4.1</span> A konfúziós mátrix</h4>
+<p>A konfúziós mátrix (néha konfúziós táblázatnak nevezik) az összes teljesítménymutató alapja a kategorikus válaszú modellek esetében (ilyen a logisztikai regresszió). Esetünkben, ahol két lehetséges válasz van (elvándorlás vagy nem elvándorlás), összesen négy kimenet van.</p>
+<ul>
+<li>Az ügyfél elvándorolt, és a modell azt jósolta.</li>
+<li>Az ügyfél elvándorolt, de a modell nem jósolta ezt.</li>
+<li>Az ügyfél nem vándorolt el, de a modell azt jósolta.</li>
+<li>Az ügyfél nem vándorolt el, és a modell azt jósolta.</li>
+</ul>
+<p>Két rossz eset van. Ha azt jósoljuk, hogy az ügyfél elvándorolt, de valójában nem, azt hamis pozitívnak nevezzük. Ha azt jósoljuk, hogy az ügyfél nem vándorolt el, pedig igen, azt hamis negatívnak nevezzük. Az egyes kimenetek számadatait konfúziós mátrixnak nevezzük.</p>
+<p>A valóságos válaszokat az adatbázis <code>has_churned</code> oszlopából ismerhetjük meg. Nevezzük ezeket <code>actual_response</code>-nak. A “legvalószínűbb” jósolt válaszokat a modellből nyerhetjük ki, ezeket nevezzük <code>predicted_response</code>-nak. Hozzon létre egy táblázatot a tényleges és jósolt válaszvektorok számából. Rendelje hozzá az <code>outcomes</code> objektumhoz.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tényleges válaszok az adatbázis has_churned oszlopából</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>actual_response <span class="ot">&lt;-</span> churn<span class="sc">$</span>has_churned</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># a legvalószínűbb jósolt válaszok a modellből</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>predicted_response <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">fitted</span>(mdl_churn_vs_relationship))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># gyakorisági tábla létrehozása</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">table</span>(predicted_response, actual_response)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># nézzük az eredményeket</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>outcomes</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   actual_response</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; predicted_response   0   1</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  0 112  76</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  1  88 124</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A konfúziós mátrix név ijesztően hangzik, de ez csak egy számlálótábla. A <code>fitted()</code> függvény ugyanúgy működik logisztikus modelleken, mint a lineáris modelleken. Visszaadja az adathalmaz minden egyes megfigyelésének előre jelzett értékeit. Ezek az illesztett értékek a valószínűségek lesznek. Ahhoz, hogy a legvalószínűbb eredményt kapjuk, az értékeket nullára vagy egyre kell kerekítenünk. Végül táblázat segítségével megkapjuk az egyes értékkombinációk számosságát. Ez a korábban említett konfúziós mátrix. Helyesen megjósoltuk, hogy 112 ügyfél nem vándorolt el, és 124 ügyfél elvándorolt. Összesen 88 téves pozitív és 76 téves negatív eredmény volt.</p>
+<p>A konfúziós mátrixot mozaikdiagramon is szemléltethetjük. A <code>{yardstick}</code> csomag segítségével egyszerűen ábrázolhatjuk a konfúziós mátrixot és kiszámíthatja az egyes teljesítménymutatókat. A táblázatot a <code>conf_mat()</code> segítségével átalakítjuk egy yardstick konfúziós mátrix objektummá.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yardstick)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># konvertálja az outcomes-t egy yardstick konfúziós mátrixba</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>confusion <span class="ot">&lt;-</span> yardstick<span class="sc">::</span><span class="fu">conf_mat</span>(outcomes)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>confusion</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   actual_response</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; predicted_response   0   1</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  0 112  76</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  1  88 124</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ezután a lineáris modellobjektumokhoz hasonlóan egyszerűen meghívhatjuk az <code>autoplot()</code>-ot. Az <code>autoplot()</code> mozaikos ábrát rajzol a konfúziós mátrixból.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ábrázoljuk a konfúziós mátrixot</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(confusion)</span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="sec_logisztikus_regresszio_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>A fenti ábra értelmezéséhez először is nézzük meg az oszlopszélességeket. Az egyes oszlopok szélessége arányos a tényleges értékek egyes kategóriáiban lévő megfigyelések hányadával. Mivel körülbelül 200 tényleges elvándorlás és 200 tényleges nem elvándorlás van, így minden oszlop szélessége azonos. Az egyes oszlopok az előrejelzett megfigyelések megfelelő hányadát mutatják. Itt a tényleges elvándorlások kicsivel több mint egynegyedét (76 ) jósolta a modell nem elvándorlásnak, így a jobb felső blokk a második oszlop magasságának kicsivel több mint egynegyedét teszi ki.</p>
+</section>
+<section id="a-logisztikus-modell-teljesítményének-mérése" class="level4" data-number="10.1.4.2">
+<h4 data-number="10.1.4.2" class="anchored" data-anchor-id="a-logisztikus-modell-teljesítményének-mérése"><span class="header-section-number">10.1.4.2</span> A logisztikus modell teljesítményének mérése</h4>
+<p>A yardstick konfúziós mátrix objektum lehetővé teszik a teljesítménymutatók ábrázolását és kinyerését is.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a teljesítménymutatók kiírása a konfúziós mátrixhoz</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(confusion, <span class="at">event_level =</span> <span class="st">"second"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 13 × 3</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .metric  .estimator .estimate</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 accuracy binary         0.59 </span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 kap      binary         0.18 </span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 sens     binary         0.62 </span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 spec     binary         0.56 </span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 ppv      binary         0.585</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 npv      binary         0.596</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 7 more rows</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A <code>summary()</code> meghívása a konfúziós mátrixon rengeteg modellteljesítmény-mérő adatot ad vissza. Mivel nulla és egy értéket használtunk a válaszértékekhez faktor helyett, a második oszlop a pozitív választ tartalmazza, ezért az <code>event_level="second"</code> beállítást használjuk.</p>
+<p>Három metrikát vizsgálunk meg. Az első a pontosság (accuracy), ami a helyes előrejelzések aránya. A második az érzékenység (sensitivity), ami azoknak a megfigyeléseknek az aránya, ahol a tényleges válasz igaz volt, ahol a modell is azt jósolta, hogy igaz volt. A harmadik a specificitás (specificity), ami azoknak a megfigyeléseknek az aránya, ahol a tényleges válasz hamis volt, ahol a modell is azt jósolta, hogy hamis volt. A nagyobb pontosság, érzékenység és specificitás jobb.</p>
+<dl>
+<dt>Pontosság</dt>
+<dd>
+<p>Az első metrika a modell pontossága. Ez a helyes előrejelzések aránya. Vagyis a valódi negatívok száma plusz a valódi pozitívok száma, osztva a megfigyelések teljes számával. A nagyobb pontosság jobb. A helyes megfigyelések teljes száma száznegyvenegy plusz nyolcvankilenc. Ezt az összeget elosztjuk a megfigyelések teljes számával, ami a négy szám összege.</p>
+</dd>
+</dl>
+<p><span class="math display">\[pontosság = \frac{TN + TP}{TN + FN + FP + TP}\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pontosság kiszámolása</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(confusion, <span class="at">event_level =</span> <span class="st">"second"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">1</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .metric  .estimator .estimate</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 accuracy binary          0.59</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>(<span class="dv">112</span> <span class="sc">+</span> <span class="dv">124</span>)<span class="sc">/</span>(<span class="dv">112</span> <span class="sc">+</span> <span class="dv">76</span> <span class="sc">+</span> <span class="dv">88</span> <span class="sc">+</span> <span class="dv">124</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.59</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt>Érzékenység</dt>
+<dd>
+<p>Az érzékenység azoknak a megfigyeléseknek az aránya, ahol a tényleges válasz igaz volt, ahol a modell is azt jósolta, hogy igaz volt. Vagyis a valódi pozitív eredmények száma osztva a hamis negatív és a valódi pozitív eredmények összegével. A magasabb érzékenység jobb.</p>
+</dd>
+</dl>
+<p><span class="math display">\[érzékenység = \frac{TP}{FN+TP}\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># érzékenység kiszámolása</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(confusion, <span class="at">event_level =</span> <span class="st">"second"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">3</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .metric .estimator .estimate</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 sens    binary          0.62</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>(<span class="dv">124</span>)<span class="sc">/</span>(<span class="dv">76</span> <span class="sc">+</span> <span class="dv">124</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.62</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt>Specificitás</dt>
+<dd>
+<p>A specificitás azoknak a megfigyeléseknek az aránya, ahol a tényleges válasz hamis volt, ahol a modell is azt jósolta, hogy hamis volt. Vagyis a valódi negatívok száma osztva a valódi negatívok és a hamis pozitívok összegével. Ismét elmondható, hogy a magasabb specificitás jobb, bár gyakran van egy olyan kompromisszum, ahol a specificitás javítása csökkenti az érzékenységet, vagy az érzékenység növelése csökkenti a specificitást.</p>
+</dd>
+</dl>
+<p><span class="math display">\[érzékenység = \frac{TN}{TN+FP}\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># érzékenység kiszámolása</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(confusion, <span class="at">event_level =</span> <span class="st">"second"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">4</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   .metric .estimator .estimate</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 spec    binary          0.56</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>(<span class="dv">112</span>)<span class="sc">/</span>(<span class="dv">88</span> <span class="sc">+</span> <span class="dv">112</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.56</span></span></code><button title="Másolás vágóasztalra" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Sikeres másolás!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Sikeres másolás!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./sec_tobbvaltozos_variancia.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Többváltozós varianciaelemzés</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./sec_tobbdimenzios_skalazas.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Többdimenziós skálázás</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
